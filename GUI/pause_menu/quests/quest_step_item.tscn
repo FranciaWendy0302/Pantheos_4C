@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://kppws60aaayy"]
+
+[ext_resource type="Script" uid="uid://3undex2l8ec7" path="res://GUI/pause_menu/quests/quest_step_item.gd" id="1_a7iih"]
+[ext_resource type="Texture2D" uid="uid://fqkrc41qo2pv" path="res://GUI/pause_menu/quests/checkbox.png" id="2_tl1p1"]
+
+[node name="QuestStepItem" type="Control"]
+custom_minimum_size = Vector2(185, 22)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_a7iih")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(0.607843, 0.678431, 0.717647, 1)
+layout_mode = 0
+offset_left = 17.0
+offset_right = 57.0
+offset_bottom = 18.0
+text = "step"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("2_tl1p1")
+hframes = 2
