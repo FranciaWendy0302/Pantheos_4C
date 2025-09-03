@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=7 format=3 uid="uid://ddtsakxdsgbpr"]
+
+[ext_resource type="Script" uid="uid://bjle6tskhnn5y" path="res://quests/scripts/quest_reward_item.gd" id="1_84jhj"]
+[ext_resource type="Script" uid="uid://egjshaq4ggui" path="res://quests/scripts/quest_resource.gd" id="2_7sluy"]
+[ext_resource type="Resource" uid="uid://csgmj6gjipujt" path="res://Items/gem.tres" id="2_uaykj"]
+[ext_resource type="Resource" uid="uid://gkfifubyfqu1" path="res://Items/potion.tres" id="3_pyas3"]
+
+[sub_resource type="Resource" id="Resource_tua86"]
+script = ExtResource("1_84jhj")
+item = ExtResource("2_uaykj")
+quantity = 100
+metadata/_custom_type_script = "uid://bjle6tskhnn5y"
+
+[sub_resource type="Resource" id="Resource_4wy28"]
+script = ExtResource("1_84jhj")
+item = ExtResource("3_pyas3")
+quantity = 2
+metadata/_custom_type_script = "uid://bjle6tskhnn5y"
+
+[resource]
+script = ExtResource("2_7sluy")
+title = "Recover Lost Flute"
+description = "Red Man needs his flute. Go find it for rewards"
+steps = Array[String](["Find the dungeon entrance", "Find the flute", "Go back to Red Man"])
+reward_xp = 100
+reward_items = Array[ExtResource("1_84jhj")]([SubResource("Resource_tua86"), SubResource("Resource_4wy28")])
+metadata/_custom_type_script = "uid://egjshaq4ggui"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://cyt2be4w5h0oa"]
+
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_gqhqt"]
+[ext_resource type="Script" uid="uid://di8n5aycuwrg0" path="res://Items/scripts/item_data.gd" id="1_mndqm"]
+[ext_resource type="Texture2D" uid="uid://cc6o6u38rnlwx" path="res://Items/sprites/items.png" id="2_6sq6v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqhqt"]
+atlas = ExtResource("2_6sq6v")
+region = Rect2(64, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_mndqm")
+name = "Stone"
+description = "Stone?"
+texture = SubResource("AtlasTexture_gqhqt")
+effect = Array[ExtResource("1_gqhqt")]([])
+metadata/_custom_type_script = "uid://di8n5aycuwrg0"

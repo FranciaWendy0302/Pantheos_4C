@@ -1,0 +1,159 @@
+[gd_scene load_steps=24 format=4 uid="uid://4yxf2onemxsb"]
+
+[ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_x70af"]
+[ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="2_tek06"]
+[ext_resource type="AudioStream" uid="uid://b2dbw4cfahuw2" path="res://Levels/music/example_music_02.ogg" id="2_wi5as"]
+[ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="3_mwxiv"]
+[ext_resource type="PackedScene" uid="uid://cg0kg5d3txb2u" path="res://Props/Plants/plant.tscn" id="4_tek06"]
+[ext_resource type="PackedScene" uid="uid://bkmgd56mqv1ga" path="res://Levels/level_transition.tscn" id="5_mwxiv"]
+[ext_resource type="PackedScene" uid="uid://6pbtq7dqq7jo" path="res://Enemies/goblin/goblin.tscn" id="7_ua1y0"]
+[ext_resource type="PackedScene" uid="uid://dwfp7qdebymnm" path="res://Props/pot/pot.tscn" id="8_jeo2k"]
+[ext_resource type="PackedScene" uid="uid://coftgxw6k42r3" path="res://npc/npc.tscn" id="9_wrnjp"]
+[ext_resource type="Texture2D" uid="uid://d2vn1x2vkpbi8" path="res://npc/sprites/portraits/npc_portrait_02.png" id="10_xflnv"]
+[ext_resource type="Script" uid="uid://nx5jmlnxf0lk" path="res://npc/scripts/npc_resource.gd" id="11_d1jyu"]
+[ext_resource type="Texture2D" uid="uid://d4ajehwwfwl6u" path="res://npc/sprites/npc_sprite_02.png" id="12_a2klq"]
+[ext_resource type="PackedScene" uid="uid://cx17hrgabv2v5" path="res://npc/npc_behavior_patrol.tscn" id="13_0j6pc"]
+[ext_resource type="PackedScene" uid="uid://f8q2dcxuqxax" path="res://npc/patrol_location.tscn" id="14_abg8o"]
+[ext_resource type="PackedScene" uid="uid://bbihhl8fanjpa" path="res://quests/utility_nodes/quest_activated_switch.tscn" id="15_45xa8"]
+[ext_resource type="Resource" uid="uid://ddtsakxdsgbpr" path="res://quests/recover_lost_flute.tres" id="16_sbev4"]
+[ext_resource type="PackedScene" uid="uid://dnj4pmnybsajr" path="res://Interactables/dialog/dialog_interaction.tscn" id="17_vv7nh"]
+[ext_resource type="Script" uid="uid://bl2li7lbphm71" path="res://Interactables/dialog/scripts/dialog_text.gd" id="18_s3up8"]
+[ext_resource type="Resource" uid="uid://bpsdp1qds5o38" path="res://npc/00_npcs/npc_02.tres" id="19_dffud"]
+[ext_resource type="Script" uid="uid://dqede62fqybid" path="res://Interactables/dialog/scripts/dialog_choice.gd" id="20_mdb57"]
+[ext_resource type="Script" uid="uid://c1vxl5di4hfss" path="res://Interactables/dialog/scripts/dialog_branch.gd" id="21_gm670"]
+[ext_resource type="PackedScene" uid="uid://dutt7tppgllui" path="res://quests/utility_nodes/quest_advance_trigger.tscn" id="22_fw76p"]
+
+[sub_resource type="Resource" id="Resource_wrnjp"]
+resource_local_to_scene = true
+script = ExtResource("11_d1jyu")
+npc_name = "Red Man"
+sprite = ExtResource("12_a2klq")
+portrait = ExtResource("10_xflnv")
+dialog_audio_pitch = 1.0
+metadata/_custom_type_script = "uid://nx5jmlnxf0lk"
+
+[node name="01" type="Node2D"]
+script = ExtResource("1_x70af")
+music = ExtResource("2_wi5as")
+
+[node name="Grass-01" parent="." instance=ExtResource("2_tek06")]
+tile_map_data = PackedByteArray("AAD9//3/AAACAAUAADD9//7/AAACAAQAADD9////AAAOAAYAAGD9/wAAAAANAAYAAGD9/wEAAAAMAAYAAGD9/wIAAAAMAAYAAGD9/wMAAAAMAAYAAGD9/wQAAAAMAAYAAGD9/wUAAAAMAAYAAGD9/wYAAAAMAAYAAGD9/wcAAAAMAAYAAGD9/wgAAAAMAAYAAGD9/wkAAAALAAYAAGD9/woAAAAKAAYAAGD9/wsAAAAKAAQAAAD+//3/AAADAAUAADD+//7/AAADAAQAADD+////AAAOAAcAAGD+/wAAAAANAAcAAGD+/wEAAAAMAAcAAGD+/wIAAAAMAAcAAGD+/wMAAAAMAAcAAGD+/wQAAAAMAAcAAGD+/wUAAAAMAAcAAGD+/wYAAAAMAAcAAGD+/wcAAAAMAAcAAGD+/wgAAAAMAAcAAGD+/wkAAAALAAcAAGD+/woAAAAKAAcAAGD+/wsAAAALAAQAAAD///3/AAACAAUAADD///7/AAACAAQAADD/////AAAAAAMAAAD//wAAAAAAAAEAAAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAEAAAD//wQAAAAAAAEAAAD//wUAAAAAAAEAAAD//wYAAAAAAAEAAAD//wcAAAAAAAEAAAD//wgAAAAAAAEAAAD//wkAAAAAAAEAAAD//woAAAAAAAEAAAD//wsAAAAMAAQAAAAAAP3/AAABAAUAADAAAP7/AAABAAQAADAAAP//AAAAAAMAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAEAAAAAAAMAAAAAAAEAAAAAAAQAAAAAAAEAAAAAAAUAAAAAAAEAAAAAAAYAAAAAAAEAAAAAAAcAAAAAAAEAAAAAAAgAAAAAAAEAAAAAAAkAAAAAAAEAAAAAAAoAAAAAAAEAAAAAAAsAAAANAAQAAAABAP3/AAAAAAIAAAABAP7/AAAAAAIAAAABAP//AAAAAAMAAAABAAAAAAAAAAEAAAABAAEAAAAAAAEAAAABAAIAAAAAAAEAAAABAAMAAAAAAAEAAAABAAQAAAAAAAEAAAABAAUAAAAAAAEAAAABAAYAAAAAAAEAAAABAAcAAAAAAAEAAAABAAgAAAAAAAEAAAABAAkAAAAAAAEAAAABAAoAAAAAAAEAAAABAAsAAAALAAQAAAACAP3/AAAAAAIAAAACAP7/AAAAAAIAAAACAP//AAAAAAMAAAACAAAAAAAAAAEAAAACAAEAAAAAAAEAAAACAAIAAAAAAAEAAAACAAMAAAAAAAEAAAACAAQAAAAAAAEAAAACAAUAAAAAAAEAAAACAAYAAAAAAAEAAAACAAcAAAAAAAEAAAACAAgAAAAAAAEAAAACAAkAAAAAAAEAAAACAAoAAAAAAAEAAAACAAsAAAAMAAQAAAADAP3/AAAFAAUAADADAP7/AAAFAAQAADADAP//AAAAAAMAAAADAAAAAAAAAAEAAAADAAEAAAAAAAEAAAADAAIAAAAAAAEAAAADAAMAAAAAAAEAAAADAAQAAAAAAAEAAAADAAUAAAAAAAEAAAADAAYAAAAAAAEAAAADAAcAAAAAAAEAAAADAAgAAAAAAAEAAAADAAkAAAAAAAEAAAADAAoAAAAAAAEAAAADAAsAAAANAAQAAAAEAP3/AAAEAAUAADAEAP7/AAAEAAQAADAEAP//AAAAAAMAAAAEAAAAAAAAAAEAAAAEAAEAAAAAAAEAAAAEAAIAAAAAAAEAAAAEAAMAAAAAAAEAAAAEAAQAAAAAAAEAAAAEAAUAAAAAAAEAAAAEAAYAAAAAAAEAAAAEAAcAAAAAAAEAAAAEAAgAAAAAAAEAAAAEAAkAAAAAAAEAAAAEAAoAAAAAAAEAAAAEAAsAAAALAAQAAAAFAP3/AAADAAUAADAFAP7/AAADAAQAADAFAP//AAAAAAMAAAAFAAAAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAUAAAAAAAEAAAAFAAYAAAAAAAEAAAAFAAcAAAAAAAEAAAAFAAgAAAAAAAEAAAAFAAkAAAAAAAEAAAAFAAoAAAAAAAEAAAAFAAsAAAAMAAQAAAAGAP3/AAADAAUAADAGAP7/AAADAAQAADAGAP//AAAAAAMAAAAGAAAAAAAAAAEAAAAGAAEAAAAAAAEAAAAGAAIAAAAAAAEAAAAGAAMAAAAAAAEAAAAGAAQAAAAAAAEAAAAGAAUAAAAAAAEAAAAGAAYAAAAAAAEAAAAGAAcAAAAAAAEAAAAGAAgAAAAAAAEAAAAGAAkAAAAAAAEAAAAGAAoAAAAAAAEAAAAGAAsAAAAMAAQAAAAHAP3/AAADAAUAADAHAP7/AAADAAQAADAHAP//AAAAAAMAAAAHAAAAAAAAAAEAAAAHAAEAAAAAAAEAAAAHAAIAAAAAAAEAAAAHAAMAAAAAAAEAAAAHAAQAAAAAAAEAAAAHAAUAAAAAAAEAAAAHAAYAAAAAAAEAAAAHAAcAAAAAAAEAAAAHAAgAAAAAAAEAAAAHAAkAAAAAAAEAAAAHAAoAAAAAAAEAAAAHAAsAAAAMAAQAAAAIAP3/AAADAAUAADAIAP7/AAADAAQAADAIAP//AAAAAAMAAAAIAAAAAAAAAAEAAAAIAAEAAAAAAAEAAAAIAAIAAAAAAAEAAAAIAAMAAAAAAAEAAAAIAAQAAAAAAAEAAAAIAAUAAAAAAAEAAAAIAAYAAAAAAAEAAAAIAAcAAAAAAAEAAAAIAAgAAAAAAAEAAAAIAAkAAAAAAAEAAAAIAAoAAAAAAAEAAAAIAAsAAAAMAAQAAAAJAP3/AAADAAUAADAJAP7/AAADAAQAADAJAP//AAAAAAMAAAAJAAAAAAAAAAEAAAAJAAEAAAAAAAEAAAAJAAIAAAAAAAEAAAAJAAMAAAAAAAEAAAAJAAQAAAAAAAEAAAAJAAUAAAAAAAEAAAAJAAYAAAAAAAEAAAAJAAcAAAAAAAEAAAAJAAgAAAAAAAEAAAAJAAkAAAAAAAEAAAAJAAoAAAAAAAEAAAAJAAsAAAAMAAQAAAAKAP3/AAADAAUAADAKAP7/AAADAAQAADAKAP//AAAAAAMAAAAKAAAAAAAAAAEAAAAKAAEAAAAAAAEAAAAKAAIAAAAAAAEAAAAKAAMAAAAAAAEAAAAKAAQAAAAAAAEAAAAKAAUAAAAAAAEAAAAKAAYAAAAAAAEAAAAKAAcAAAAAAAEAAAAKAAgAAAAAAAEAAAAKAAkAAAAAAAEAAAAKAAoAAAAAAAEAAAAKAAsAAAAMAAQAAAALAP3/AAADAAUAADALAP7/AAADAAQAADALAP//AAAAAAMAAAALAAAAAAAAAAEAAAALAAEAAAAAAAEAAAALAAIAAAAAAAEAAAALAAMAAAAAAAEAAAALAAQAAAAAAAEAAAALAAUAAAAAAAEAAAALAAYAAAAAAAEAAAALAAcAAAAAAAEAAAALAAgAAAAAAAEAAAALAAkAAAAAAAEAAAALAAoAAAAAAAEAAAALAAsAAAAMAAQAAAAMAP3/AAADAAUAADAMAP7/AAADAAQAADAMAP//AAAAAAMAAAAMAAAAAAAAAAEAAAAMAAEAAAAAAAEAAAAMAAIAAAAAAAEAAAAMAAMAAAAAAAEAAAAMAAQAAAAAAAEAAAAMAAUAAAAAAAEAAAAMAAYAAAAAAAEAAAAMAAcAAAAAAAEAAAAMAAgAAAAAAAEAAAAMAAkAAAAAAAEAAAAMAAoAAAAAAAEAAAAMAAsAAAANAAQAAAANAP3/AAADAAUAADANAP7/AAADAAQAADANAP//AAAAAAMAAAANAAAAAAAAAAEAAAANAAEAAAAAAAEAAAANAAIAAAAAAAEAAAANAAMAAAAAAAEAAAANAAQAAAAAAAEAAAANAAUAAAAAAAEAAAANAAYAAAAAAAEAAAANAAcAAAAAAAEAAAANAAgAAAAAAAEAAAANAAkAAAAAAAEAAAANAAoAAAAAAAEAAAANAAsAAAALAAQAAAAOAP3/AAADAAUAADAOAP7/AAADAAQAADAOAP//AAAAAAMAAAAOAAAAAAAAAAEAAAAOAAEAAAAAAAEAAAAOAAIAAAAAAAEAAAAOAAMAAAAAAAEAAAAOAAQAAAAAAAEAAAAOAAUAAAAAAAEAAAAOAAYAAAAAAAEAAAAOAAcAAAAAAAEAAAAOAAgAAAAAAAEAAAAOAAkAAAAAAAEAAAAOAAoAAAAAAAEAAAAOAAsAAAAMAAQAAAAPAP3/AAADAAUAADAPAP7/AAADAAQAADAPAP//AAAAAAMAAAAPAAAAAAAAAAEAAAAPAAEAAAAAAAEAAAAPAAIAAAAAAAEAAAAPAAMAAAAAAAEAAAAPAAQAAAAAAAEAAAAPAAUAAAAAAAEAAAAPAAYAAAAAAAEAAAAPAAcAAAAAAAEAAAAPAAgAAAAAAAEAAAAPAAkAAAAAAAEAAAAPAAoAAAAAAAEAAAAPAAsAAAANAAQAAAAQAP3/AAADAAUAADAQAP7/AAADAAQAADAQAP//AAAKAAcAAFAQAAAAAAALAAcAAFAQAAEAAAAMAAcAAFAQAAIAAAAMAAcAAFAQAAMAAAAMAAcAAFAQAAQAAAALAAcAAFAQAAUAAAAMAAcAAFAQAAYAAAAMAAcAAFAQAAcAAAAMAAcAAFAQAAgAAAAMAAcAAFAQAAkAAAANAAcAAFAQAAoAAAAOAAcAAFAQAAsAAAANAAQAAAARAP3/AAAEAAUAADARAP7/AAAEAAQAADARAP//AAAKAAYAAFARAAAAAAALAAYAAFARAAEAAAAMAAYAAFARAAIAAAAMAAYAAFARAAMAAAAMAAYAAFARAAQAAAALAAYAAFARAAUAAAAMAAYAAFARAAYAAAAMAAYAAFARAAcAAAAMAAYAAFARAAgAAAAMAAYAAFARAAkAAAANAAYAAFARAAoAAAAOAAYAAFARAAsAAAAOAAQAAAA=")
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("3_mwxiv")]
+position = Vector2(332, 211)
+
+[node name="Plant" parent="." instance=ExtResource("4_tek06")]
+position = Vector2(62, 257)
+
+[node name="Plant2" parent="." instance=ExtResource("4_tek06")]
+position = Vector2(102, 257)
+
+[node name="LevelTransition" parent="." instance=ExtResource("5_mwxiv")]
+position = Vector2(64, -96)
+level = "uid://b3eefjkqiqyg2"
+target_position_area = "LevelTransition2"
+side = 2
+
+[node name="Goblin" parent="." instance=ExtResource("7_ua1y0")]
+position = Vector2(394, -11)
+
+[node name="Pot" parent="." instance=ExtResource("8_jeo2k")]
+position = Vector2(274, 151)
+
+[node name="Npc_REDMAN" parent="." instance=ExtResource("9_wrnjp")]
+position = Vector2(366, 215)
+npc_resource = SubResource("Resource_wrnjp")
+
+[node name="NpcBehaviorPatrol" parent="Npc_REDMAN" instance=ExtResource("13_0j6pc")]
+
+[node name="PatrolLocation" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("14_abg8o")]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, -1)
+
+[node name="PatrolLocation6" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("14_abg8o")]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(65, -1)
+
+[node name="PatrolLocation2" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("14_abg8o")]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(65, -52)
+
+[node name="PatrolLocation3" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("14_abg8o")]
+modulate = Color(0, 1, 1, 1)
+position = Vector2(-1, -52)
+
+[node name="PatrolLocation4" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("14_abg8o")]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(-49, -52)
+
+[node name="PatrolLocation5" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("14_abg8o")]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(-49, 0)
+
+[node name="QuestActivatedSwitch" parent="Npc_REDMAN" instance=ExtResource("15_45xa8")]
+remove_when_activated = true
+linked_quest = ExtResource("16_sbev4")
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Checking if Player has quest"
+
+[node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch" instance=ExtResource("17_vv7nh")]
+
+[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction"]
+script = ExtResource("18_s3up8")
+text = "Oy, magiting na tagapagligtas, maaari mo ba akong tulungan kunin ang flute ko sa dark dungeon?"
+npc_info = ExtResource("19_dffud")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="DialogChoice" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction"]
+script = ExtResource("20_mdb57")
+npc_info = ExtResource("19_dffud")
+metadata/_custom_type_script = "uid://dqede62fqybid"
+
+[node name="DialogBranch" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
+script = ExtResource("21_gm670")
+text = "Sige!"
+npc_info = ExtResource("19_dffud")
+metadata/_custom_type_script = "uid://c1vxl5di4hfss"
+
+[node name="QuestAdvanceTrigger" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch" instance=ExtResource("22_fw76p")]
+position = Vector2(366, 215)
+signal_name = "selected"
+linked_quest = ExtResource("16_sbev4")
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Step: 0 - N/A
+Complete: false"
+
+[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch"]
+script = ExtResource("18_s3up8")
+text = "Salamat at Ingat ka, mwa mwa!"
+npc_info = ExtResource("19_dffud")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="DialogBranch2" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
+script = ExtResource("21_gm670")
+text = "Nahhh.."
+npc_info = ExtResource("19_dffud")
+metadata/_custom_type_script = "uid://c1vxl5di4hfss"
+
+[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch2"]
+script = ExtResource("18_s3up8")
+text = "Madamot amp!"
+npc_info = ExtResource("19_dffud")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="QuestActivatedSwitch2" parent="Npc_REDMAN" instance=ExtResource("15_45xa8")]
+react_to_global_signal = true
+linked_quest = ExtResource("16_sbev4")
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Checking if Player has quest"
+
+[node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch2" instance=ExtResource("17_vv7nh")]
+
+[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch2/DialogInteraction"]
+script = ExtResource("18_s3up8")
+text = "Salamat at tinanggap mo ang aking hiling. Mag-iingat ka, magiting na mandirigma!"
+npc_info = ExtResource("19_dffud")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
