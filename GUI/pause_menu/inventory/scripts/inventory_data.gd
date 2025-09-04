@@ -25,6 +25,15 @@ func add_item(item: ItemData, count: int = 1) -> bool:
 	print("Inventory is Full")
 	return false
 
+#func remove_item(item: ItemData, count: int = 1) -> void:
+	#for s in slots:
+		#if s:
+			#if s.item_data ==  item:
+				#s.quantity -= count
+				#if s.quantity = 0:
+					
+				#return
+ 
 func connect_slots() -> void:
 	for s in slots:
 		if s:

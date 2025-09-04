@@ -31,7 +31,7 @@ func check_is_activated() -> void:
 			set_is_activated(true)
 		elif check_type == CheckType.QUEST_COMPLETE:
 			var is_complete: bool = false
-			if _q.iscomplete is bool:
+			if _q.is_complete is bool:
 				is_complete = _q.is_complete
 			set_is_activated(is_complete)
 			set_is_activated(quest_complete == _q.is_complete)
@@ -49,7 +49,7 @@ func check_is_activated() -> void:
 				set_is_activated(false)
 				pass
 			else:
-				if _q.completed.steps.has(step):
+				if _q.completed_steps.has(step):
 					set_is_activated(false)
 				else:
 					var prev_step: String
