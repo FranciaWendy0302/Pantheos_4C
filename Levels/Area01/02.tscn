@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://4yxf2onemxsb"]
+[gd_scene load_steps=24 format=4 uid="uid://4yxf2onemxsb"]
 
 [ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_x70af"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="2_tek06"]
@@ -8,27 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bkmgd56mqv1ga" path="res://Levels/level_transition.tscn" id="5_mwxiv"]
 [ext_resource type="PackedScene" uid="uid://6pbtq7dqq7jo" path="res://Enemies/goblin/goblin.tscn" id="7_ua1y0"]
 [ext_resource type="PackedScene" uid="uid://dwfp7qdebymnm" path="res://Props/pot/pot.tscn" id="8_jeo2k"]
-<<<<<<< Updated upstream
-[ext_resource type="PackedScene" uid="uid://coftgxw6k42r3" path="res://npc/npc.tscn" id="9_a2klq"]
-[ext_resource type="Resource" uid="uid://c5bbuxfhxnm0y" path="res://npc/00_npcs/npc_01.tres" id="10_0j6pc"]
-[ext_resource type="PackedScene" uid="uid://dosl0mby5d7y4" path="res://npc/npc_behavior_wander.tscn" id="11_abg8o"]
-[ext_resource type="PackedScene" uid="uid://dnj4pmnybsajr" path="res://Interactables/dialog/dialog_interaction.tscn" id="12_45xa8"]
-[ext_resource type="Script" uid="uid://bl2li7lbphm71" path="res://Interactables/dialog/scripts/dialog_text.gd" id="13_sbev4"]
-[ext_resource type="Resource" uid="uid://b1skfdnqbu6x5" path="res://npc/00_npcs/00_hero.tres" id="14_vv7nh"]
-[ext_resource type="Texture2D" uid="uid://d2vn1x2vkpbi8" path="res://npc/sprites/portraits/npc_portrait_02.png" id="15_s3up8"]
-[ext_resource type="Script" uid="uid://nx5jmlnxf0lk" path="res://npc/scripts/npc_resource.gd" id="16_dffud"]
-[ext_resource type="Texture2D" uid="uid://d4ajehwwfwl6u" path="res://npc/sprites/npc_sprite_02.png" id="17_mdb57"]
-[ext_resource type="PackedScene" uid="uid://cx17hrgabv2v5" path="res://npc/npc_behavior_patrol.tscn" id="18_gm670"]
-[ext_resource type="PackedScene" uid="uid://f8q2dcxuqxax" path="res://npc/patrol_location.tscn" id="19_fw76p"]
-[ext_resource type="PackedScene" uid="uid://bbihhl8fanjpa" path="res://quests/utility_nodes/quest_activated_switch.tscn" id="20_r117l"]
-[ext_resource type="Resource" uid="uid://ddtsakxdsgbpr" path="res://quests/recover_lost_flute.tres" id="21_m2uij"]
-[ext_resource type="Resource" uid="uid://bpsdp1qds5o38" path="res://npc/00_npcs/npc_02.tres" id="22_mnpoj"]
-[ext_resource type="Script" uid="uid://dqede62fqybid" path="res://Interactables/dialog/scripts/dialog_choice.gd" id="23_q3qbe"]
-[ext_resource type="Script" uid="uid://c1vxl5di4hfss" path="res://Interactables/dialog/scripts/dialog_branch.gd" id="24_0fbnw"]
-[ext_resource type="PackedScene" uid="uid://dutt7tppgllui" path="res://quests/utility_nodes/quest_advance_trigger.tscn" id="25_v66vt"]
-
-[sub_resource type="Resource" id="Resource_0j6pc"]
-=======
 [ext_resource type="PackedScene" uid="uid://coftgxw6k42r3" path="res://npc/npc.tscn" id="9_wrnjp"]
 [ext_resource type="Texture2D" uid="uid://d2vn1x2vkpbi8" path="res://npc/sprites/portraits/npc_portrait_02.png" id="10_xflnv"]
 [ext_resource type="Script" uid="uid://nx5jmlnxf0lk" path="res://npc/scripts/npc_resource.gd" id="11_d1jyu"]
@@ -43,13 +22,12 @@
 [ext_resource type="PackedScene" uid="uid://dutt7tppgllui" path="res://quests/utility_nodes/quest_advance_trigger.tscn" id="22_fw76p"]
 [ext_resource type="Script" uid="uid://b1mjvc00tsgmu" path="res://quests/utility_nodes/quest_activated_switch.gd" id="23_xflnv"]
 
-[sub_resource type="Resource" id="Resource_xflnv"]
->>>>>>> Stashed changes
+[sub_resource type="Resource" id="Resource_2rucc"]
 resource_local_to_scene = true
-script = ExtResource("16_dffud")
+script = ExtResource("11_d1jyu")
 npc_name = "Red Man"
-sprite = ExtResource("17_mdb57")
-portrait = ExtResource("15_s3up8")
+sprite = ExtResource("12_a2klq")
+portrait = ExtResource("10_xflnv")
 dialog_audio_pitch = 1.0
 metadata/_custom_type_script = "uid://nx5jmlnxf0lk"
 
@@ -74,7 +52,7 @@ music = ExtResource("2_wi5as")
 tile_map_data = PackedByteArray("AAD9//3/AAACAAUAADD9//7/AAACAAQAADD9////AAAOAAYAAGD9/wAAAAANAAYAAGD9/wEAAAAMAAYAAGD9/wIAAAAMAAYAAGD9/wMAAAAMAAYAAGD9/wQAAAAMAAYAAGD9/wUAAAAMAAYAAGD9/wYAAAAMAAYAAGD9/wcAAAAMAAYAAGD9/wgAAAAMAAYAAGD9/wkAAAALAAYAAGD9/woAAAAKAAYAAGD9/wsAAAAKAAQAAAD+//3/AAADAAUAADD+//7/AAADAAQAADD+////AAAOAAcAAGD+/wAAAAANAAcAAGD+/wEAAAAMAAcAAGD+/wIAAAAMAAcAAGD+/wMAAAAMAAcAAGD+/wQAAAAMAAcAAGD+/wUAAAAMAAcAAGD+/wYAAAAMAAcAAGD+/wcAAAAMAAcAAGD+/wgAAAAMAAcAAGD+/wkAAAALAAcAAGD+/woAAAAKAAcAAGD+/wsAAAALAAQAAAD///3/AAACAAUAADD///7/AAACAAQAADD/////AAAAAAMAAAD//wAAAAAAAAEAAAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAEAAAD//wQAAAAAAAEAAAD//wUAAAAAAAEAAAD//wYAAAAAAAEAAAD//wcAAAAAAAEAAAD//wgAAAAAAAEAAAD//wkAAAAAAAEAAAD//woAAAAAAAEAAAD//wsAAAAMAAQAAAAAAP3/AAABAAUAADAAAP7/AAABAAQAADAAAP//AAAAAAMAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAEAAAAAAAMAAAAAAAEAAAAAAAQAAAAAAAEAAAAAAAUAAAAAAAEAAAAAAAYAAAAAAAEAAAAAAAcAAAAAAAEAAAAAAAgAAAAAAAEAAAAAAAkAAAAAAAEAAAAAAAoAAAAAAAEAAAAAAAsAAAANAAQAAAABAP3/AAAAAAIAAAABAP7/AAAAAAIAAAABAP//AAAAAAMAAAABAAAAAAAAAAEAAAABAAEAAAAAAAEAAAABAAIAAAAAAAEAAAABAAMAAAAAAAEAAAABAAQAAAAAAAEAAAABAAUAAAAAAAEAAAABAAYAAAAAAAEAAAABAAcAAAAAAAEAAAABAAgAAAAAAAEAAAABAAkAAAAAAAEAAAABAAoAAAAAAAEAAAABAAsAAAALAAQAAAACAP3/AAAAAAIAAAACAP7/AAAAAAIAAAACAP//AAAAAAMAAAACAAAAAAAAAAEAAAACAAEAAAAAAAEAAAACAAIAAAAAAAEAAAACAAMAAAAAAAEAAAACAAQAAAAAAAEAAAACAAUAAAAAAAEAAAACAAYAAAAAAAEAAAACAAcAAAAAAAEAAAACAAgAAAAAAAEAAAACAAkAAAAAAAEAAAACAAoAAAAAAAEAAAACAAsAAAAMAAQAAAADAP3/AAAFAAUAADADAP7/AAAFAAQAADADAP//AAAAAAMAAAADAAAAAAAAAAEAAAADAAEAAAAAAAEAAAADAAIAAAAAAAEAAAADAAMAAAAAAAEAAAADAAQAAAAAAAEAAAADAAUAAAAAAAEAAAADAAYAAAAAAAEAAAADAAcAAAAAAAEAAAADAAgAAAAAAAEAAAADAAkAAAAAAAEAAAADAAoAAAAAAAEAAAADAAsAAAANAAQAAAAEAP3/AAAEAAUAADAEAP7/AAAEAAQAADAEAP//AAAAAAMAAAAEAAAAAAAAAAEAAAAEAAEAAAAAAAEAAAAEAAIAAAAAAAEAAAAEAAMAAAAAAAEAAAAEAAQAAAAAAAEAAAAEAAUAAAAAAAEAAAAEAAYAAAAAAAEAAAAEAAcAAAAAAAEAAAAEAAgAAAAAAAEAAAAEAAkAAAAAAAEAAAAEAAoAAAAAAAEAAAAEAAsAAAALAAQAAAAFAP3/AAADAAUAADAFAP7/AAADAAQAADAFAP//AAAAAAMAAAAFAAAAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAUAAAAAAAEAAAAFAAYAAAAAAAEAAAAFAAcAAAAAAAEAAAAFAAgAAAAAAAEAAAAFAAkAAAAAAAEAAAAFAAoAAAAAAAEAAAAFAAsAAAAMAAQAAAAGAP3/AAADAAUAADAGAP7/AAADAAQAADAGAP//AAAAAAMAAAAGAAAAAAAAAAEAAAAGAAEAAAAAAAEAAAAGAAIAAAAAAAEAAAAGAAMAAAAAAAEAAAAGAAQAAAAAAAEAAAAGAAUAAAAAAAEAAAAGAAYAAAAAAAEAAAAGAAcAAAAAAAEAAAAGAAgAAAAAAAEAAAAGAAkAAAAAAAEAAAAGAAoAAAAAAAEAAAAGAAsAAAAMAAQAAAAHAP3/AAADAAUAADAHAP7/AAADAAQAADAHAP//AAAAAAMAAAAHAAAAAAAAAAEAAAAHAAEAAAAAAAEAAAAHAAIAAAAAAAEAAAAHAAMAAAAAAAEAAAAHAAQAAAAAAAEAAAAHAAUAAAAAAAEAAAAHAAYAAAAAAAEAAAAHAAcAAAAAAAEAAAAHAAgAAAAAAAEAAAAHAAkAAAAAAAEAAAAHAAoAAAAAAAEAAAAHAAsAAAAMAAQAAAAIAP3/AAADAAUAADAIAP7/AAADAAQAADAIAP//AAAAAAMAAAAIAAAAAAAAAAEAAAAIAAEAAAAAAAEAAAAIAAIAAAAAAAEAAAAIAAMAAAAAAAEAAAAIAAQAAAAAAAEAAAAIAAUAAAAAAAEAAAAIAAYAAAAAAAEAAAAIAAcAAAAAAAEAAAAIAAgAAAAAAAEAAAAIAAkAAAAAAAEAAAAIAAoAAAAAAAEAAAAIAAsAAAAMAAQAAAAJAP3/AAADAAUAADAJAP7/AAADAAQAADAJAP//AAAAAAMAAAAJAAAAAAAAAAEAAAAJAAEAAAAAAAEAAAAJAAIAAAAAAAEAAAAJAAMAAAAAAAEAAAAJAAQAAAAAAAEAAAAJAAUAAAAAAAEAAAAJAAYAAAAAAAEAAAAJAAcAAAAAAAEAAAAJAAgAAAAAAAEAAAAJAAkAAAAAAAEAAAAJAAoAAAAAAAEAAAAJAAsAAAAMAAQAAAAKAP3/AAADAAUAADAKAP7/AAADAAQAADAKAP//AAAAAAMAAAAKAAAAAAAAAAEAAAAKAAEAAAAAAAEAAAAKAAIAAAAAAAEAAAAKAAMAAAAAAAEAAAAKAAQAAAAAAAEAAAAKAAUAAAAAAAEAAAAKAAYAAAAAAAEAAAAKAAcAAAAAAAEAAAAKAAgAAAAAAAEAAAAKAAkAAAAAAAEAAAAKAAoAAAAAAAEAAAAKAAsAAAAMAAQAAAALAP3/AAADAAUAADALAP7/AAADAAQAADALAP//AAAAAAMAAAALAAAAAAAAAAEAAAALAAEAAAAAAAEAAAALAAIAAAAAAAEAAAALAAMAAAAAAAEAAAALAAQAAAAAAAEAAAALAAUAAAAAAAEAAAALAAYAAAAAAAEAAAALAAcAAAAAAAEAAAALAAgAAAAAAAEAAAALAAkAAAAAAAEAAAALAAoAAAAAAAEAAAALAAsAAAAMAAQAAAAMAP3/AAADAAUAADAMAP7/AAADAAQAADAMAP//AAAAAAMAAAAMAAAAAAAAAAEAAAAMAAEAAAAAAAEAAAAMAAIAAAAAAAEAAAAMAAMAAAAAAAEAAAAMAAQAAAAAAAEAAAAMAAUAAAAAAAEAAAAMAAYAAAAAAAEAAAAMAAcAAAAAAAEAAAAMAAgAAAAAAAEAAAAMAAkAAAAAAAEAAAAMAAoAAAAAAAEAAAAMAAsAAAANAAQAAAANAP3/AAADAAUAADANAP7/AAADAAQAADANAP//AAAAAAMAAAANAAAAAAAAAAEAAAANAAEAAAAAAAEAAAANAAIAAAAAAAEAAAANAAMAAAAAAAEAAAANAAQAAAAAAAEAAAANAAUAAAAAAAEAAAANAAYAAAAAAAEAAAANAAcAAAAAAAEAAAANAAgAAAAAAAEAAAANAAkAAAAAAAEAAAANAAoAAAAAAAEAAAANAAsAAAALAAQAAAAOAP3/AAADAAUAADAOAP7/AAADAAQAADAOAP//AAAAAAMAAAAOAAAAAAAAAAEAAAAOAAEAAAAAAAEAAAAOAAIAAAAAAAEAAAAOAAMAAAAAAAEAAAAOAAQAAAAAAAEAAAAOAAUAAAAAAAEAAAAOAAYAAAAAAAEAAAAOAAcAAAAAAAEAAAAOAAgAAAAAAAEAAAAOAAkAAAAAAAEAAAAOAAoAAAAAAAEAAAAOAAsAAAAMAAQAAAAPAP3/AAADAAUAADAPAP7/AAADAAQAADAPAP//AAAAAAMAAAAPAAAAAAAAAAEAAAAPAAEAAAAAAAEAAAAPAAIAAAAAAAEAAAAPAAMAAAAAAAEAAAAPAAQAAAAAAAEAAAAPAAUAAAAAAAEAAAAPAAYAAAAAAAEAAAAPAAcAAAAAAAEAAAAPAAgAAAAAAAEAAAAPAAkAAAAAAAEAAAAPAAoAAAAAAAEAAAAPAAsAAAANAAQAAAAQAP3/AAADAAUAADAQAP7/AAADAAQAADAQAP//AAAKAAcAAFAQAAAAAAALAAcAAFAQAAEAAAAMAAcAAFAQAAIAAAAMAAcAAFAQAAMAAAAMAAcAAFAQAAQAAAALAAcAAFAQAAUAAAAMAAcAAFAQAAYAAAAMAAcAAFAQAAcAAAAMAAcAAFAQAAgAAAAMAAcAAFAQAAkAAAANAAcAAFAQAAoAAAAOAAcAAFAQAAsAAAANAAQAAAARAP3/AAAEAAUAADARAP7/AAAEAAQAADARAP//AAAKAAYAAFARAAAAAAALAAYAAFARAAEAAAAMAAYAAFARAAIAAAAMAAYAAFARAAMAAAAMAAYAAFARAAQAAAALAAYAAFARAAUAAAAMAAYAAFARAAYAAAAMAAYAAFARAAcAAAAMAAYAAFARAAgAAAAMAAYAAFARAAkAAAANAAYAAFARAAoAAAAOAAYAAFARAAsAAAAOAAQAAAA=")
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("3_mwxiv")]
-position = Vector2(239, 156)
+position = Vector2(332, 211)
 
 [node name="Plant" parent="." instance=ExtResource("4_tek06")]
 position = Vector2(62, 257)
@@ -94,134 +72,63 @@ position = Vector2(394, -11)
 [node name="Pot" parent="." instance=ExtResource("8_jeo2k")]
 position = Vector2(274, 151)
 
-<<<<<<< Updated upstream
-[node name="Npc" parent="." instance=ExtResource("9_a2klq")]
-position = Vector2(173, 138)
-npc_resource = ExtResource("10_0j6pc")
-
-[node name="NpcBehaviorWander" parent="Npc" instance=ExtResource("11_abg8o")]
-wander_range = 3
-
-[node name="DialogInteraction" parent="Npc" instance=ExtResource("12_45xa8")]
-
-[node name="DialogText" type="Node" parent="Npc/DialogInteraction"]
-script = ExtResource("13_sbev4")
-text = "Welcome to Philippines! Let me teach you how to navigate the walk, attack, and interact. "
-npc_info = ExtResource("10_0j6pc")
-metadata/_custom_type_script = "uid://bl2li7lbphm71"
-
-[node name="DialogText2" type="Node" parent="Npc/DialogInteraction"]
-script = ExtResource("13_sbev4")
-text = "Okay, let me hear it!"
-npc_info = ExtResource("14_vv7nh")
-metadata/_custom_type_script = "uid://bl2li7lbphm71"
-
-[node name="DialogText3" type="Node" parent="Npc/DialogInteraction"]
-script = ExtResource("13_sbev4")
-text = "[b]W, A, S, D[/b] for Walk. [b]Space bar[/b] for Attack. and [b]E[/b] for Interact."
-npc_info = ExtResource("10_0j6pc")
-metadata/_custom_type_script = "uid://bl2li7lbphm71"
-
-[node name="DialogText4" type="Node" parent="Npc/DialogInteraction"]
-script = ExtResource("13_sbev4")
-text = "Okay, thankyou!"
-npc_info = ExtResource("14_vv7nh")
-metadata/_custom_type_script = "uid://bl2li7lbphm71"
-
-[node name="Npc_REDMAN" parent="." instance=ExtResource("9_a2klq")]
-position = Vector2(369, 154)
-npc_resource = SubResource("Resource_0j6pc")
-
-[node name="NpcBehaviorPatrol" parent="Npc_REDMAN" instance=ExtResource("18_gm670")]
-
-[node name="PatrolLocation" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("19_fw76p")]
-modulate = Color(1, 0, 0, 1)
-position = Vector2(0, -1)
-
-[node name="PatrolLocation6" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("19_fw76p")]
-modulate = Color(1, 1, 0, 1)
-position = Vector2(65, -1)
-
-[node name="PatrolLocation2" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("19_fw76p")]
-modulate = Color(0, 1, 0, 1)
-position = Vector2(65, -52)
-
-[node name="PatrolLocation3" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("19_fw76p")]
-modulate = Color(0, 1, 1, 1)
-position = Vector2(-1, -52)
-
-[node name="PatrolLocation4" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("19_fw76p")]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(-49, -52)
-
-[node name="PatrolLocation5" parent="Npc_REDMAN/NpcBehaviorPatrol" instance=ExtResource("19_fw76p")]
-modulate = Color(1, 0, 1, 1)
-position = Vector2(-49, 0)
-=======
 [node name="Npc_REDMAN" parent="." instance=ExtResource("9_wrnjp")]
 position = Vector2(366, 215)
-npc_resource = SubResource("Resource_xflnv")
->>>>>>> Stashed changes
+npc_resource = SubResource("Resource_2rucc")
 
-[node name="QuestActivatedSwitch" parent="Npc_REDMAN" instance=ExtResource("20_r117l")]
+[node name="QuestActivatedSwitch" parent="Npc_REDMAN" instance=ExtResource("15_45xa8")]
 remove_when_activated = true
-react_to_global_signal = true
-linked_quest = ExtResource("21_m2uij")
+linked_quest = ExtResource("16_sbev4")
 settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Checking if Player has quest"
 
-[node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch" instance=ExtResource("12_45xa8")]
+[node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch" instance=ExtResource("17_vv7nh")]
 
 [node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction"]
-script = ExtResource("13_sbev4")
+script = ExtResource("18_s3up8")
 text = "Oy, magiting na tagapagligtas, maaari mo ba akong tulungan kunin ang flute ko sa dark dungeon?"
-npc_info = ExtResource("22_mnpoj")
+npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
 [node name="DialogChoice" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction"]
-script = ExtResource("23_q3qbe")
-npc_info = ExtResource("22_mnpoj")
+script = ExtResource("20_mdb57")
+npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://dqede62fqybid"
 
 [node name="DialogBranch" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
-script = ExtResource("24_0fbnw")
+script = ExtResource("21_gm670")
 text = "Sige!"
-npc_info = ExtResource("22_mnpoj")
+npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://c1vxl5di4hfss"
 
-[node name="QuestAdvanceTrigger" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch" instance=ExtResource("25_v66vt")]
-position = Vector2(369, 154)
+[node name="QuestAdvanceTrigger" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch" instance=ExtResource("22_fw76p")]
+position = Vector2(366, 215)
 signal_name = "selected"
-linked_quest = ExtResource("21_m2uij")
+linked_quest = ExtResource("16_sbev4")
 settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Step: 0 - N/A
 Complete: false"
 
 [node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch"]
-script = ExtResource("13_sbev4")
+script = ExtResource("18_s3up8")
 text = "Salamat at Ingat ka, mwa mwa!"
-npc_info = ExtResource("22_mnpoj")
+npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
 [node name="DialogBranch2" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
-script = ExtResource("24_0fbnw")
+script = ExtResource("21_gm670")
 text = "Nahhh.."
-npc_info = ExtResource("22_mnpoj")
+npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://c1vxl5di4hfss"
 
 [node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch2"]
-script = ExtResource("13_sbev4")
+script = ExtResource("18_s3up8")
 text = "Madamot amp!"
-npc_info = ExtResource("22_mnpoj")
+npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
-<<<<<<< Updated upstream
-[node name="QuestActivatedSwitch3" parent="Npc_REDMAN" instance=ExtResource("20_r117l")]
-check_type = 3
-remove_when_activated = true
-=======
 [node name="QuestActivatedSwitch3" type="Node" parent="Npc_REDMAN"]
 script = ExtResource("23_xflnv")
 check_type = 2
@@ -235,78 +142,30 @@ metadata/_custom_type_script = "uid://b1mjvc00tsgmu"
 
 [node name="QuestActivatedSwitch2" parent="Npc_REDMAN/QuestActivatedSwitch3" instance=ExtResource("15_45xa8")]
 position = Vector2(366, 215)
->>>>>>> Stashed changes
 react_to_global_signal = true
-linked_quest = ExtResource("21_m2uij")
-quest_step = 3
-quest_complete = true
-settings_summary = "UPDATE QUEST:
-Quest: Recover Lost Flute
-Checking if quest is complete"
-
-[node name="QuestActivatedSwitch3" parent="Npc_REDMAN/QuestActivatedSwitch3" instance=ExtResource("20_r117l")]
-remove_when_activated = true
-react_to_global_signal = true
-linked_quest = ExtResource("21_m2uij")
+linked_quest = ExtResource("16_sbev4")
 settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Checking if Player has quest"
 
-<<<<<<< Updated upstream
-[node name="QuestActivatedSwitch4" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch3" instance=ExtResource("20_r117l")]
-check_type = 2
-remove_when_activated = true
-react_to_global_signal = true
-linked_quest = ExtResource("21_m2uij")
-=======
 [node name="QuestActivatedSwitch3" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2" instance=ExtResource("15_45xa8")]
 check_type = 2
 remove_when_activated = true
 react_to_global_signal = true
 linked_quest = ExtResource("16_sbev4")
->>>>>>> Stashed changes
 quest_step = 3
 settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Check if Player is on step: go back to red man"
 
-<<<<<<< Updated upstream
-[node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch3/QuestActivatedSwitch4" instance=ExtResource("12_45xa8")]
-
-[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch3/QuestActivatedSwitch4/DialogInteraction"]
-script = ExtResource("13_sbev4")
-=======
 [node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch3" instance=ExtResource("17_vv7nh")]
 
 [node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch3/DialogInteraction"]
 script = ExtResource("18_s3up8")
->>>>>>> Stashed changes
 text = "Salamat at tinanggap mo ang aking hiling. Mag-iingat ka, magiting na mandirigma!"
-npc_info = ExtResource("22_mnpoj")
+npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
-<<<<<<< Updated upstream
-[node name="QuestActivatedSwitch3" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch3" instance=ExtResource("20_r117l")]
-check_type = 2
-react_to_global_signal = true
-linked_quest = ExtResource("21_m2uij")
-quest_step = 3
-settings_summary = "UPDATE QUEST:
-Quest: Recover Lost Flute
-Check if Player is on step: go back to red man"
-
-[node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch3/QuestActivatedSwitch3" instance=ExtResource("12_45xa8")]
-
-[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch3/QuestActivatedSwitch3/DialogInteraction"]
-script = ExtResource("13_sbev4")
-text = "Salamat at naibalik mo sa akin ang Magical Flute. Ito ang iyong reward!"
-npc_info = ExtResource("22_mnpoj")
-metadata/_custom_type_script = "uid://bl2li7lbphm71"
-
-[node name="QuestAdvanceTrigger" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch3/QuestActivatedSwitch3/DialogInteraction" instance=ExtResource("25_v66vt")]
-signal_name = "finished"
-linked_quest = ExtResource("21_m2uij")
-=======
 [node name="QuestActivatedSwitch" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2" instance=ExtResource("15_45xa8")]
 check_type = 1
 react_to_global_signal = true
@@ -327,16 +186,12 @@ metadata/_custom_type_script = "uid://bl2li7lbphm71"
 [node name="QuestAdvanceTrigger" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2" instance=ExtResource("22_fw76p")]
 signal_name = "finished"
 linked_quest = ExtResource("16_sbev4")
->>>>>>> Stashed changes
 quest_step = 3
 quest_complete = true
 settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Step: 3 - go back to red man
 Complete: true"
-<<<<<<< Updated upstream
-=======
 
 [node name="Node" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2/QuestAdvanceTrigger"]
 script = SubResource("GDScript_xflnv")
->>>>>>> Stashed changes

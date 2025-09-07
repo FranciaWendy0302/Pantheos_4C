@@ -64,44 +64,6 @@ func check_is_activated() -> void:
 	else:
 		set_is_activated(false)
 	pass
-	
-#func check_is_activated() -> void:
-	#var _q: Dictionary = QuestManager.find_quest(linked_quest)
-	#var title: String = _q.get("title", "not found") as String
-	#if title != "not found":
-		#match check_type:
-			#CheckType.HAS_QUEST:
-				#set_is_activated(true)
-#
-			#CheckType.QUEST_COMPLETE:
-				#var is_complete: bool = bool(_q.get("is_complete", false))
-				#set_is_activated(is_complete)
-#
-			#CheckType.QUEST_STEP_COMPLETE:
-				#if quest_step > 0:
-					#var completed_steps: Array = _q.get("completed_steps", []) as Array
-					#set_is_activated(completed_steps.has(get_step()))
-				#else:
-					#set_is_activated(false)
-#
-			#CheckType.ON_CURRENT_QUEST_STEP:
-				#var step: String = get_step()
-				#if step == "N/A":
-					#set_is_activated(false)
-				#else:
-					#var completed_steps: Array = _q.get("completed_steps", []) as Array
-					#if completed_steps.has(step):
-						#set_is_activated(false)
-					#else:
-						#var prev_step: String = get_prev_step()
-						#if prev_step == "N/A":
-							#set_is_activated(true)
-						#elif completed_steps.has(prev_step.to_lower()):
-							#set_is_activated(true)
-						#else:
-							#set_is_activated(false)
-	#else:
-		#set_is_activated(false)
 
 func set_is_activated(_v: bool) -> void:
 	is_activated = _v

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://6j4va45y35bp"]
+[gd_scene load_steps=14 format=3 uid="uid://6j4va45y35bp"]
 
 [ext_resource type="Script" uid="uid://bed2d6qpatbso" path="res://GUI/pause_menu/pause_menu.gd" id="1_4w82k"]
 [ext_resource type="Texture2D" uid="uid://cc6o6u38rnlwx" path="res://Items/sprites/items.png" id="2_yiq8o"]
 [ext_resource type="Script" uid="uid://bgl0i5jds6ykg" path="res://GUI/pause_menu/inventory/scripts/inventory_ui.gd" id="3_36pfd"]
 [ext_resource type="PackedScene" uid="uid://ct3r2jpgr1d6b" path="res://GUI/pause_menu/inventory/inventory_slot.tscn" id="3_rsqrg"]
 [ext_resource type="Resource" uid="uid://ii4rvtaid5fi" path="res://GUI/pause_menu/inventory/player_inventory.tres" id="4_ewgu5"]
+[ext_resource type="PackedScene" uid="uid://btj7kljriejv4" path="res://GUI/pause_menu/stats/stats.tscn" id="6_40d0i"]
 [ext_resource type="FontFile" uid="uid://cfbdty76erfpi" path="res://GUI/fonts/Abaddon Light.ttf" id="6_sn1ji"]
 [ext_resource type="Script" uid="uid://d24c0j48vs6x8" path="res://GUI/pause_menu/quest_ui.gd" id="7_dvxeg"]
 [ext_resource type="PackedScene" uid="uid://brik5hjfv2yhq" path="res://GUI/pause_menu/quests/quest_item.tscn" id="8_iqcer"]
@@ -62,10 +63,9 @@ offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 1
+current_tab = 0
 
 [node name="Inventory" type="Control" parent="Control/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -74,10 +74,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -214.0
-offset_top = 10.0
-offset_right = -18.0
-offset_bottom = 98.0
+offset_left = -203.0
+offset_top = 27.0
+offset_right = -7.0
+offset_bottom = 115.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
 
@@ -105,19 +105,31 @@ layout_mode = 2
 [node name="InventorySlot6" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
 layout_mode = 2
 
+[node name="Stats" parent="Control/TabContainer/Inventory" instance=ExtResource("6_40d0i")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 228.0
+offset_top = 27.0
+offset_right = 424.0
+offset_bottom = 131.0
+grow_horizontal = 1
+
 [node name="ItemDescription" type="Label" parent="Control/TabContainer/Inventory"]
-visible = false
 layout_mode = 1
-offset_left = 213.0
-offset_top = 12.0
-offset_right = 447.0
-offset_bottom = 198.0
-theme_override_fonts/font = ExtResource("6_sn1ji")
+offset_left = 26.0
+offset_top = 121.0
+offset_right = 214.0
+offset_bottom = 220.0
+theme_override_fonts/font = ExtResource("9_qikl0")
 text = "A valuable gem!"
+horizontal_alignment = 1
 autowrap_mode = 2
 clip_text = true
 
 [node name="Quest" type="Control" parent="Control/TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("7_dvxeg")
 metadata/_tab_index = 1
@@ -147,9 +159,9 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Quest"]
 layout_mode = 0
-offset_left = 231.0
+offset_left = 228.0
 offset_top = 21.0
-offset_right = 437.0
+offset_right = 438.0
 offset_bottom = 197.0
 
 [node name="TitleLabel" type="Label" parent="Control/TabContainer/Quest/VBoxContainer"]

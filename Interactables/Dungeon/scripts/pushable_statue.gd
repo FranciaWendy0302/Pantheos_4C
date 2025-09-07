@@ -19,9 +19,12 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	linear_velocity = push_direction * push_speed
 	if persistent:
-		
 		var x_is_on: bool = abs(position.x - persistent_location.x) < 15 + target_location_size.x
 		var y_is_on: bool = abs(position.y - persistent_location.y) < 6 + target_location_size.y
+		#if x_is_on and y_is_on:
+			#print("on the button")
+		#else:
+			#print("left the button")
 		if x_is_on and y_is_on and on_target == false:
 			on_target = true
 			persistent_data_handler.set_value()

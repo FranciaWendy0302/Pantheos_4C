@@ -29,6 +29,7 @@ func enter() -> void:
 	enemy.animation_player.animation_finished.connect(_on_enemy_finished)
 	disable_hurt_box()
 	drop_items()
+	PlayerManager.reward_xp(enemy.xp_reward)
 	pass
 	
 func exit() -> void:

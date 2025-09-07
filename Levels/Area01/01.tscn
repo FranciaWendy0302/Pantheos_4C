@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=16 format=4 uid="uid://b3eefjkqiqyg2"]
-=======
 [gd_scene load_steps=19 format=4 uid="uid://b3eefjkqiqyg2"]
->>>>>>> Stashed changes
 
 [ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_22ele"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="1_vbl6q"]
@@ -10,12 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bkmgd56mqv1ga" path="res://Levels/level_transition.tscn" id="4_4t7i1"]
 [ext_resource type="AudioStream" uid="uid://m2qfqkogj3f5" path="res://Levels/music/example_music_01.ogg" id="6_8itkk"]
 [ext_resource type="Texture2D" uid="uid://bg18oxs1hxg31" path="res://Tile Maps/Sprites/Grass-01.png" id="6_blojo"]
+[ext_resource type="PackedScene" uid="uid://coftgxw6k42r3" path="res://npc/npc.tscn" id="6_xhij5"]
 [ext_resource type="Texture2D" uid="uid://cnxgv2a08rug8" path="res://Tile Maps/Sprites/dungeon_entrance.png" id="7_7f7fh"]
-<<<<<<< Updated upstream
-=======
 [ext_resource type="Resource" uid="uid://c5bbuxfhxnm0y" path="res://npc/00_npcs/npc_01.tres" id="7_th3kk"]
 [ext_resource type="PackedScene" uid="uid://dosl0mby5d7y4" path="res://npc/npc_behavior_wander.tscn" id="7_xhij5"]
->>>>>>> Stashed changes
 [ext_resource type="PackedScene" uid="uid://bbihhl8fanjpa" path="res://quests/utility_nodes/quest_activated_switch.tscn" id="17_mpmqi"]
 [ext_resource type="PackedScene" uid="uid://cg0kg5d3txb2u" path="res://Props/Plants/plant.tscn" id="20_ao3f7"]
 [ext_resource type="PackedScene" uid="uid://dwfp7qdebymnm" path="res://Props/pot/pot.tscn" id="21_t1cxi"]
@@ -554,8 +548,6 @@ level = "uid://4yxf2onemxsb"
 center_player = true
 side = 3
 
-<<<<<<< Updated upstream
-=======
 [node name="Npc" parent="." instance=ExtResource("6_xhij5")]
 position = Vector2(173, 138)
 npc_resource = ExtResource("7_th3kk")
@@ -563,7 +555,6 @@ npc_resource = ExtResource("7_th3kk")
 [node name="NpcBehaviorWander" parent="Npc" instance=ExtResource("7_xhij5")]
 wander_range = 3
 
->>>>>>> Stashed changes
 [node name="Plant" parent="." instance=ExtResource("20_ao3f7")]
 position = Vector2(40, 102)
 
