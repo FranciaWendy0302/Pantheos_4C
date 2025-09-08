@@ -1,5 +1,7 @@
 class_name Stats extends PanelContainer
 
+var inventory: InventoryData
+
 @onready var label_level: Label = %Label_lvl
 @onready var label_xp: Label = %Label_xp
 @onready var label_attack: Label = %Label_attack
@@ -9,6 +11,9 @@ class_name Stats extends PanelContainer
 
 func _ready() -> void:
 	PauseMenu.shown.connect(update_stats)
+	PauseMenu.preview_stats_changed.connect(_on_preview_stats_changed)
+	inventory = PlayerManager.INVENTORY_DATA
+	inventory.equipment_changed.connect(update_stats)
 	
 func update_stats() -> void:
 	var _p: Player = PlayerManager.player
@@ -18,6 +23,10 @@ func update_stats() -> void:
 		label_xp.text = str(_p.xp) + "/" + str(PlayerManager.level_requirements[_p.level])
 	else:
 		label_xp.text = "MAX LEVEL"
-	label_attack.text = str(_p.attack)
-	label_defense.text = str(_p.defense)
+		
+	label_attack.text = str(_p.attack + inventory.get_attack_bonus())
+	label_defense.text = str(_p.defense + inventory.get_defense_bonus())
+	pass
+	
+func _on_preview_stats_changed(item: ItemData) -> void:
 	pass

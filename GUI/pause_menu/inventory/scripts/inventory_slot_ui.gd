@@ -40,7 +40,13 @@ func item_unfocused() -> void:
 func item_pressed() -> void:
 	if slot_data:
 		if slot_data.item_data:
-			var was_used = slot_data.item_data.use()
+			var item = slot_data.item_data
+			
+			if item is EquipableItemData:
+				PlayerManager.INVENTORY_DATA.equip_item(slot_data)
+				return
+			
+			var was_used = item.use()
 			if was_used == false:
 				return
 			slot_data.quantity -= 1
