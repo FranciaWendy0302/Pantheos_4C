@@ -25,7 +25,7 @@
 [ext_resource type="Script" uid="uid://b1mjvc00tsgmu" path="res://quests/utility_nodes/quest_activated_switch.gd" id="23_xflnv"]
 [ext_resource type="Resource" uid="uid://bhppf8j7asawa" path="res://Items/w_katana.tres" id="24_abg8o"]
 
-[sub_resource type="Resource" id="Resource_45xa8"]
+[sub_resource type="Resource" id="Resource_d1jyu"]
 resource_local_to_scene = true
 script = ExtResource("11_d1jyu")
 npc_name = "Red Man"
@@ -74,7 +74,7 @@ position = Vector2(274, 151)
 
 [node name="Npc_REDMAN" parent="." instance=ExtResource("9_wrnjp")]
 position = Vector2(366, 215)
-npc_resource = SubResource("Resource_45xa8")
+npc_resource = SubResource("Resource_d1jyu")
 
 [node name="QuestActivatedSwitch" parent="Npc_REDMAN" instance=ExtResource("15_45xa8")]
 remove_when_activated = true
