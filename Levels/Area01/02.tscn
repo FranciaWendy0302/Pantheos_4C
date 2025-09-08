@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://4yxf2onemxsb"]
+[gd_scene load_steps=27 format=4 uid="uid://4yxf2onemxsb"]
 
 [ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_x70af"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="2_tek06"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="3_mwxiv"]
 [ext_resource type="PackedScene" uid="uid://cg0kg5d3txb2u" path="res://Props/Plants/plant.tscn" id="4_tek06"]
 [ext_resource type="PackedScene" uid="uid://bkmgd56mqv1ga" path="res://Levels/level_transition.tscn" id="5_mwxiv"]
-[ext_resource type="PackedScene" uid="uid://6pbtq7dqq7jo" path="res://Enemies/goblin/goblin.tscn" id="7_ua1y0"]
 [ext_resource type="PackedScene" uid="uid://dwfp7qdebymnm" path="res://Props/pot/pot.tscn" id="8_jeo2k"]
 [ext_resource type="PackedScene" uid="uid://coftgxw6k42r3" path="res://npc/npc.tscn" id="9_wrnjp"]
 [ext_resource type="Texture2D" uid="uid://d2vn1x2vkpbi8" path="res://npc/sprites/portraits/npc_portrait_02.png" id="10_xflnv"]
@@ -18,11 +17,15 @@
 [ext_resource type="Script" uid="uid://bl2li7lbphm71" path="res://Interactables/dialog/scripts/dialog_text.gd" id="18_s3up8"]
 [ext_resource type="Resource" uid="uid://bpsdp1qds5o38" path="res://npc/00_npcs/npc_02.tres" id="19_dffud"]
 [ext_resource type="Script" uid="uid://dqede62fqybid" path="res://Interactables/dialog/scripts/dialog_choice.gd" id="20_mdb57"]
+[ext_resource type="PackedScene" uid="uid://by7vwvc2j2mgd" path="res://Items/item_pickup/item_pickup.tscn" id="21_d1jyu"]
 [ext_resource type="Script" uid="uid://c1vxl5di4hfss" path="res://Interactables/dialog/scripts/dialog_branch.gd" id="21_gm670"]
+[ext_resource type="Resource" uid="uid://bmqpuqox8w5lj" path="res://Items/a_leather_jacket.tres" id="22_a2klq"]
 [ext_resource type="PackedScene" uid="uid://dutt7tppgllui" path="res://quests/utility_nodes/quest_advance_trigger.tscn" id="22_fw76p"]
+[ext_resource type="PackedScene" uid="uid://bs2uqrwhvxqjr" path="res://Interactables/TreasureChest/treasure-chest.tscn" id="23_0j6pc"]
 [ext_resource type="Script" uid="uid://b1mjvc00tsgmu" path="res://quests/utility_nodes/quest_activated_switch.gd" id="23_xflnv"]
+[ext_resource type="Resource" uid="uid://bhppf8j7asawa" path="res://Items/w_katana.tres" id="24_abg8o"]
 
-[sub_resource type="Resource" id="Resource_2rucc"]
+[sub_resource type="Resource" id="Resource_45xa8"]
 resource_local_to_scene = true
 script = ExtResource("11_d1jyu")
 npc_name = "Red Man"
@@ -66,15 +69,12 @@ level = "uid://b3eefjkqiqyg2"
 target_position_area = "LevelTransition2"
 side = 2
 
-[node name="Goblin" parent="." instance=ExtResource("7_ua1y0")]
-position = Vector2(394, -11)
-
 [node name="Pot" parent="." instance=ExtResource("8_jeo2k")]
 position = Vector2(274, 151)
 
 [node name="Npc_REDMAN" parent="." instance=ExtResource("9_wrnjp")]
 position = Vector2(366, 215)
-npc_resource = SubResource("Resource_2rucc")
+npc_resource = SubResource("Resource_45xa8")
 
 [node name="QuestActivatedSwitch" parent="Npc_REDMAN" instance=ExtResource("15_45xa8")]
 remove_when_activated = true
@@ -195,3 +195,11 @@ Complete: true"
 
 [node name="Node" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2/QuestAdvanceTrigger"]
 script = SubResource("GDScript_xflnv")
+
+[node name="ItemPickup" parent="." instance=ExtResource("21_d1jyu")]
+position = Vector2(237, 194)
+item_data = ExtResource("22_a2klq")
+
+[node name="Treasure-chest" parent="." instance=ExtResource("23_0j6pc")]
+position = Vector2(191, 197)
+item_data = ExtResource("24_abg8o")
