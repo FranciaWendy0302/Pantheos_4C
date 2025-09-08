@@ -29,4 +29,25 @@ func update_stats() -> void:
 	pass
 	
 func _on_preview_stats_changed(item: ItemData) -> void:
+	label_attack_change.text = ""
+	label_defense_change.text = ""
+	
+	if not item is EquipableItemData:
+		return
+	
+	var equipment: EquipableItemData = item
+	var attack_delta: int = inventory.get_attack_bonus_diff(equipment)
+	var defense_delta: int = inventory.get_defense_bonus_diff(equipment)
+	
+	update_change_label(label_attack_change, attack_delta)
+	update_change_label(label_defense_change, defense_delta)
+	pass
+
+func update_change_label(label: Label, value: int) -> void:
+	if value > 0:
+		label.text = "+" + str(value)
+		label.modulate = Color.LIGHT_GREEN
+	elif value < 0:
+		label.text = str(value)
+		label.modulate = Color.INDIAN_RED
 	pass

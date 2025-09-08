@@ -129,17 +129,32 @@ func equip_item(slot: SlotData) -> void:
 	
 func get_attack_bonus() -> int:
 	return get_equipment_bonus(EquipableItemModifier.Type.ATTACK)
+
+func get_attack_bonus_diff(item: EquipableItemData) -> int:
+	var before: int = get_attack_bonus()
+	var after: int = get_equipment_bonus(EquipableItemModifier.Type.ATTACK, item)
+	
+	return after - before
 	
 func get_defense_bonus() -> int:
 	return get_equipment_bonus(EquipableItemModifier.Type.DEFENSE)
 	
-func get_equipment_bonus(bonus_type: EquipableItemModifier.Type) -> int:
+func get_defense_bonus_diff(item: EquipableItemData) -> int:
+	var before: int = get_defense_bonus()
+	var after: int = get_equipment_bonus(EquipableItemModifier.Type.DEFENSE, item)
+	
+	return after - before
+	
+func get_equipment_bonus(bonus_type: EquipableItemModifier.Type, compare: EquipableItemData = null) -> int:
 	var bonus: int = 0
 	
 	for s in equipment_slots():
 		if s == null:
 			continue
 		var e: EquipableItemData = s.item_data
+		if compare:
+			if e.type == compare.type:
+				e = compare
 		for m in e.modifiers:
 			if m.type == bonus_type:
 				bonus += m.value
