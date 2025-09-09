@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="EquipableItemData" load_steps=7 format=3 uid="uid://b5t0a60wqowkc"]
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=8 format=3 uid="uid://b5t0a60wqowkc"]
 
 [ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_lonko"]
 [ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="2_t5s5i"]
 [ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="3_jse1l"]
 [ext_resource type="Texture2D" uid="uid://dby0en4m7e8ej" path="res://Items/sprites/gear.png" id="4_iudqu"]
+[ext_resource type="Texture2D" uid="uid://dh1sdbep1sp1u" path="res://Player/Sprites/player_sprite.png" id="4_t5s5i"]
 
 [sub_resource type="Resource" id="Resource_12esd"]
 script = ExtResource("2_t5s5i")
@@ -19,6 +20,7 @@ region = Rect2(96, 0, 32, 32)
 script = ExtResource("3_jse1l")
 type = 1
 modifiers = Array[ExtResource("2_t5s5i")]([SubResource("Resource_12esd")])
+sprite_texture = ExtResource("4_t5s5i")
 name = "Cloth & Cape"
 description = "Lightweight protective gear made from toughened fiber, offering health with basic defense."
 texture = SubResource("AtlasTexture_1w3hl")

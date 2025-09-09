@@ -1,11 +1,13 @@
-[gd_scene load_steps=91 format=3 uid="uid://dqbr0eswp7hw0"]
+[gd_scene load_steps=93 format=3 uid="uid://dqbr0eswp7hw0"]
 
 [ext_resource type="Script" uid="uid://bb7g3bgolygea" path="res://Player/Scripts/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://dh1sdbep1sp1u" path="res://Player/Sprites/player_sprite.png" id="2_b1ygp"]
 [ext_resource type="Script" uid="uid://bhmhe845fkkrf" path="res://Player/Scripts/player_state_machine.gd" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://bxalum75cpmk4" path="res://Player/Scripts/player_sprite.gd" id="3_i4o1l"]
 [ext_resource type="Texture2D" uid="uid://8xna1klk1bj0" path="res://Player/Sprites/AttackSprite01.png" id="3_vtle1"]
 [ext_resource type="Texture2D" uid="uid://cmtv866hcn6jc" path="res://Player/Sprites/Shadow.png" id="4_00tjw"]
 [ext_resource type="Script" uid="uid://yw6auqd4yfm5" path="res://Player/Scripts/states/state_idle.gd" id="4_gwnis"]
+[ext_resource type="Texture2D" uid="uid://dfggcgkjw4c47" path="res://Player/Sprites/player_sprite_sword.png" id="5_j2n6q"]
 [ext_resource type="Script" uid="uid://bfna2e8ehu1b4" path="res://Player/Scripts/states/state_walk.gd" id="5_k53q1"]
 [ext_resource type="Script" uid="uid://bsrhpevvg4unk" path="res://Player/Scripts/states/state_attack.gd" id="6_fhl08"]
 [ext_resource type="Texture2D" uid="uid://ctiqyx1vagw2g" path="res://Player/Sprites/spin_effect.png" id="6_hshwv"]
@@ -1639,6 +1641,7 @@ position = Vector2(0, -20)
 texture = ExtResource("2_b1ygp")
 hframes = 16
 vframes = 8
+script = ExtResource("3_i4o1l")
 
 [node name="AttackEffectSprite" type="Sprite2D" parent="Sprite2D"]
 position = Vector2(0, 10)
@@ -1650,6 +1653,18 @@ libraries = {
 &"": SubResource("AnimationLibrary_lfmf2")
 }
 autoplay = "no_attack"
+
+[node name="Sprite2D_Weapon_Below" type="Sprite2D" parent="Sprite2D"]
+show_behind_parent = true
+texture = ExtResource("5_j2n6q")
+hframes = 16
+vframes = 16
+
+[node name="Sprite2D_Weapon_Above" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("5_j2n6q")
+hframes = 16
+vframes = 16
+frame = 128
 
 [node name="ShadowSprite" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.701961)
