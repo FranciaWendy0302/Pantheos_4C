@@ -37,6 +37,10 @@ window/size/window_width_override=1500
 window/size/window_height_override=700
 window/stretch/mode="viewport"
 
+[global_group]
+
+tilemaps="tilemaps with footstep sound"
+
 [gui]
 
 theme/custom_font="uid://cdoaw5mbxum1d"

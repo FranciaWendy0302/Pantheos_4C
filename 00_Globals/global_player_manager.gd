@@ -12,7 +12,7 @@ var player: Player
 var player_spawned: bool = false
 
 #var level_requirements = [0, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800]
-var level_requirements = [0, 5, 10, 20, 25]
+var level_requirements = [0, 25, 50, 75, 100]
 
 func _ready() -> void:
 	add_player_instance()
