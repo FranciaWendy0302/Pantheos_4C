@@ -17,33 +17,56 @@ func ChangeTilemapBounds(bounds: Array[Vector2]) -> void:
 	TileMapBoundsChanged.emit(bounds)
 
 
-func load_new_level(
-		level_path: String,
-		_target_transition: String,
-		_position_offset: Vector2
-) -> void:
+#func load_new_level(
+		#level_path: String,
+		#_target_transition: String,
+		#_position_offset: Vector2
+#) -> void:
+	#
+	#get_tree().paused = true
+	#target_transition = _target_transition
+	#position_offset = _position_offset
+	#
+	#await SceneTransition.fade_out()
+	#
+	#level_load_started.emit()
+	#
+	#await get_tree().process_frame
+	#
+	#get_tree().change_scene_to_file(level_path)
+	#
+	#await SceneTransition.fade_in()
+	#
+	#get_tree().paused = false
+	#
+	#await get_tree().process_frame
+	#
+	#level_loaded.emit()
+	#
+	#pass
 	
+func load_new_level(level_path: String, _target_transition: String, _position_offset: Vector2) -> void:
 	get_tree().paused = true
 	target_transition = _target_transition
 	position_offset = _position_offset
 	
 	await SceneTransition.fade_out()
-	
 	level_load_started.emit()
 	
 	await get_tree().process_frame
-	
 	get_tree().change_scene_to_file(level_path)
 	
-	await SceneTransition.fade_in()
+	await get_tree().process_frame
+	var new_scene = get_tree().current_scene
+	PlayerManager.set_as_parent(new_scene) # reparent to active scene
 	
+	await SceneTransition.fade_in()
 	get_tree().paused = false
 	
 	await get_tree().process_frame
-	
 	level_loaded.emit()
-	
-	pass
+
+
 	
 	
 	
