@@ -1,10 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://6j4va45y35bp"]
+[gd_scene load_steps=28 format=3 uid="uid://6j4va45y35bp"]
 
 [ext_resource type="Script" uid="uid://bed2d6qpatbso" path="res://GUI/pause_menu/pause_menu.gd" id="1_4w82k"]
 [ext_resource type="Texture2D" uid="uid://cc6o6u38rnlwx" path="res://Items/sprites/items.png" id="2_yiq8o"]
 [ext_resource type="Script" uid="uid://bgl0i5jds6ykg" path="res://GUI/pause_menu/inventory/scripts/inventory_ui.gd" id="3_36pfd"]
+[ext_resource type="Script" uid="uid://c5o3fr2is26vw" path="res://GUI/pause_menu/inventory/scripts/gear_item_button.gd" id="3_fgl3m"]
 [ext_resource type="PackedScene" uid="uid://ct3r2jpgr1d6b" path="res://GUI/pause_menu/inventory/inventory_slot.tscn" id="3_rsqrg"]
 [ext_resource type="Resource" uid="uid://ii4rvtaid5fi" path="res://GUI/pause_menu/inventory/player_inventory.tres" id="4_ewgu5"]
+[ext_resource type="Texture2D" uid="uid://scetlauprb2n" path="res://Player/Sprites/ability-icons.png" id="4_fgl3m"]
 [ext_resource type="PackedScene" uid="uid://btj7kljriejv4" path="res://GUI/pause_menu/stats/stats.tscn" id="6_40d0i"]
 [ext_resource type="FontFile" uid="uid://cfbdty76erfpi" path="res://GUI/fonts/Abaddon Light.ttf" id="6_sn1ji"]
 [ext_resource type="Texture2D" uid="uid://dby0en4m7e8ej" path="res://Items/sprites/gear.png" id="6_u3762"]
@@ -27,6 +29,22 @@ texture_margin_left = 14.0
 texture_margin_top = 14.0
 texture_margin_right = 14.0
 texture_margin_bottom = 14.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00kwt"]
+atlas = ExtResource("4_fgl3m")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syaa3"]
+atlas = ExtResource("4_fgl3m")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0286"]
+atlas = ExtResource("4_fgl3m")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64nn1"]
+atlas = ExtResource("4_fgl3m")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvrss"]
 atlas = ExtResource("6_u3762")
@@ -82,10 +100,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = 19.0
-offset_right = -14.0
-offset_bottom = -19.0
+offset_top = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
@@ -95,14 +110,97 @@ current_tab = 0
 layout_mode = 2
 metadata/_tab_index = 0
 
+[node name="AbilityContainer" type="PanelContainer" parent="Control/TabContainer/Inventory"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -234.0
+offset_top = 7.0
+offset_right = -182.0
+offset_bottom = 167.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
+
+[node name="GridContainer" type="GridContainer" parent="Control/TabContainer/Inventory/AbilityContainer"]
+layout_mode = 2
+
+[node name="InventorySlot" type="Button" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("3_fgl3m")
+description = "Boomerang!"
+
+[node name="TextureRect" type="TextureRect" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer/InventorySlot"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("AtlasTexture_00kwt")
+stretch_mode = 3
+
+[node name="InventorySlot2" type="Button" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("3_fgl3m")
+description = "Graply!"
+
+[node name="TextureRect" type="TextureRect" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer/InventorySlot2"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("AtlasTexture_syaa3")
+stretch_mode = 3
+
+[node name="InventorySlot3" type="Button" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("3_fgl3m")
+description = "Bow and Arrow!"
+
+[node name="TextureRect" type="TextureRect" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer/InventorySlot3"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("AtlasTexture_e0286")
+stretch_mode = 3
+
+[node name="ArrowCountLabel" type="Label" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer/InventorySlot3"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("6_sn1ji")
+text = "99"
+
+[node name="InventorySlot4" type="Button" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("3_fgl3m")
+description = "Boom!"
+
+[node name="TextureRect" type="TextureRect" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer/InventorySlot4"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("AtlasTexture_64nn1")
+stretch_mode = 3
+
+[node name="BombCountLabel" type="Label" parent="Control/TabContainer/Inventory/AbilityContainer/GridContainer/InventorySlot4"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("6_sn1ji")
+text = "99"
+
 [node name="PanelContainer" type="PanelContainer" parent="Control/TabContainer/Inventory"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -203.0
+offset_left = -176.0
 offset_top = 7.0
-offset_right = -7.0
+offset_right = 20.0
 offset_bottom = 167.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
@@ -178,9 +276,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 3.0
+offset_left = 25.0
 offset_top = 76.0
-offset_right = 212.0
+offset_right = 234.0
 offset_bottom = 164.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
@@ -244,9 +342,9 @@ layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
 anchor_right = 0.0
-offset_left = 229.0
+offset_left = 265.0
 offset_top = 8.0
-offset_right = 438.0
+offset_right = 474.0
 offset_bottom = 63.0
 grow_horizontal = 1
 
