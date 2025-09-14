@@ -28,5 +28,6 @@ modifiers = Array[ExtResource("2_0j5hl")]([SubResource("Resource_kw1cl"), SubRes
 name = "Red Man's Amulet"
 description = ""
 texture = SubResource("AtlasTexture_a1bgs")
+cost = 300
 effect = Array[ExtResource("1_qe1iy")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

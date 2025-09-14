@@ -166,5 +166,10 @@ func get_equipment_bonus(bonus_type: EquipableItemModifier.Type, compare: Equipa
 				bonus += m.value
 	return bonus
 	
-	
-	
+func get_item_held_quantity(_item: ItemData) -> int:
+	for slot in slots:
+		if slot:
+			if slot.item_data:
+				if slot.item_data == _item:
+					return slot.quantity
+	return 0

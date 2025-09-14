@@ -36,5 +36,6 @@ sprite_texture = ExtResource("4_kwkdy")
 name = "Leather Jacket"
 description = "A rugged garment made from treated hide, offering moderate protection and a stylish, versatile look."
 texture = SubResource("AtlasTexture_1w3hl")
+cost = 1000
 effect = Array[ExtResource("1_nru2v")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

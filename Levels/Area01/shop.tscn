@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://if8xb4s300aj"]
+[gd_scene load_steps=15 format=4 uid="uid://if8xb4s300aj"]
 
 [ext_resource type="PackedScene" uid="uid://ph10wrsaxdqo" path="res://Tile Maps/awdawdawd.tscn" id="2_g1vh3"]
 [ext_resource type="PackedScene" uid="uid://bkmgd56mqv1ga" path="res://Levels/level_transition.tscn" id="3_eqarn"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://di8n5aycuwrg0" path="res://Items/scripts/item_data.gd" id="9_tqvny"]
 [ext_resource type="Resource" uid="uid://bwowi1tqn7mfi" path="res://Items/apple.tres" id="10_jyo4b"]
 [ext_resource type="Resource" uid="uid://b5t0a60wqowkc" path="res://Items/a_fiber_cloth.tres" id="11_c7av4"]
+[ext_resource type="Resource" uid="uid://c2wqm7n2i86pc" path="res://Items/amulet.tres" id="11_jyo4b"]
 [ext_resource type="Resource" uid="uid://csgmj6gjipujt" path="res://Items/gem.tres" id="12_0e6r1"]
 [ext_resource type="Resource" uid="uid://b6fjsntrl7hf6" path="res://Items/key_dungeon.tres" id="13_tx7sr"]
 
@@ -61,4 +62,4 @@ wander_range = 3
 
 [node name="Shopkeeper" parent="." instance=ExtResource("8_bv37p")]
 position = Vector2(138, 111)
-shop_inventory = Array[ExtResource("9_tqvny")]([ExtResource("10_jyo4b"), ExtResource("10_jyo4b"), ExtResource("11_c7av4"), ExtResource("12_0e6r1"), ExtResource("13_tx7sr")])
+shop_inventory = Array[ExtResource("9_tqvny")]([ExtResource("10_jyo4b"), ExtResource("11_jyo4b"), ExtResource("11_c7av4"), ExtResource("12_0e6r1"), ExtResource("13_tx7sr")])

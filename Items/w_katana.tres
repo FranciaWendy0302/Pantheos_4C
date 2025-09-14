@@ -24,5 +24,6 @@ sprite_texture = ExtResource("4_50xaj")
 name = "Katana"
 description = "A finely crafted, curved blade of eastern origin, prized for its sharpness, speed, and precision."
 texture = SubResource("AtlasTexture_1w3hl")
+cost = 2000
 effect = Array[ExtResource("1_dchiq")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

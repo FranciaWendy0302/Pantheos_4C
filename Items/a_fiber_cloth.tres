@@ -24,5 +24,6 @@ sprite_texture = ExtResource("4_t5s5i")
 name = "Cloth & Cape"
 description = "Lightweight protective gear made from toughened fiber, offering health with basic defense."
 texture = SubResource("AtlasTexture_1w3hl")
+cost = 500
 effect = Array[ExtResource("1_lonko")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

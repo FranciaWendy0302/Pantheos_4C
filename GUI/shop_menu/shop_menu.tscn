@@ -200,7 +200,6 @@ text = "Example Description"
 autowrap_mode = 2
 
 [node name="PriceLabel" type="Label" parent="Control/DetailsPanel/Control"]
-unique_name_in_owner = true
 layout_mode = 0
 offset_left = 109.0
 offset_top = -2.0
@@ -212,7 +211,6 @@ text = "Purchase price"
 autowrap_mode = 2
 
 [node name="InventoryCountLabel" type="Label" parent="Control/DetailsPanel/Control"]
-unique_name_in_owner = true
 layout_mode = 0
 offset_left = 109.0
 offset_top = 14.0

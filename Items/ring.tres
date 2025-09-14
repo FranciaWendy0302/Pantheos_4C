@@ -29,5 +29,6 @@ name = "Blue Man's Ring"
 description = "Treasured Ring of Blue man
 "
 texture = SubResource("AtlasTexture_jan8j")
+cost = 200
 effect = Array[ExtResource("1_s2cra")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

@@ -24,5 +24,6 @@ sprite_texture = ExtResource("4_inskq")
 name = "Iron Sword"
 description = "A sturdy blade forged from iron, reliable for close combat and effective against most foes."
 texture = SubResource("AtlasTexture_1w3hl")
+cost = 500
 effect = Array[ExtResource("1_y8yd3")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"
