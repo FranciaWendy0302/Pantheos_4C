@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://4yxf2onemxsb"]
+[gd_scene load_steps=25 format=4 uid="uid://4yxf2onemxsb"]
 
 [ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_x70af"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="2_tek06"]
@@ -20,9 +20,10 @@
 [ext_resource type="Script" uid="uid://dqede62fqybid" path="res://Interactables/dialog/scripts/dialog_choice.gd" id="20_mdb57"]
 [ext_resource type="Script" uid="uid://c1vxl5di4hfss" path="res://Interactables/dialog/scripts/dialog_branch.gd" id="21_gm670"]
 [ext_resource type="PackedScene" uid="uid://dutt7tppgllui" path="res://quests/utility_nodes/quest_advance_trigger.tscn" id="22_fw76p"]
+[ext_resource type="PackedScene" uid="uid://44io46mg1fhf" path="res://Interactables/bomb/bomb.tscn" id="22_wrnjp"]
 [ext_resource type="Script" uid="uid://b1mjvc00tsgmu" path="res://quests/utility_nodes/quest_activated_switch.gd" id="23_xflnv"]
 
-[sub_resource type="Resource" id="Resource_2rucc"]
+[sub_resource type="Resource" id="Resource_wrnjp"]
 resource_local_to_scene = true
 script = ExtResource("11_d1jyu")
 npc_name = "Red Man"
@@ -84,7 +85,7 @@ side = 2
 
 [node name="Npc_REDMAN" parent="." instance=ExtResource("9_wrnjp")]
 position = Vector2(414, 134.074)
-npc_resource = SubResource("Resource_2rucc")
+npc_resource = SubResource("Resource_wrnjp")
 
 [node name="QuestActivatedSwitch" parent="Npc_REDMAN" instance=ExtResource("15_45xa8")]
 remove_when_activated = true
@@ -205,3 +206,6 @@ Complete: true"
 
 [node name="Node" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2/QuestAdvanceTrigger"]
 script = SubResource("GDScript_xflnv")
+
+[node name="Bomb" parent="." instance=ExtResource("22_wrnjp")]
+position = Vector2(371, 204)
