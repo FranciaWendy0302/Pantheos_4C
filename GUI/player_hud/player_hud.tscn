@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cebqlld4ws2yt"]
+[gd_scene load_steps=28 format=3 uid="uid://cebqlld4ws2yt"]
 
 [ext_resource type="Texture2D" uid="uid://b5hymo20jb5sa" path="res://GUI/player_hud/gui-health.png" id="1_alx7a"]
 [ext_resource type="Script" uid="uid://d34gqlcplff3r" path="res://GUI/player_hud/player_hud.gd" id="1_oghrr"]
@@ -384,19 +384,21 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_5nb4v"]
-offsets = PackedFloat32Array(0, 0.54023, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 0.627326, 0.364085, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_e1kye"]
-gradient = SubResource("Gradient_5nb4v")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 0.5)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_w5viu"]
 atlas = ExtResource("10_terqw")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_terqw"]
+atlas = ExtResource("10_terqw")
+region = Rect2(144, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ea3vn"]
+atlas = ExtResource("10_terqw")
 region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3m3x0"]
+atlas = ExtResource("10_terqw")
+region = Rect2(128, 16, 16, 16)
 
 [node name="PlayerHud" type="CanvasLayer"]
 layer = 2
@@ -678,10 +680,10 @@ layout_mode = 2
 texture = SubResource("GradientTexture2D_3m3x0")
 
 [node name="TextureRect" type="TextureRect" parent="Control/Abilities/HBoxContainer/TextureRect"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("GradientTexture2D_e1kye")
+offset_right = 24.0
+offset_bottom = 24.0
+texture = SubResource("AtlasTexture_w5viu")
+stretch_mode = 3
 
 [node name="TextureRect2" type="TextureRect" parent="Control/Abilities/HBoxContainer"]
 layout_mode = 2
@@ -690,16 +692,28 @@ texture = SubResource("GradientTexture2D_3m3x0")
 [node name="TextureRect" type="TextureRect" parent="Control/Abilities/HBoxContainer/TextureRect2"]
 offset_right = 24.0
 offset_bottom = 24.0
-texture = SubResource("AtlasTexture_w5viu")
+texture = SubResource("AtlasTexture_terqw")
 stretch_mode = 3
 
 [node name="TextureRect3" type="TextureRect" parent="Control/Abilities/HBoxContainer"]
 layout_mode = 2
 texture = SubResource("GradientTexture2D_3m3x0")
 
+[node name="TextureRect" type="TextureRect" parent="Control/Abilities/HBoxContainer/TextureRect3"]
+offset_right = 24.0
+offset_bottom = 24.0
+texture = SubResource("AtlasTexture_ea3vn")
+stretch_mode = 3
+
 [node name="TextureRect4" type="TextureRect" parent="Control/Abilities/HBoxContainer"]
 layout_mode = 2
 texture = SubResource("GradientTexture2D_3m3x0")
+
+[node name="TextureRect" type="TextureRect" parent="Control/Abilities/HBoxContainer/TextureRect4"]
+offset_right = 24.0
+offset_bottom = 24.0
+texture = SubResource("AtlasTexture_3m3x0")
+stretch_mode = 3
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
