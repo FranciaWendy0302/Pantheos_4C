@@ -208,4 +208,4 @@ Complete: true"
 script = SubResource("GDScript_xflnv")
 
 [node name="Bomb" parent="." instance=ExtResource("22_wrnjp")]
-position = Vector2(371, 204)
+position = Vector2(366, 196)
