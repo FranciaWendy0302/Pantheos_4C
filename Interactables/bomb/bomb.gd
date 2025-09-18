@@ -42,7 +42,7 @@ func hit_ground() -> void:
 		set_physics_process(false)
 		hurt_box.set_deferred("monitoring", false)
 		hurt_box.did_damage.disconnect(did_damage)
-		hurt_box.body_entered.disconnect(_on_body_entered)
+		wall_detect.body_entered.disconnect(_on_body_entered)
 		area_entered.connect(_on_area_enter)
 		area_exited.connect(_on_area_exit)
 	pass

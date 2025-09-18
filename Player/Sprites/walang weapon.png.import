@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhrvr06e7mpfb"
-path="res://.godot/imported/ExamplePlayerSprite.png-1a0713d9e212d397b05cebe8c8b9b26c.ctex"
+uid="uid://ckdl1n6g12v0p"
+path="res://.godot/imported/walang weapon.png-0dc762212db1b84f03d5c6fe47ba5f3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Sprites/ExamplePlayerSprite.png"
-dest_files=["res://.godot/imported/ExamplePlayerSprite.png-1a0713d9e212d397b05cebe8c8b9b26c.ctex"]
+source_file="res://Player/Sprites/walang weapon.png"
+dest_files=["res://.godot/imported/walang weapon.png-0dc762212db1b84f03d5c6fe47ba5f3b.ctex"]
 
 [params]
 

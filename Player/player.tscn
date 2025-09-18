@@ -1,7 +1,7 @@
-[gd_scene load_steps=99 format=3 uid="uid://dqbr0eswp7hw0"]
+[gd_scene load_steps=103 format=3 uid="uid://dqbr0eswp7hw0"]
 
 [ext_resource type="Script" uid="uid://bb7g3bgolygea" path="res://Player/Scripts/player.gd" id="1_4ntmi"]
-[ext_resource type="Texture2D" uid="uid://dh1sdbep1sp1u" path="res://Player/Sprites/player_sprite.png" id="2_b1ygp"]
+[ext_resource type="Texture2D" uid="uid://ckdl1n6g12v0p" path="res://Player/Sprites/walang weapon.png" id="2_qs4pp"]
 [ext_resource type="Script" uid="uid://bhmhe845fkkrf" path="res://Player/Scripts/player_state_machine.gd" id="3_btcbx"]
 [ext_resource type="Script" uid="uid://bxalum75cpmk4" path="res://Player/Scripts/player_sprite.gd" id="3_i4o1l"]
 [ext_resource type="Texture2D" uid="uid://8xna1klk1bj0" path="res://Player/Sprites/AttackSprite01.png" id="3_vtle1"]
@@ -33,6 +33,7 @@
 [ext_resource type="AudioStream" uid="uid://nil6cyykascs" path="res://Player/Audio/exhausted.wav" id="22_efx54"]
 [ext_resource type="Script" uid="uid://dfvg8h18ooftu" path="res://Player/Scripts/states/state_dash.gd" id="25_c6x0f"]
 [ext_resource type="AudioStream" uid="uid://yvqhs3ghv71c" path="res://Player/Audio/hwaah.wav" id="26_jp1hh"]
+[ext_resource type="Script" uid="uid://cf2d21h8u3ort" path="res://Player/Scripts/states/state_bow.gd" id="27_qs4pp"]
 [ext_resource type="AudioStream" uid="uid://y68loulkf4u3" path="res://Player/Audio/level_up_jingle.wav" id="28_bbimk"]
 [ext_resource type="FontFile" uid="uid://b4rp70lyqgf78" path="res://GUI/fonts/m5x7.ttf" id="30_755ss"]
 [ext_resource type="PackedScene" uid="uid://c36gawtk8y7pm" path="res://GeneralNodes/footstep_audio_2d/footstep_audio_2d.tscn" id="34_j2n6q"]
@@ -1486,12 +1487,66 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_1l10g"]
+resource_name = "bow_down"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [77, 78, 79, 78]
+}
+
+[sub_resource type="Animation" id="Animation_6rl0i"]
+resource_name = "bow_up"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [80, 81, 82, 81]
+}
+
+[sub_resource type="Animation" id="Animation_7x5p2"]
+resource_name = "bow_side"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [83, 84, 85, 84]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_00tjw"]
 _data = {
 &"RESET": SubResource("Animation_btcbx"),
 &"attack_down": SubResource("Animation_00tjw"),
 &"attack_side": SubResource("Animation_apopc"),
 &"attack_up": SubResource("Animation_x3vf3"),
+&"bow_down": SubResource("Animation_1l10g"),
+&"bow_side": SubResource("Animation_7x5p2"),
+&"bow_up": SubResource("Animation_6rl0i"),
 &"carry_down": SubResource("Animation_c6x0f"),
 &"carry_side": SubResource("Animation_jp1hh"),
 &"carry_up": SubResource("Animation_qs4pp"),
@@ -1779,7 +1834,7 @@ debug_color = Color(0, 0.6, 0.7, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -20)
-texture = ExtResource("2_b1ygp")
+texture = ExtResource("2_qs4pp")
 hframes = 16
 vframes = 8
 script = ExtResource("3_i4o1l")
@@ -1915,6 +1970,9 @@ script = ExtResource("25_c6x0f")
 move_speed = 250.0
 effect_delay = 0.05
 dash_audio = ExtResource("26_jp1hh")
+
+[node name="Bow" type="Node" parent="StateMachine"]
+script = ExtResource("27_qs4pp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 editor_draw_limits = true
