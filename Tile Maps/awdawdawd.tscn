@@ -558,17 +558,21 @@ texture_region_size = Vector2i(32, 32)
 12:15/0 = 0
 12:15/0/z_index = -1
 12:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+12:15/0/physics_layer_1/polygon_0/points = PackedVector2Array(-1.97566, -16, 16, -16, 16, 16, -2.54013, 16)
 13:15/0 = 0
 13:15/0/z_index = -1
 13:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+13:15/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -16, 3.66908, -16, 3.10461, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_au5au"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 16
 physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 32
+physics_layer_1/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_7aekl")
 
-[node name="Awdawdawd" type="TileMapLayer"]
+[node name="Awdawdawd" type="TileMapLayer" groups=["tilemaps"]]
 tile_set = SubResource("TileSet_au5au")
 y_sort_origin = 3
 rendering_quadrant_size = 32
