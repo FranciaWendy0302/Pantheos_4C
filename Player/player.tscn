@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://dqbr0eswp7hw0"]
+[gd_scene load_steps=110 format=3 uid="uid://dqbr0eswp7hw0"]
 
 [ext_resource type="Script" uid="uid://bb7g3bgolygea" path="res://Player/Scripts/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://ckdl1n6g12v0p" path="res://Player/Sprites/walang weapon.png" id="2_qs4pp"]
@@ -35,9 +35,14 @@
 [ext_resource type="AudioStream" uid="uid://yvqhs3ghv71c" path="res://Player/Audio/hwaah.wav" id="26_jp1hh"]
 [ext_resource type="Script" uid="uid://cf2d21h8u3ort" path="res://Player/Scripts/states/state_bow.gd" id="27_qs4pp"]
 [ext_resource type="AudioStream" uid="uid://y68loulkf4u3" path="res://Player/Audio/level_up_jingle.wav" id="28_bbimk"]
+[ext_resource type="Script" uid="uid://s0eawjvxxpmc" path="res://Player/Scripts/states/state_grapple.gd" id="28_f4lon"]
+[ext_resource type="AudioStream" uid="uid://b5yck3ruoswp8" path="res://Player/Audio/grapple_fire.wav" id="29_ie76m"]
 [ext_resource type="FontFile" uid="uid://b4rp70lyqgf78" path="res://GUI/fonts/m5x7.ttf" id="30_755ss"]
+[ext_resource type="AudioStream" uid="uid://uaw310y8ib2v" path="res://Player/Audio/grapple_stick.wav" id="30_dy65m"]
+[ext_resource type="AudioStream" uid="uid://67chekwrij1t" path="res://Player/Audio/grapple_clang.wav" id="31_maysp"]
 [ext_resource type="PackedScene" uid="uid://c36gawtk8y7pm" path="res://GeneralNodes/footstep_audio_2d/footstep_audio_2d.tscn" id="34_j2n6q"]
 [ext_resource type="Texture2D" uid="uid://cwnef3pkbp5nm" path="res://Player/Sprites/grapple.png" id="38_iyprq"]
+[ext_resource type="AudioStream" uid="uid://dh1bivgrt3a2q" path="res://Player/Audio/grapple_chain.wav" id="43_1l10g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l8h54"]
 
@@ -1824,6 +1829,9 @@ gravity = Vector3(0, -250, 0)
 color = Color(0, 1, 0.867741, 1)
 color_ramp = SubResource("GradientTexture1D_dy65m")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie76m"]
+size = Vector2(16, 15)
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 24
 motion_mode = 1
@@ -1975,6 +1983,13 @@ dash_audio = ExtResource("26_jp1hh")
 [node name="Bow" type="Node" parent="StateMachine"]
 script = ExtResource("27_qs4pp")
 
+[node name="Grapple" type="Node" parent="StateMachine"]
+script = ExtResource("28_f4lon")
+grapple_speed = 400.0
+grapple_fire_audio = ExtResource("29_ie76m")
+grapple_stick_audio = ExtResource("30_dy65m")
+grapple_bounce_audio = ExtResource("31_maysp")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 editor_draw_limits = true
 script = ExtResource("11_5htga")
@@ -2009,6 +2024,10 @@ script = ExtResource("14_lfmf2")
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_pisgm")
 debug_color = Color(0, 0.7, 0.118, 0)
+
+[node name="GrappleRayCast2D" type="RayCast2D" parent="Interactions"]
+unique_name_in_owner = true
+collision_mask = 48
 
 [node name="HitBox" parent="." instance=ExtResource("13_p5o4e")]
 collision_layer = 2
@@ -2058,14 +2077,35 @@ process_material = SubResource("ParticleProcessMaterial_maysp")
 
 [node name="GrappleHook" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -16)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="GrappleHook"]
 offset_left = -16.0
+offset_top = -14.0
 offset_right = 16.0
-offset_bottom = 25.0
+offset_bottom = 11.0
 texture = ExtResource("38_iyprq")
 patch_margin_top = 16
 patch_margin_bottom = 9
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[node name="Control" type="Control" parent="GrappleHook/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="GrappleHurtBox" parent="GrappleHook/NinePatchRect/Control" instance=ExtResource("10_x3vf3")]
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrappleHook/NinePatchRect/Control/GrappleHurtBox"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_ie76m")
+debug_color = Color(0.7, 0.0419617, 0, 0.42)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GrappleHook"]
+stream = ExtResource("43_1l10g")
