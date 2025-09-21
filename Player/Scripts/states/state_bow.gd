@@ -36,6 +36,6 @@ func Physics(_delta: float) -> State:
 func HandleInput(_event: InputEvent) -> State:
 	return null
 
-func _on_animation_finished(anim_name: String) -> void:
+func _on_animation_finished(_anim_name: String) -> void:
 	next_state = idle
 	pass

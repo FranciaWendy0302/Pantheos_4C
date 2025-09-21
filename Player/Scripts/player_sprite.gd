@@ -9,7 +9,7 @@ func _ready() -> void:
 	PlayerManager.INVENTORY_DATA.equipment_changed.connect(_on_equipment_changed)
 	pass
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	weapon_below.frame = frame
 	weapon_above.frame = frame + FRAME_COUNT
 	pass

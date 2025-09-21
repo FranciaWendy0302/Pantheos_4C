@@ -132,7 +132,7 @@ func interact() -> void:
 	interact_pressed.emit()
 
 func shake_camera(trauma: float = 1) -> void:
-	camera_shook.emit(clampi(trauma, 0, 2))
+	camera_shook.emit(clampf(trauma, 0, 2))
 	
 func _reset_addition_flag() -> void:
 	player_addition_pending = false

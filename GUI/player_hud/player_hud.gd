@@ -20,7 +20,7 @@ var hearts: Array[HeartGUI] = []
 @onready var boss_hp_bar: TextureProgressBar = $Control/BossUI/TextureProgressBar
 @onready var boss_label: Label = $Control/BossUI/Label
 
-@onready var notification: NotificationUI = $Control/Notification
+@onready var notification_ui: NotificationUI = $Control/Notification
 
 
 func _ready():
@@ -119,16 +119,16 @@ func update_boss_health(hp: int, max_hp: int) -> void:
 	pass
 
 func queue_notificaiton(_title: String, _message: String) -> void:
-	notification.add_notification_to_queue(_title, _message)
+	notification_ui.add_notification_to_queue(_title, _message)
 	pass
 
 func update_ability_items(items: Array[String]) -> void:
-	var ability_items: Array[Node] = ability_items.get_children()
-	for i in ability_items.size():
+	var ability_item_nodes: Array[Node] = ability_items.get_children()
+	for i in ability_item_nodes.size():
 		if items[i] == "":
-			ability_items[i].visible = false
+			ability_item_nodes[i].visible = false
 		else:
-			ability_items[i].visible = true
+			ability_item_nodes[i].visible = true
 	pass
 
 func update_ability_ui(ability_index: int) -> void:

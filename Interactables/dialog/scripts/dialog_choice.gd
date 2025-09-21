@@ -32,7 +32,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 		return["Requires at least 2 DialogBranch nodes."]
 	else:
 		return[]
-	pass
 	
 func _check_for_dialog_branches() -> bool:
 	var _count: int = 0

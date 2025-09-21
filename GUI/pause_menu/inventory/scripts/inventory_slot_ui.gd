@@ -19,7 +19,7 @@ func _ready() -> void:
 	button_down.connect(on_button_down)
 	button_up.connect(on_button_up)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if dragging == true:
 		drag_texture.position = get_local_mouse_position() - Vector2(16, 16)
 		if outside_drag_threshold() == true:
