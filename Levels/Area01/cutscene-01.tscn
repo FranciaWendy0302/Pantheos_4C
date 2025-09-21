@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://byfsxmoa7whri"]
+[gd_scene load_steps=17 format=4 uid="uid://byfsxmoa7whri"]
 
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="1_r2s8s"]
 [ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="2_vr22j"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://bl2li7lbphm71" path="res://Interactables/dialog/scripts/dialog_text.gd" id="7_i2ig0"]
 [ext_resource type="Script" uid="uid://fe0b704g3pya" path="res://Interactables/dialog/scripts/cutscene_action_animation.gd" id="8_3368o"]
 [ext_resource type="Resource" uid="uid://b1skfdnqbu6x5" path="res://npc/00_npcs/00_hero.tres" id="8_cl1bk"]
+[ext_resource type="Script" uid="uid://doend7sl5ga0g" path="res://Interactables/dialog/scripts/cutscene_action_move.gd" id="10_3368o"]
+[ext_resource type="PackedScene" uid="uid://cg0kg5d3txb2u" path="res://Props/Plants/plant.tscn" id="12_6smo6"]
 
 [sub_resource type="Animation" id="Animation_pu33i"]
 length = 0.001
@@ -39,7 +41,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 1.0]
+"values": [0.0, 0.5]
 }
 
 [sub_resource type="Animation" id="Animation_cl1bk"]
@@ -55,7 +57,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [0.5, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5d2ms"]
@@ -85,7 +87,8 @@ npc_resource = ExtResource("4_nmhm4")
 script = ExtResource("7_cl1bk")
 metadata/_custom_type_script = "uid://c6scmbmqlcvci"
 
-[node name="CutsceneActionAnimation" type="Node" parent="Npc/DialogInteraction/DialogCutscene" node_paths=PackedStringArray("animation_player")]
+[node name="CutsceneActionAnimation2" type="Node2D" parent="Npc/DialogInteraction/DialogCutscene" node_paths=PackedStringArray("animation_player")]
+position = Vector2(268, 159)
 script = ExtResource("8_3368o")
 animation_player = NodePath("../../../../AnimationPlayer")
 animation_name = "fade_to_black"
@@ -97,6 +100,24 @@ text = "Pogi, wampipti"
 npc_info = ExtResource("4_nmhm4")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
+[node name="DialogCutscene_move" type="Node" parent="Npc/DialogInteraction"]
+script = ExtResource("7_cl1bk")
+metadata/_custom_type_script = "uid://c6scmbmqlcvci"
+
+[node name="CutsceneActionMove" type="Node2D" parent="Npc/DialogInteraction/DialogCutscene_move" node_paths=PackedStringArray("object_to_move")]
+position = Vector2(153, 159)
+script = ExtResource("10_3368o")
+timing_method = 1
+object_to_move = NodePath("../../..")
+move_duration = 1.45
+metadata/_custom_type_script = "uid://doend7sl5ga0g"
+
+[node name="CutsceneActionMove2" type="Node2D" parent="Npc/DialogInteraction/DialogCutscene_move" node_paths=PackedStringArray("object_to_move")]
+position = Vector2(380, 181)
+script = ExtResource("10_3368o")
+object_to_move = NodePath("../../../../Plant")
+metadata/_custom_type_script = "uid://doend7sl5ga0g"
+
 [node name="DialogText2" type="Node" parent="Npc/DialogInteraction"]
 script = ExtResource("7_i2ig0")
 text = "iw, bughdeng"
@@ -107,7 +128,8 @@ metadata/_custom_type_script = "uid://bl2li7lbphm71"
 script = ExtResource("7_cl1bk")
 metadata/_custom_type_script = "uid://c6scmbmqlcvci"
 
-[node name="CutsceneActionAnimation" type="Node" parent="Npc/DialogInteraction/DialogCutscene2" node_paths=PackedStringArray("animation_player")]
+[node name="CutsceneActionAnimation3" type="Node2D" parent="Npc/DialogInteraction/DialogCutscene2" node_paths=PackedStringArray("animation_player")]
+position = Vector2(268, 159)
 script = ExtResource("8_3368o")
 animation_player = NodePath("../../../../AnimationPlayer")
 animation_name = "fade_to_normal"
@@ -127,3 +149,6 @@ libraries = {
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.0
 blend_mode = 1
+
+[node name="Plant" parent="." instance=ExtResource("12_6smo6")]
+position = Vector2(383, 62)
