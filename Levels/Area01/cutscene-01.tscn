@@ -1,0 +1,129 @@
+[gd_scene load_steps=15 format=4 uid="uid://byfsxmoa7whri"]
+
+[ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="1_r2s8s"]
+[ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="2_vr22j"]
+[ext_resource type="PackedScene" uid="uid://coftgxw6k42r3" path="res://npc/npc.tscn" id="3_8r7rf"]
+[ext_resource type="Resource" uid="uid://c5bbuxfhxnm0y" path="res://npc/00_npcs/npc_01.tres" id="4_nmhm4"]
+[ext_resource type="PackedScene" uid="uid://dosl0mby5d7y4" path="res://npc/npc_behavior_wander.tscn" id="5_davio"]
+[ext_resource type="PackedScene" uid="uid://dnj4pmnybsajr" path="res://Interactables/dialog/dialog_interaction.tscn" id="6_0yfyx"]
+[ext_resource type="Script" uid="uid://c6scmbmqlcvci" path="res://Interactables/dialog/scripts/dialog_cutscene.gd" id="7_cl1bk"]
+[ext_resource type="Script" uid="uid://bl2li7lbphm71" path="res://Interactables/dialog/scripts/dialog_text.gd" id="7_i2ig0"]
+[ext_resource type="Script" uid="uid://fe0b704g3pya" path="res://Interactables/dialog/scripts/cutscene_action_animation.gd" id="8_3368o"]
+[ext_resource type="Resource" uid="uid://b1skfdnqbu6x5" path="res://npc/00_npcs/00_hero.tres" id="8_cl1bk"]
+
+[sub_resource type="Animation" id="Animation_pu33i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6smo6"]
+resource_name = "fade_to_black"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_cl1bk"]
+resource_name = "fade_to_normal"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5d2ms"]
+_data = {
+&"RESET": SubResource("Animation_pu33i"),
+&"fade_to_black": SubResource("Animation_6smo6"),
+&"fade_to_normal": SubResource("Animation_cl1bk")
+}
+
+[node name="Cutscene-01" type="Node2D"]
+
+[node name="Grass-01" parent="." instance=ExtResource("1_r2s8s")]
+tile_map_data = PackedByteArray("AAAPAP7/AAAIAAYAADAPAP//AAAIAAUAADAOAP7/AAACAAYAADAOAP//AAACAAUAADANAP7/AAADAAYAADANAP//AAADAAUAADAMAP7/AAAEAAYAADAMAP//AAAEAAUAADALAP7/AAACAAYAADALAP//AAACAAUAADAKAP7/AAADAAYAADAKAP//AAADAAUAADAJAP7/AAAEAAYAADAJAP//AAAEAAUAADAIAP7/AAACAAYAADAIAP//AAACAAUAADAHAP7/AAADAAYAADAHAP//AAADAAUAADAGAP7/AAAEAAYAADAGAP//AAAEAAUAADAFAP7/AAACAAYAADAFAP//AAACAAUAADAEAP7/AAADAAYAADAEAP//AAADAAUAADADAP7/AAAEAAYAADADAP//AAAEAAUAADACAP7/AAACAAYAADACAP//AAACAAUAADABAP7/AAADAAYAADABAP//AAADAAUAADAAAP7/AAAEAAYAADAAAP//AAAEAAUAADD///7/AAAHAAYAADD/////AAAHAAUAADAOAAAAAAAKAAQAAAAOAAEAAAAKAAUAAAAPAAAAAAALAAQAAAAPAAEAAAALAAUAAAAPAAgAAAALAAUAACAPAAkAAAALAAQAACAOAAgAAAAKAAUAACAOAAkAAAAKAAQAACAOAAcAAAAOAAUAADAOAAYAAAAOAAUAADAOAAUAAAAOAAUAADAOAAQAAAAOAAUAADAOAAMAAAAOAAUAADAOAAIAAAAOAAUAADAPAAcAAAAMAAUAAAAPAAYAAAAMAAUAAAAPAAUAAAAMAAUAAAAPAAQAAAAMAAUAAAAPAAMAAAAMAAUAAAAPAAIAAAAMAAUAAAAPAAoAAAAMAAQAAAAOAAoAAAAMAAQAAAANAAoAAAAMAAQAAAAMAAoAAAAMAAQAAAALAAoAAAAMAAQAAAAKAAoAAAAMAAQAAAAJAAoAAAAMAAQAAAAIAAoAAAAMAAQAAAAHAAoAAAAMAAQAAAAGAAoAAAAMAAQAAAAFAAoAAAAMAAQAAAAEAAoAAAAMAAQAAAADAAoAAAAMAAQAAAACAAoAAAAMAAQAAAABAAoAAAAMAAQAAAAAAAoAAAAMAAQAAAD//wAAAAAOAAcAAGD//wEAAAANAAcAAGD+/wAAAAAOAAYAAGD+/wEAAAANAAYAAGD//wkAAAANAAcAAED//woAAAAOAAcAAED+/wkAAAANAAYAAED+/woAAAAOAAYAAED//wgAAAAMAAcAAGD+/wgAAAAMAAYAAGD//wcAAAAMAAcAAGD+/wcAAAAMAAYAAGD//wYAAAAMAAcAAGD+/wYAAAAMAAYAAGD//wUAAAAMAAcAAGD+/wUAAAAMAAYAAGD//wQAAAAMAAcAAGD+/wQAAAAMAAYAAGD//wMAAAAMAAcAAGD+/wMAAAAMAAYAAGD//wIAAAAMAAcAAGD+/wIAAAAMAAYAAGAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAIAAAAAAAMAAAAAAAMAAAABAAAAAAABAAAAAAABAAEAAAABAAEAAAABAAIAAAABAAIAAAABAAMAAAABAAMAAAACAAAAAAACAAAAAAACAAEAAAACAAEAAAACAAIAAAACAAIAAAACAAMAAAACAAMAAAADAAAAAAADAAAAAAADAAEAAAADAAEAAAADAAIAAAADAAIAAAADAAMAAAADAAMAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAEAAAAAAAYAAAAAAAIAAAAAAAcAAAAAAAMAAAABAAQAAAABAAAAAAABAAUAAAACAAIAAAABAAYAAAABAAIAAAABAAcAAAACAAEAAAACAAQAAAACAAEAAAACAAUAAAACAAIAAAACAAYAAAABAAEAAAACAAcAAAACAAEAAAADAAQAAAADAAAAAAADAAUAAAACAAEAAAADAAYAAAADAAIAAAADAAcAAAADAAMAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAEAAAABAAgAAAABAAAAAAABAAkAAAACAAIAAAACAAgAAAACAAAAAAACAAkAAAACAAIAAAADAAgAAAADAAAAAAADAAkAAAACAAEAAAAEAAAAAAAAAAAAAAAEAAEAAAACAAEAAAAEAAIAAAAAAAIAAAAEAAMAAAACAAEAAAAFAAAAAAACAAIAAAAFAAEAAAACAAIAAAAFAAIAAAABAAIAAAAFAAMAAAACAAEAAAAGAAAAAAACAAAAAAAGAAEAAAACAAIAAAAGAAIAAAACAAIAAAAGAAMAAAACAAMAAAAHAAAAAAADAAAAAAAHAAEAAAABAAEAAAAHAAIAAAADAAIAAAAHAAMAAAADAAMAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAEAAAAEAAYAAAAAAAIAAAAEAAcAAAAAAAMAAAAFAAQAAAABAAAAAAAFAAUAAAACAAIAAAAFAAYAAAABAAIAAAAFAAcAAAABAAMAAAAGAAQAAAACAAAAAAAGAAUAAAACAAIAAAAGAAYAAAACAAIAAAAGAAcAAAACAAMAAAAHAAQAAAABAAEAAAAHAAUAAAADAAEAAAAHAAYAAAADAAIAAAAHAAcAAAABAAEAAAAEAAgAAAAAAAAAAAAEAAkAAAACAAIAAAAFAAgAAAABAAAAAAAFAAkAAAACAAEAAAAGAAgAAAACAAAAAAAGAAkAAAACAAIAAAAHAAgAAAADAAAAAAAHAAkAAAADAAEAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAEAAAAIAAIAAAACAAEAAAAIAAMAAAAAAAMAAAAJAAAAAAABAAAAAAAJAAEAAAACAAIAAAAJAAIAAAACAAEAAAAJAAMAAAABAAMAAAAKAAAAAAACAAAAAAAKAAEAAAACAAEAAAAKAAIAAAACAAEAAAAKAAMAAAACAAMAAAALAAAAAAADAAAAAAALAAEAAAACAAIAAAALAAIAAAACAAEAAAALAAMAAAADAAMAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAEAAAAIAAYAAAAAAAIAAAAIAAcAAAACAAEAAAAJAAQAAAABAAAAAAAJAAUAAAACAAIAAAAJAAYAAAABAAIAAAAJAAcAAAABAAMAAAAKAAQAAAACAAAAAAAKAAUAAAACAAIAAAAKAAYAAAACAAIAAAAKAAcAAAACAAMAAAALAAQAAAADAAAAAAALAAUAAAACAAEAAAALAAYAAAADAAIAAAALAAcAAAADAAMAAAAIAAgAAAAAAAAAAAAIAAkAAAAAAAEAAAAJAAgAAAABAAAAAAAJAAkAAAACAAIAAAAKAAgAAAACAAAAAAAKAAkAAAACAAEAAAALAAgAAAACAAEAAAALAAkAAAACAAEAAAAMAAAAAAAAAAAAAAAMAAEAAAABAAEAAAAMAAIAAAAAAAIAAAAMAAMAAAAAAAMAAAANAAAAAAABAAAAAAANAAEAAAACAAIAAAANAAIAAAABAAIAAAANAAMAAAABAAMAAAAMAAQAAAAAAAAAAAAMAAUAAAABAAEAAAAMAAYAAAAAAAIAAAAMAAcAAAAAAAMAAAANAAQAAAABAAAAAAANAAUAAAABAAEAAAANAAYAAAABAAIAAAANAAcAAAABAAMAAAAMAAgAAAAAAAAAAAAMAAkAAAABAAEAAAANAAgAAAABAAAAAAANAAkAAAACAAIAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAA=")
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("2_vr22j")]
+position = Vector2(135, 167)
+
+[node name="Npc" parent="." instance=ExtResource("3_8r7rf")]
+position = Vector2(268, 159)
+npc_resource = ExtResource("4_nmhm4")
+
+[node name="NpcWanderBehavior" parent="Npc" instance=ExtResource("5_davio")]
+
+[node name="DialogInteraction" parent="Npc" instance=ExtResource("6_0yfyx")]
+
+[node name="DialogCutscene" type="Node" parent="Npc/DialogInteraction"]
+script = ExtResource("7_cl1bk")
+metadata/_custom_type_script = "uid://c6scmbmqlcvci"
+
+[node name="CutsceneActionAnimation" type="Node" parent="Npc/DialogInteraction/DialogCutscene" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("8_3368o")
+animation_player = NodePath("../../../../AnimationPlayer")
+animation_name = "fade_to_black"
+metadata/_custom_type_script = "uid://fe0b704g3pya"
+
+[node name="DialogText" type="Node" parent="Npc/DialogInteraction"]
+script = ExtResource("7_i2ig0")
+text = "Pogi, wampipti"
+npc_info = ExtResource("4_nmhm4")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="DialogText2" type="Node" parent="Npc/DialogInteraction"]
+script = ExtResource("7_i2ig0")
+text = "iw, bughdeng"
+npc_info = ExtResource("8_cl1bk")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="DialogCutscene2" type="Node" parent="Npc/DialogInteraction"]
+script = ExtResource("7_cl1bk")
+metadata/_custom_type_script = "uid://c6scmbmqlcvci"
+
+[node name="CutsceneActionAnimation" type="Node" parent="Npc/DialogInteraction/DialogCutscene2" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("8_3368o")
+animation_player = NodePath("../../../../AnimationPlayer")
+animation_name = "fade_to_normal"
+metadata/_custom_type_script = "uid://fe0b704g3pya"
+
+[node name="DialogText3" type="Node" parent="Npc/DialogInteraction"]
+script = ExtResource("7_i2ig0")
+text = "juts pwe"
+npc_info = ExtResource("4_nmhm4")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5d2ms")
+}
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.0
+blend_mode = 1

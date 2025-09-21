@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dpn1n1klrstr8" path="res://npc/sprites/portraits/hero_portrait.png" id="1_rn6jh"]
 [ext_resource type="Script" uid="uid://nx5jmlnxf0lk" path="res://npc/scripts/npc_resource.gd" id="2_wdi7j"]
-[ext_resource type="Texture2D" uid="uid://dqagj8pbso3go" path="res://Player/Sprites/PlayerSprite02.png" id="3_wdi7j"]
+[ext_resource type="Texture2D" uid="uid://bdj3657bs8tly" path="res://Player/Sprites/PlayerSprite02.png" id="3_wdi7j"]
 
 [resource]
 resource_local_to_scene = true

@@ -14,8 +14,10 @@ var dialog_items: Array[DialogItem]
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+		
 	area_entered.connect(_on_area_enter)
 	area_exited.connect(_on_area_exit)
+	
 	for c in get_children():
 		if c is DialogItem:
 			dialog_items.append(c)

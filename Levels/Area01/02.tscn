@@ -31,7 +31,7 @@
 [ext_resource type="Resource" uid="uid://c323do107sun2" path="res://Items/ability_bomb.tres" id="29_dffud"]
 [ext_resource type="Resource" uid="uid://cp275ob2pk0r1" path="res://Items/ability_grapple.tres" id="30_mdb57"]
 
-[sub_resource type="Resource" id="Resource_a2klq"]
+[sub_resource type="Resource" id="Resource_vv7nh"]
 resource_local_to_scene = true
 script = ExtResource("11_d1jyu")
 npc_name = "Red Man"
@@ -93,7 +93,7 @@ side = 2
 
 [node name="Npc_REDMAN" parent="." instance=ExtResource("9_wrnjp")]
 position = Vector2(414, 134.074)
-npc_resource = SubResource("Resource_a2klq")
+npc_resource = SubResource("Resource_vv7nh")
 
 [node name="QuestActivatedSwitch" parent="Npc_REDMAN" instance=ExtResource("15_45xa8")]
 remove_when_activated = true

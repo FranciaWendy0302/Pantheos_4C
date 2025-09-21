@@ -60,7 +60,8 @@ func load_game() -> void:
 	p.attack = current_save.player.attack
 	p.xp = current_save.player.xp
 	p.defense = current_save.player.defense
-	
+	p.arrow_count = current_save.player.arrow_count
+	p.bomb_count = current_save.player.bomb_count
 	PlayerManager.INVENTORY_DATA.parse_save_data(current_save.items)
 	QuestManager.current_quests = current_save.quests
 	
