@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://4yxf2onemxsb"]
+[gd_scene load_steps=33 format=4 uid="uid://4yxf2onemxsb"]
 
 [ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_x70af"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="2_tek06"]
@@ -25,6 +25,11 @@
 [ext_resource type="Script" uid="uid://b1mjvc00tsgmu" path="res://quests/utility_nodes/quest_activated_switch.gd" id="23_xflnv"]
 [ext_resource type="Resource" uid="uid://bx0ttpbkqqfog" path="res://Items/bomb.tres" id="24_0j6pc"]
 [ext_resource type="PackedScene" uid="uid://b8gdfx3a0fpv3" path="res://Interactables/grapple_post/grapple_post.tscn" id="25_a2klq"]
+[ext_resource type="PackedScene" uid="uid://bs2uqrwhvxqjr" path="res://Interactables/TreasureChest/treasure-chest.tscn" id="26_0j6pc"]
+[ext_resource type="Resource" uid="uid://cfmjdhsmy8ela" path="res://Items/ability_boomerang.tres" id="27_vv7nh"]
+[ext_resource type="Resource" uid="uid://cxlc5fo2e6bbg" path="res://Items/ability_arrow.tres" id="28_s3up8"]
+[ext_resource type="Resource" uid="uid://c323do107sun2" path="res://Items/ability_bomb.tres" id="29_dffud"]
+[ext_resource type="Resource" uid="uid://cp275ob2pk0r1" path="res://Items/ability_grapple.tres" id="30_mdb57"]
 
 [sub_resource type="Resource" id="Resource_a2klq"]
 resource_local_to_scene = true
@@ -225,3 +230,19 @@ position = Vector2(60, 398)
 
 [node name="GrapplePost3" parent="." instance=ExtResource("25_a2klq")]
 position = Vector2(1, 268)
+
+[node name="Treasure-chest" parent="." instance=ExtResource("26_0j6pc")]
+position = Vector2(180, 156)
+item_data = ExtResource("27_vv7nh")
+
+[node name="Treasure-chest5" parent="." instance=ExtResource("26_0j6pc")]
+position = Vector2(219, 156)
+item_data = ExtResource("28_s3up8")
+
+[node name="Treasure-chest3" parent="." instance=ExtResource("26_0j6pc")]
+position = Vector2(256, 156)
+item_data = ExtResource("29_dffud")
+
+[node name="Treasure-chest4" parent="." instance=ExtResource("26_0j6pc")]
+position = Vector2(293, 156)
+item_data = ExtResource("30_mdb57")
