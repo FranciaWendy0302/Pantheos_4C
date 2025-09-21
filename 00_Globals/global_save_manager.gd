@@ -16,6 +16,8 @@ var current_save: Dictionary = {
 		defense = 1,
 		pos_x = 0,
 		pos_y = 0,
+		arrow_count = 0,
+		bomb_count = 0
 	},
 	items = [],
 	persistence = [],
@@ -77,6 +79,8 @@ func update_player_data() -> void:
 	current_save.player.xp = p.xp
 	current_save.player.attack = p.attack
 	current_save.player.defense = p.defense
+	current_save.player.arrow_count = p.arrow_count
+	current_save.player.bomb_count = p.bomb_count
 	current_save.abilities = p.player_abilities.abilities
 	
 func update_scene_path() -> void:

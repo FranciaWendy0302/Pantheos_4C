@@ -1948,7 +1948,6 @@ script = ExtResource("4_gwnis")
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("5_k53q1")
-move_speed = 200.0
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("6_fhl08")
@@ -1985,6 +1984,7 @@ script = ExtResource("27_qs4pp")
 
 [node name="Grapple" type="Node" parent="StateMachine"]
 script = ExtResource("28_f4lon")
+grapple_distance = 150.0
 grapple_speed = 400.0
 grapple_fire_audio = ExtResource("29_ie76m")
 grapple_stick_audio = ExtResource("30_dy65m")
