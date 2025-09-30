@@ -368,6 +368,18 @@ horizontal_alignment = 1
 autowrap_mode = 2
 clip_text = true
 
+[node name="Button_Close_Inventory" type="Button" parent="Control/TabContainer/Inventory"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 150.0
+offset_top = 183.0
+offset_right = 224.0
+offset_bottom = 209.0
+grow_horizontal = 2
+text = "Close"
+
 [node name="Quest" type="Control" parent="Control/TabContainer"]
 visible = false
 layout_mode = 2
@@ -426,6 +438,18 @@ layout_mode = 2
 [node name="QuestStepItem" parent="Control/TabContainer/Quest/VBoxContainer" instance=ExtResource("10_40d0i")]
 layout_mode = 2
 
+[node name="Button_Close_Quest" type="Button" parent="Control/TabContainer/Quest"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 150.0
+offset_top = 183.0
+offset_right = 224.0
+offset_bottom = 209.0
+grow_horizontal = 2
+text = "Close"
+
 [node name="System" type="Control" parent="Control/TabContainer"]
 visible = false
 layout_mode = 2
@@ -459,6 +483,11 @@ text = "Load"
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 text = "Quit"
+
+[node name="Button_Close" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Close"
 
 [node name="Label" type="Label" parent="Control"]
 layout_mode = 1

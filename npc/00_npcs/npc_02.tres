@@ -7,7 +7,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("2_7c467")
-npc_name = "Red Man"
+npc_name = "Magical Man"
 sprite = ExtResource("3_7c467")
 portrait = ExtResource("1_3liqj")
 dialog_audio_pitch = 1.0

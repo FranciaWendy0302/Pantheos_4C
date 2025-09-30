@@ -1,7 +1,7 @@
 [gd_scene load_steps=110 format=3 uid="uid://dqbr0eswp7hw0"]
 
 [ext_resource type="Script" uid="uid://bb7g3bgolygea" path="res://Player/Scripts/player.gd" id="1_4ntmi"]
-[ext_resource type="Texture2D" uid="uid://ckdl1n6g12v0p" path="res://Player/Sprites/walang weapon.png" id="2_qs4pp"]
+[ext_resource type="Texture2D" uid="uid://ohe3lmq8bcso" path="res://Player/Sprites/crossbow.png" id="2_ie76m"]
 [ext_resource type="Script" uid="uid://bhmhe845fkkrf" path="res://Player/Scripts/player_state_machine.gd" id="3_btcbx"]
 [ext_resource type="Script" uid="uid://bxalum75cpmk4" path="res://Player/Scripts/player_sprite.gd" id="3_i4o1l"]
 [ext_resource type="Texture2D" uid="uid://8xna1klk1bj0" path="res://Player/Sprites/AttackSprite01.png" id="3_vtle1"]
@@ -1843,7 +1843,7 @@ debug_color = Color(0, 0.6, 0.7, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -20)
-texture = ExtResource("2_qs4pp")
+texture = ExtResource("2_ie76m")
 hframes = 16
 vframes = 8
 script = ExtResource("3_i4o1l")

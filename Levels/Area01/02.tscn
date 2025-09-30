@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://4yxf2onemxsb"]
+[gd_scene load_steps=35 format=4 uid="uid://4yxf2onemxsb"]
 
 [ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_x70af"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="2_tek06"]
@@ -30,8 +30,10 @@
 [ext_resource type="Resource" uid="uid://cxlc5fo2e6bbg" path="res://Items/ability_arrow.tres" id="28_s3up8"]
 [ext_resource type="Resource" uid="uid://c323do107sun2" path="res://Items/ability_bomb.tres" id="29_dffud"]
 [ext_resource type="Resource" uid="uid://cp275ob2pk0r1" path="res://Items/ability_grapple.tres" id="30_mdb57"]
+[ext_resource type="Resource" uid="uid://bhppf8j7asawa" path="res://Items/w_katana.tres" id="31_s3up8"]
+[ext_resource type="Resource" uid="uid://bmqpuqox8w5lj" path="res://Items/a_leather_jacket.tres" id="32_dffud"]
 
-[sub_resource type="Resource" id="Resource_vv7nh"]
+[sub_resource type="Resource" id="Resource_dffud"]
 resource_local_to_scene = true
 script = ExtResource("11_d1jyu")
 npc_name = "Red Man"
@@ -91,37 +93,37 @@ collision_mask = 4
 level = "uid://if8xb4s300aj"
 side = 2
 
-[node name="Npc_REDMAN" parent="." instance=ExtResource("9_wrnjp")]
+[node name="NPC" parent="." instance=ExtResource("9_wrnjp")]
 position = Vector2(414, 134.074)
-npc_resource = SubResource("Resource_vv7nh")
+npc_resource = SubResource("Resource_dffud")
 
-[node name="QuestActivatedSwitch" parent="Npc_REDMAN" instance=ExtResource("15_45xa8")]
+[node name="QuestActivatedSwitch" parent="NPC" instance=ExtResource("15_45xa8")]
 remove_when_activated = true
 linked_quest = ExtResource("16_sbev4")
 settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Checking if Player has quest"
 
-[node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch" instance=ExtResource("17_vv7nh")]
+[node name="DialogInteraction" parent="NPC/QuestActivatedSwitch" instance=ExtResource("17_vv7nh")]
 
-[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction"]
+[node name="DialogText" type="Node" parent="NPC/QuestActivatedSwitch/DialogInteraction"]
 script = ExtResource("18_s3up8")
-text = "Oy, magiting na tagapagligtas, maaari mo ba akong tulungan kunin ang flute ko sa dark dungeon?"
+text = "Oh, brave savior, can you help me retrieve my flute from the dark dungeon?"
 npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
-[node name="DialogChoice" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction"]
+[node name="DialogChoice" type="Node" parent="NPC/QuestActivatedSwitch/DialogInteraction"]
 script = ExtResource("20_mdb57")
 npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://dqede62fqybid"
 
-[node name="DialogBranch" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
+[node name="DialogBranch" type="Node" parent="NPC/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
 script = ExtResource("21_gm670")
-text = "Sige!"
+text = "Yes, I’ll help you retrieve your flute."
 npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://c1vxl5di4hfss"
 
-[node name="QuestAdvanceTrigger" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch" instance=ExtResource("22_fw76p")]
+[node name="QuestAdvanceTrigger" parent="NPC/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch" instance=ExtResource("22_fw76p")]
 position = Vector2(414, 126)
 signal_name = "selected"
 linked_quest = ExtResource("16_sbev4")
@@ -130,25 +132,25 @@ Quest: Recover Lost Flute
 Step: 0 - N/A
 Complete: false"
 
-[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch"]
+[node name="DialogText" type="Node" parent="NPC/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch"]
 script = ExtResource("18_s3up8")
-text = "Salamat at Ingat ka, mwa mwa!"
+text = "Thank you! Please hurry before the darkness grows."
 npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
-[node name="DialogBranch2" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
+[node name="DialogBranch2" type="Node" parent="NPC/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
 script = ExtResource("21_gm670")
-text = "Nahhh.."
+text = "No, the dungeon is too dangerous for me."
 npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://c1vxl5di4hfss"
 
-[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch2"]
+[node name="DialogText" type="Node" parent="NPC/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch2"]
 script = ExtResource("18_s3up8")
-text = "Madamot amp!"
+text = "I see… I’ll wait if you change your mind."
 npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
-[node name="QuestActivatedSwitch3" type="Node" parent="Npc_REDMAN"]
+[node name="QuestActivatedSwitch3" type="Node" parent="NPC"]
 script = ExtResource("23_xflnv")
 check_type = 2
 remove_when_activated = true
@@ -159,7 +161,7 @@ Quest: Recover Lost Flute
 Check if Player is on step: N/A"
 metadata/_custom_type_script = "uid://b1mjvc00tsgmu"
 
-[node name="QuestActivatedSwitch2" parent="Npc_REDMAN/QuestActivatedSwitch3" instance=ExtResource("15_45xa8")]
+[node name="QuestActivatedSwitch2" parent="NPC/QuestActivatedSwitch3" instance=ExtResource("15_45xa8")]
 position = Vector2(414, 126)
 react_to_global_signal = true
 linked_quest = ExtResource("16_sbev4")
@@ -167,7 +169,7 @@ settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Checking if Player has quest"
 
-[node name="QuestActivatedSwitch3" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2" instance=ExtResource("15_45xa8")]
+[node name="QuestActivatedSwitch3" parent="NPC/QuestActivatedSwitch3/QuestActivatedSwitch2" instance=ExtResource("15_45xa8")]
 check_type = 2
 remove_when_activated = true
 react_to_global_signal = true
@@ -177,15 +179,15 @@ settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Check if Player is on step: go back to red man"
 
-[node name="DialogInteraction" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch3" instance=ExtResource("17_vv7nh")]
+[node name="DialogInteraction" parent="NPC/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch3" instance=ExtResource("17_vv7nh")]
 
-[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch3/DialogInteraction"]
+[node name="DialogText" type="Node" parent="NPC/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch3/DialogInteraction"]
 script = ExtResource("18_s3up8")
 text = "Salamat at tinanggap mo ang aking hiling. Mag-iingat ka, magiting na mandirigma!"
 npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
-[node name="QuestActivatedSwitch" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2" instance=ExtResource("15_45xa8")]
+[node name="QuestActivatedSwitch" parent="NPC/QuestActivatedSwitch3/QuestActivatedSwitch2" instance=ExtResource("15_45xa8")]
 check_type = 1
 react_to_global_signal = true
 linked_quest = ExtResource("16_sbev4")
@@ -194,15 +196,15 @@ settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Checking if Player has completed step: find the flute"
 
-[node name="DialogInteraction2" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch" instance=ExtResource("17_vv7nh")]
+[node name="DialogInteraction2" parent="NPC/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch" instance=ExtResource("17_vv7nh")]
 
-[node name="DialogText" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2"]
+[node name="DialogText" type="Node" parent="NPC/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2"]
 script = ExtResource("18_s3up8")
 text = "Salamat sa pagbalik ng aking Magical Flute. Ito ang iyong Reward"
 npc_info = ExtResource("19_dffud")
 metadata/_custom_type_script = "uid://bl2li7lbphm71"
 
-[node name="QuestAdvanceTrigger" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2" instance=ExtResource("22_fw76p")]
+[node name="QuestAdvanceTrigger" parent="NPC/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2" instance=ExtResource("22_fw76p")]
 signal_name = "finished"
 linked_quest = ExtResource("16_sbev4")
 quest_step = 3
@@ -212,7 +214,7 @@ Quest: Recover Lost Flute
 Step: 3 - go back to red man
 Complete: true"
 
-[node name="Node" type="Node" parent="Npc_REDMAN/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2/QuestAdvanceTrigger"]
+[node name="Node" type="Node" parent="NPC/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2/QuestAdvanceTrigger"]
 script = SubResource("GDScript_xflnv")
 
 [node name="ItemPickup" parent="." instance=ExtResource("22_d1jyu")]
@@ -246,3 +248,13 @@ item_data = ExtResource("29_dffud")
 [node name="Treasure-chest4" parent="." instance=ExtResource("26_0j6pc")]
 position = Vector2(293, 156)
 item_data = ExtResource("30_mdb57")
+
+[node name="ItemPickup3" parent="." instance=ExtResource("22_d1jyu")]
+position = Vector2(391, 194)
+item_data = ExtResource("31_s3up8")
+item_count = 1
+
+[node name="ItemPickup4" parent="." instance=ExtResource("22_d1jyu")]
+position = Vector2(430, 194)
+item_data = ExtResource("32_dffud")
+item_count = 1
