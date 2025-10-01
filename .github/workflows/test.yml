@@ -21,10 +21,11 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Setup Godot ${{ matrix.godot-version }}
-      uses: abarichello/godot-ci@master
-      with:
-        godot-version: ${{ matrix.godot-version }}
-        platform: 'linux'
+      run: |
+        wget -q https://downloads.tuxfamily.org/godotengine/${{ matrix.godot-version }}/Godot_v${{ matrix.godot-version }}-stable_linux.x86_64.zip
+        unzip Godot_v${{ matrix.godot-version }}-stable_linux.x86_64.zip
+        sudo mv Godot_v${{ matrix.godot-version }}-stable_linux.x86_64 /usr/local/bin/godot
+        sudo chmod +x /usr/local/bin/godot
         
     - name: Verify GdUnit4 Plugin
       run: |
@@ -81,10 +82,11 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Setup Godot
-      uses: abarichello/godot-ci@master
-      with:
-        godot-version: '4.4'
-        platform: 'linux'
+      run: |
+        wget -q https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_linux.x86_64.zip
+        unzip Godot_v4.4-stable_linux.x86_64.zip
+        sudo mv Godot_v4.4-stable_linux.x86_64 /usr/local/bin/godot
+        sudo chmod +x /usr/local/bin/godot
         
     - name: Run Tests with Coverage
       run: |
