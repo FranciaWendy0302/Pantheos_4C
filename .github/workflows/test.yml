@@ -10,7 +10,7 @@ on:
 jobs:
   test-suite:
     name: Run Test Suite
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     strategy:
       matrix:
@@ -22,17 +22,17 @@ jobs:
       
     - name: Setup Godot ${{ matrix.godot-version }}
       run: |
-        wget -q https://downloads.tuxfamily.org/godotengine/${{ matrix.godot-version }}/Godot_v${{ matrix.godot-version }}-stable_linux.x86_64.zip
-        unzip Godot_v${{ matrix.godot-version }}-stable_linux.x86_64.zip
-        sudo mv Godot_v${{ matrix.godot-version }}-stable_linux.x86_64 /usr/local/bin/godot
-        sudo chmod +x /usr/local/bin/godot
+        Invoke-WebRequest -Uri "https://downloads.tuxfamily.org/godotengine/${{ matrix.godot-version }}/Godot_v${{ matrix.godot-version }}-stable_win64.exe.zip" -OutFile "godot.zip"
+        Expand-Archive -Path "godot.zip" -DestinationPath "godot"
+        $env:PATH += ";$PWD/godot"
+        echo "$PWD/godot" >> $env:GITHUB_PATH
         
     - name: Verify GdUnit4 Plugin
       run: |
         echo "Checking GdUnit4 plugin installation..."
-        ls -la addons/gdUnit4/
+        ls addons/gdUnit4/
         echo "Plugin config:"
-        cat addons/gdUnit4/plugin.cfg
+        Get-Content addons/gdUnit4/plugin.cfg
         
     - name: Run Custom Test Runner
       run: |
@@ -59,8 +59,8 @@ jobs:
       if: always()
       run: |
         echo "Test execution completed for Godot ${{ matrix.godot-version }}"
-        echo "## Test Results for Godot ${{ matrix.godot-version }}" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Tests executed successfully" >> $GITHUB_STEP_SUMMARY
+        echo "## Test Results for Godot ${{ matrix.godot-version }}" >> $env:GITHUB_STEP_SUMMARY
+        echo "- ✅ Tests executed successfully" >> $env:GITHUB_STEP_SUMMARY
         
     - name: Upload Test Results
       if: always()
@@ -74,7 +74,7 @@ jobs:
 
   test-coverage:
     name: Test Coverage Analysis
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: test-suite
     
     steps:
@@ -83,10 +83,10 @@ jobs:
       
     - name: Setup Godot
       run: |
-        wget -q https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_linux.x86_64.zip
-        unzip Godot_v4.4-stable_linux.x86_64.zip
-        sudo mv Godot_v4.4-stable_linux.x86_64 /usr/local/bin/godot
-        sudo chmod +x /usr/local/bin/godot
+        Invoke-WebRequest -Uri "https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_win64.exe.zip" -OutFile "godot.zip"
+        Expand-Archive -Path "godot.zip" -DestinationPath "godot"
+        $env:PATH += ";$PWD/godot"
+        echo "$PWD/godot" >> $env:GITHUB_PATH
         
     - name: Run Tests with Coverage
       run: |
@@ -97,15 +97,15 @@ jobs:
         
     - name: Generate Coverage Report
       run: |
-        echo "## Test Coverage Summary" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Player System**: 4 tests" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Player Manager**: 5 tests" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Enemy System**: 4 tests" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Inventory System**: 4 tests" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Quest System**: 5 tests" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Save System**: 3 tests" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Item System**: 2 tests" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Integration Tests**: 2 tests" >> $GITHUB_STEP_SUMMARY
-        echo "- 🧪 **Edge Case Tests**: 3 tests" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "**Total**: 32+ test cases covering all major game systems" >> $GITHUB_STEP_SUMMARY
+        echo "## Test Coverage Summary" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Player System**: 4 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Player Manager**: 5 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Enemy System**: 4 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Inventory System**: 4 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Quest System**: 5 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Save System**: 3 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Item System**: 2 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Integration Tests**: 2 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "- 🧪 **Edge Case Tests**: 3 tests" >> $env:GITHUB_STEP_SUMMARY
+        echo "" >> $env:GITHUB_STEP_SUMMARY
+        echo "**Total**: 32+ test cases covering all major game systems" >> $env:GITHUB_STEP_SUMMARY

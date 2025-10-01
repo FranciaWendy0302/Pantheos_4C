@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Run Tests
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     steps:
     - name: Checkout code
@@ -17,10 +17,10 @@ jobs:
       
     - name: Setup Godot
       run: |
-        wget -q https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_linux.x86_64.zip
-        unzip Godot_v4.4-stable_linux.x86_64.zip
-        sudo mv Godot_v4.4-stable_linux.x86_64 /usr/local/bin/godot
-        sudo chmod +x /usr/local/bin/godot
+        Invoke-WebRequest -Uri "https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_win64.exe.zip" -OutFile "godot.zip"
+        Expand-Archive -Path "godot.zip" -DestinationPath "godot"
+        $env:PATH += ";$PWD/godot"
+        echo "$PWD/godot" >> $env:GITHUB_PATH
         
     - name: Run Unit Tests
       run: |
@@ -33,33 +33,6 @@ jobs:
         godot --headless --script "res://addons/gdUnit4/bin/GdUnitRunner.gd" --quit
       env:
         GODOT_HEADLESS: 1
-
-  build-linux:
-    name: Build Linux
-    runs-on: ubuntu-latest
-    needs: test
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Godot
-      run: |
-        wget -q https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_linux.x86_64.zip
-        unzip Godot_v4.4-stable_linux.x86_64.zip
-        sudo mv Godot_v4.4-stable_linux.x86_64 /usr/local/bin/godot
-        sudo chmod +x /usr/local/bin/godot
-        
-    - name: Export Linux
-      run: |
-        mkdir -p build/linux
-        godot --headless --export-debug "Linux/X11" build/linux/aarpg.x86_64
-        
-    - name: Upload Linux Build
-      uses: actions/upload-artifact@v4
-      with:
-        name: linux-build
-        path: build/linux/
 
   build-windows:
     name: Build Windows
@@ -77,10 +50,36 @@ jobs:
         $env:PATH += ";$PWD/godot"
         echo "$PWD/godot" >> $env:GITHUB_PATH
         
-    - name: Export Windows
+    - name: Create export presets
+      run: |
+        mkdir -p .godot/export_presets.cfg
+        @"
+        [preset.0]
+        name="Windows Desktop"
+        platform="Windows Desktop"
+        runnable=true
+        export_path="build/windows/aarpg.exe"
+        [preset.1]
+        name="Windows Desktop (Debug)"
+        platform="Windows Desktop"
+        runnable=true
+        export_path="build/windows/aarpg_debug.exe"
+        debug=true
+        "@ | Out-File -FilePath .godot/export_presets.cfg -Encoding utf8
+        
+    - name: Export Windows Debug
       run: |
         mkdir -p build/windows
-        godot --headless --export-debug "Windows Desktop" build/windows/aarpg.exe
+        godot --headless --export-debug "Windows Desktop" build/windows/aarpg_debug.exe
+        
+    - name: Export Windows Release
+      run: |
+        godot --headless --export-release "Windows Desktop" build/windows/aarpg.exe
+        
+    - name: Create Windows Archive
+      run: |
+        cd build/windows
+        Compress-Archive -Path * -DestinationPath aarpg-windows.zip
         
     - name: Upload Windows Build
       uses: actions/upload-artifact@v4
@@ -88,52 +87,36 @@ jobs:
         name: windows-build
         path: build/windows/
 
-  build-macos:
-    name: Build macOS
-    runs-on: macos-latest
-    needs: test
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Godot
-      run: |
-        curl -L -o godot.zip https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_macos.universal.zip
-        unzip godot.zip
-        sudo mv Godot.app/Contents/MacOS/Godot /usr/local/bin/godot
-        sudo chmod +x /usr/local/bin/godot
-        
-    - name: Export macOS
-      run: |
-        mkdir -p build/macos
-        godot --headless --export-debug "macOS" build/macos/aarpg.app
-        
-    - name: Upload macOS Build
-      uses: actions/upload-artifact@v4
-      with:
-        name: macos-build
-        path: build/macos/
-
   release:
     name: Create Release
-    runs-on: ubuntu-latest
-    needs: [test, build-linux, build-windows, build-macos]
+    runs-on: windows-latest
+    needs: [test, build-windows]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     
     steps:
-    - name: Download all artifacts
+    - name: Download Windows Build
       uses: actions/download-artifact@v4
-      
+      with:
+        name: windows-build
+        path: windows-build/
+        
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ github.run_number }}
         name: Release v${{ github.run_number }}
+        body: |
+          ## Pantheos 4C - ${{ github.ref_name }}
+          
+          ### Downloads
+          - **Windows**: `aarpg-windows.zip`
+          
+          ### Installation
+          1. Download the Windows build
+          2. Extract the archive
+          3. Run aarpg.exe
         files: |
-          linux-build/*
           windows-build/*
-          macos-build/*
         draft: false
         prerelease: false
       env:
