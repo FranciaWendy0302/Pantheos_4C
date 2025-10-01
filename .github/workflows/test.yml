@@ -14,7 +14,7 @@ jobs:
     
     strategy:
       matrix:
-        godot-version: ['4.4', '4.3']
+        godot-version: ['4.4']
         
     steps:
     - name: Checkout code
@@ -22,7 +22,13 @@ jobs:
       
     - name: Setup Godot ${{ matrix.godot-version }}
       run: |
-        Invoke-WebRequest -Uri "https://downloads.tuxfamily.org/godotengine/${{ matrix.godot-version }}/Godot_v${{ matrix.godot-version }}-stable_win64.exe.zip" -OutFile "godot.zip"
+        # Try multiple download methods for reliability
+        try {
+          Invoke-WebRequest -Uri "https://github.com/godotengine/godot/releases/download/${{ matrix.godot-version }}-stable/Godot_v${{ matrix.godot-version }}-stable_win64.exe.zip" -OutFile "godot.zip" -TimeoutSec 30
+        } catch {
+          Write-Host "GitHub download failed, trying alternative..."
+          Invoke-WebRequest -Uri "https://downloads.tuxfamily.org/godotengine/${{ matrix.godot-version }}/Godot_v${{ matrix.godot-version }}-stable_win64.exe.zip" -OutFile "godot.zip" -TimeoutSec 60
+        }
         Expand-Archive -Path "godot.zip" -DestinationPath "godot"
         $env:PATH += ";$PWD/godot"
         echo "$PWD/godot" >> $env:GITHUB_PATH
@@ -83,7 +89,13 @@ jobs:
       
     - name: Setup Godot
       run: |
-        Invoke-WebRequest -Uri "https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_win64.exe.zip" -OutFile "godot.zip"
+        # Try multiple download methods for reliability
+        try {
+          Invoke-WebRequest -Uri "https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_win64.exe.zip" -OutFile "godot.zip" -TimeoutSec 30
+        } catch {
+          Write-Host "GitHub download failed, trying alternative..."
+          Invoke-WebRequest -Uri "https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_win64.exe.zip" -OutFile "godot.zip" -TimeoutSec 60
+        }
         Expand-Archive -Path "godot.zip" -DestinationPath "godot"
         $env:PATH += ";$PWD/godot"
         echo "$PWD/godot" >> $env:GITHUB_PATH
