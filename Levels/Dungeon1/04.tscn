@@ -862,7 +862,7 @@ tile_map_data = PackedByteArray("AAAGAAkAAAAMAAQAAAAGAAoAAAAMAAUAAAAGAAsAAAAMAAY
 tile_set = SubResource("TileSet_arucn")
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("3_x0p6q")]
-position = Vector2(258, 275)
+position = Vector2(112, 204)
 
 [node name="LevelTransition" parent="." instance=ExtResource("4_ddb0b")]
 position = Vector2(257, 288)

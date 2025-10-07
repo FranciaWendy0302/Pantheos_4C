@@ -67,20 +67,22 @@ func advance_dialog() -> void:
 	
 func show_dialog(_items: Array[DialogItem]) -> void:
 	is_active = true
-	if _items[0] is DialogCutscene:
+	dialog_items = _items
+	dialog_item_index = 0
+
+	if dialog_items.size() == 0:
+		hide_dialog()
+		return
+
+	if dialog_items[0] is DialogCutscene:
 		dialog_ui.visible = false
 	else:
 		dialog_ui.visible = true
-	dialog_ui.visible = true
+
 	dialog_ui.process_mode = Node.PROCESS_MODE_ALWAYS
-	dialog_items = _items
-	dialog_item_index = 0
 	get_tree().paused = true
 	await get_tree().process_frame
-	if dialog_items.size() == 0:
-		hide_dialog()
-	else:
-		start_dialog()
+	start_dialog()
 	pass
 		
 func hide_dialog() -> void:

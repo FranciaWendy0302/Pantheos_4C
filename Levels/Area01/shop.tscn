@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://if8xb4s300aj"]
+[gd_scene load_steps=24 format=4 uid="uid://if8xb4s300aj"]
 
 [ext_resource type="PackedScene" uid="uid://ph10wrsaxdqo" path="res://Tile Maps/awdawdawd.tscn" id="2_g1vh3"]
 [ext_resource type="PackedScene" uid="uid://bkmgd56mqv1ga" path="res://Levels/level_transition.tscn" id="3_eqarn"]
@@ -10,7 +10,31 @@
 [ext_resource type="Resource" uid="uid://b5t0a60wqowkc" path="res://Items/a_fiber_cloth.tres" id="11_c7av4"]
 [ext_resource type="Resource" uid="uid://c2wqm7n2i86pc" path="res://Items/amulet.tres" id="11_jyo4b"]
 [ext_resource type="Resource" uid="uid://csgmj6gjipujt" path="res://Items/gem.tres" id="12_0e6r1"]
+[ext_resource type="PackedScene" uid="uid://coftgxw6k42r3" path="res://npc/npc.tscn" id="12_fdr15"]
+[ext_resource type="Resource" uid="uid://c5bbuxfhxnm0y" path="res://npc/00_npcs/npc_01.tres" id="13_mta5h"]
 [ext_resource type="Resource" uid="uid://b6fjsntrl7hf6" path="res://Items/key_dungeon.tres" id="13_tx7sr"]
+[ext_resource type="PackedScene" uid="uid://bbihhl8fanjpa" path="res://quests/utility_nodes/quest_activated_switch.tscn" id="14_hyii0"]
+[ext_resource type="Resource" uid="uid://ddtsakxdsgbpr" path="res://quests/recover_lost_flute.tres" id="15_xwvm8"]
+[ext_resource type="PackedScene" uid="uid://dnj4pmnybsajr" path="res://Interactables/dialog/dialog_interaction.tscn" id="16_5k4ns"]
+[ext_resource type="Script" uid="uid://bl2li7lbphm71" path="res://Interactables/dialog/scripts/dialog_text.gd" id="17_mssvw"]
+[ext_resource type="Resource" uid="uid://bpsdp1qds5o38" path="res://npc/00_npcs/npc_02.tres" id="18_c88tw"]
+[ext_resource type="Script" uid="uid://dqede62fqybid" path="res://Interactables/dialog/scripts/dialog_choice.gd" id="19_e67yw"]
+[ext_resource type="Script" uid="uid://c1vxl5di4hfss" path="res://Interactables/dialog/scripts/dialog_branch.gd" id="20_5m2g3"]
+[ext_resource type="PackedScene" uid="uid://dutt7tppgllui" path="res://quests/utility_nodes/quest_advance_trigger.tscn" id="21_qmylb"]
+[ext_resource type="Script" uid="uid://b1mjvc00tsgmu" path="res://quests/utility_nodes/quest_activated_switch.gd" id="22_wif5i"]
+
+[sub_resource type="GDScript" id="GDScript_taguc"]
+script/source = "extends Node
+
+@onready var quest_advance_trigger: QuestAdvanceTrigger = $\"..\"
+
+func _ready() -> void:
+	quest_advance_trigger.advanced.connect(quest_complete)
+	
+func quest_complete() -> void:
+	PlayerManager.INVENTORY_DATA.use_item(load(\"res://Items/magical_flute.tres\"))
+	pass
+"
 
 [node name="Shop" type="TileMapLayer"]
 rendering_quadrant_size = 32
@@ -53,3 +77,127 @@ position = Vector2(97, 113)
 [node name="Shopkeeper" parent="." instance=ExtResource("8_bv37p")]
 position = Vector2(138, 111)
 shop_inventory = Array[ExtResource("9_tqvny")]([ExtResource("10_jyo4b"), ExtResource("11_jyo4b"), ExtResource("11_c7av4"), ExtResource("12_0e6r1"), ExtResource("13_tx7sr")])
+
+[node name="Npc" parent="." instance=ExtResource("12_fdr15")]
+position = Vector2(269, 97)
+npc_resource = ExtResource("13_mta5h")
+
+[node name="QuestActivatedSwitch" parent="Npc" instance=ExtResource("14_hyii0")]
+remove_when_activated = true
+linked_quest = ExtResource("15_xwvm8")
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Checking if Player has quest"
+
+[node name="DialogInteraction" parent="Npc/QuestActivatedSwitch" instance=ExtResource("16_5k4ns")]
+
+[node name="DialogText" type="Node" parent="Npc/QuestActivatedSwitch/DialogInteraction"]
+script = ExtResource("17_mssvw")
+text = "HAHAHHA baliliw"
+npc_info = ExtResource("18_c88tw")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="DialogChoice" type="Node" parent="Npc/QuestActivatedSwitch/DialogInteraction"]
+script = ExtResource("19_e67yw")
+npc_info = ExtResource("18_c88tw")
+metadata/_custom_type_script = "uid://dqede62fqybid"
+
+[node name="DialogBranch" type="Node" parent="Npc/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
+script = ExtResource("20_5m2g3")
+text = "Yes, I’ll help you retrieve your flute."
+npc_info = ExtResource("18_c88tw")
+metadata/_custom_type_script = "uid://c1vxl5di4hfss"
+
+[node name="QuestAdvanceTrigger" parent="Npc/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch" instance=ExtResource("21_qmylb")]
+position = Vector2(269, 97)
+signal_name = "selected"
+linked_quest = ExtResource("15_xwvm8")
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Step: 0 - N/A
+Complete: false"
+
+[node name="DialogText" type="Node" parent="Npc/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch"]
+script = ExtResource("17_mssvw")
+text = "Thank you! Please hurry before the darkness grows."
+npc_info = ExtResource("18_c88tw")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="DialogBranch2" type="Node" parent="Npc/QuestActivatedSwitch/DialogInteraction/DialogChoice"]
+script = ExtResource("20_5m2g3")
+text = "No, the dungeon is too dangerous for me."
+npc_info = ExtResource("18_c88tw")
+metadata/_custom_type_script = "uid://c1vxl5di4hfss"
+
+[node name="DialogText" type="Node" parent="Npc/QuestActivatedSwitch/DialogInteraction/DialogChoice/DialogBranch2"]
+script = ExtResource("17_mssvw")
+text = "I see… I’ll wait if you change your mind."
+npc_info = ExtResource("18_c88tw")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="QuestActivatedSwitch3" type="Node" parent="Npc"]
+script = ExtResource("22_wif5i")
+check_type = 2
+remove_when_activated = true
+react_to_global_signal = true
+linked_quest = ExtResource("15_xwvm8")
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Check if Player is on step: N/A"
+metadata/_custom_type_script = "uid://b1mjvc00tsgmu"
+
+[node name="QuestActivatedSwitch2" parent="Npc/QuestActivatedSwitch3" instance=ExtResource("14_hyii0")]
+position = Vector2(269, 97)
+react_to_global_signal = true
+linked_quest = ExtResource("15_xwvm8")
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Checking if Player has quest"
+
+[node name="QuestActivatedSwitch3" parent="Npc/QuestActivatedSwitch3/QuestActivatedSwitch2" instance=ExtResource("14_hyii0")]
+check_type = 2
+remove_when_activated = true
+react_to_global_signal = true
+linked_quest = ExtResource("15_xwvm8")
+quest_step = 3
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Check if Player is on step: go back to red man"
+
+[node name="DialogInteraction" parent="Npc/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch3" instance=ExtResource("16_5k4ns")]
+
+[node name="DialogText" type="Node" parent="Npc/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch3/DialogInteraction"]
+script = ExtResource("17_mssvw")
+text = "Salamat at tinanggap mo ang aking hiling. Mag-iingat ka, magiting na mandirigma!"
+npc_info = ExtResource("18_c88tw")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="QuestActivatedSwitch" parent="Npc/QuestActivatedSwitch3/QuestActivatedSwitch2" instance=ExtResource("14_hyii0")]
+check_type = 1
+react_to_global_signal = true
+linked_quest = ExtResource("15_xwvm8")
+quest_step = 2
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Checking if Player has completed step: find the flute"
+
+[node name="DialogInteraction2" parent="Npc/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch" instance=ExtResource("16_5k4ns")]
+
+[node name="DialogText" type="Node" parent="Npc/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2"]
+script = ExtResource("17_mssvw")
+text = "Salamat sa pagbalik ng aking Magical Flute. Ito ang iyong Reward"
+npc_info = ExtResource("18_c88tw")
+metadata/_custom_type_script = "uid://bl2li7lbphm71"
+
+[node name="QuestAdvanceTrigger" parent="Npc/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2" instance=ExtResource("21_qmylb")]
+signal_name = "finished"
+linked_quest = ExtResource("15_xwvm8")
+quest_step = 3
+quest_complete = true
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Flute
+Step: 3 - go back to red man
+Complete: true"
+
+[node name="Node" type="Node" parent="Npc/QuestActivatedSwitch3/QuestActivatedSwitch2/QuestActivatedSwitch/DialogInteraction2/QuestAdvanceTrigger"]
+script = SubResource("GDScript_taguc")

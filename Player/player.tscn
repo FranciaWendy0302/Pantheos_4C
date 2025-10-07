@@ -1813,7 +1813,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o28un"]
-radius = 25.0
+radius = 50.0
 
 [sub_resource type="Gradient" id="Gradient_ie76m"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
@@ -1839,7 +1839,7 @@ script = ExtResource("1_4ntmi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_l8h54")
-debug_color = Color(0, 0.6, 0.7, 0)
+debug_color = Color(0.0342156, 0, 0.622196, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -20)
@@ -2056,9 +2056,9 @@ debug_color = Color(0.522, 0.933, 1, 0)
 [node name="Label" type="Label" parent="."]
 visible = false
 offset_left = -23.0
-offset_top = -54.0
+offset_top = -74.0
 offset_right = 23.0
-offset_bottom = -36.0
+offset_bottom = -56.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_fonts/font = ExtResource("30_755ss")

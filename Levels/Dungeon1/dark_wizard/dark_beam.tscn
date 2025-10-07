@@ -82,7 +82,7 @@ tracks/0/path = NodePath("HurtBox:monitoring")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 3),
+"times": PackedFloat32Array(0, 2.1, 3.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -94,7 +94,7 @@ tracks/1/path = NodePath("EnergyIndicatorSprite2D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.91556),
+"times": PackedFloat32Array(0, 2.01556),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -106,7 +106,7 @@ tracks/2/path = NodePath("EnergyBeamSprite2D:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 2, 3.8),
+"times": PackedFloat32Array(0, 2.1, 3.9),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -118,10 +118,10 @@ tracks/3/path = NodePath("EnergyIndicatorSprite2D:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -130,7 +130,7 @@ tracks/4/path = NodePath("EnergyBeamSprite2D:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(2, 3, 3.8),
+"times": PackedFloat32Array(2.1, 3.1, 3.9),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -147,7 +147,7 @@ tracks/5/keys = {
 "start_offset": 0.0,
 "stream": ExtResource("6_gxxfw")
 }],
-"times": PackedFloat32Array(2)
+"times": PackedFloat32Array(2.1)
 }
 tracks/5/use_blend = true
 
