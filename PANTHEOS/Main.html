@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantheos RPG - Official Website</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        :root {
+            --px-bg-deep: #f7f9fc;
+            --px-bg-dark: #ffffff;
+            --px-ink: #0d1321;
+            --px-ink-dim: #3e4a66;
+            --px-cyan: #0ea5e9;
+            --px-cyan-deep: #0284c7;
+            --px-pink: #db2777;
+            --px-violet: #6366f1;
+            --px-gold: #d97706;
+            --px-border: #e2e8f0;
+            --px-card: rgba(255, 255, 255, 0.96);
+            --px-card-soft: rgba(255, 255, 255, 0.92);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background:
+                radial-gradient(1200px 600px at 20% -10%, rgba(99,102,241,0.08), transparent 60%),
+                radial-gradient(1000px 500px at 120% 10%, rgba(14,165,233,0.08), transparent 55%),
+                repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 2px, transparent 2px, transparent 4px),
+                var(--px-bg-deep);
+            color: var(--px-ink);
+            line-height: 1.6;
+            overflow-x: hidden;
+            image-rendering: pixelated;
+        }
+        
+        /* Ensure in-page anchors don't hide under fixed header */
+        html { scroll-padding-top: 160px; }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(180deg, #0c4169, #3985c1);
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--px-border);
+            box-shadow: 0 4px 0 0 rgba(0,0,0,0.03), 0 0 0 2px rgba(14,165,233,0.06) inset;
+        }
+        
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        .header-left, .header-center, .header-right {
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+        
+        .header-left {
+            flex: 0 0 auto;
+            min-width: 0;
+        }
+        
+        .header-center {
+            flex: 1 1 auto;
+            justify-content: center;
+            min-width: 0;
+        }
+        
+        .header-right {
+            flex: 0 0 auto;
+            justify-content: flex-end;
+            gap: 20px;
+            min-width: 0;
+        }
+        
+        #auth-links { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            white-space: nowrap; 
+            height: 50px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo img {
+            height:65px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+     
+
+        /* Hamburger (mobile only) */
+        #menu-toggle {
+            display: none;
+            border: 2px solid var(--px-border);
+            background: #09152B;
+            color: var(--px-cyan);
+            font-family: 'Press Start 2P', monospace;
+            padding: 8px 12px;
+            text-shadow: 1px 1px 0 #000;
+        }
+        
+       
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+        
+        nav a, #auth-links a {
+            color: var(--px-ink);
+            text-decoration: none;
+            padding: 6px 10px;
+            padding-right: 10px;
+            border: 2px solid var(--px-border);
+            border-radius: 6px;
+            background: linear-gradient(180deg, #ffffff, #f6f9ff);
+            transition: all 0.2s ease;
+            text-shadow: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.6rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 2px rgba(14,165,233,0.05);
+        }
+        
+        nav a:hover, #auth-links a:hover {
+            background: linear-gradient(180deg, #eef7ff, #3985c1);
+            color: var(--px-ink);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.06);
+        }
+
+        /* Active nav highlight */
+        nav a.active {
+            background: linear-gradient(180deg, #3985c1, #eef7ff);
+            color: var(--px-ink);
+            border-color: var(--px-border);
+            box-shadow: 0 0 0 2px rgba(14,165,233,0.12);
+        }
+        
+        .nav-icon {
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+        
+        /* Main Content */
+        main {
+            margin-top: 70px;
+            padding: 24px 0;
+        }
+        
+        .section {
+            margin: 60px 0;
+            padding: 40px;
+            background:
+                linear-gradient(180deg, #ffffff, #fbfdff),
+                repeating-linear-gradient(0deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 2px, transparent 2px, transparent 4px);
+            border: 3px solid var(--px-border);
+            border-radius: 10px;
+            backdrop-filter: blur(2px);
+            scroll-margin-top: 30px;
+            box-shadow: 0 8px 0 0 rgba(0,0,0,0.03), 0 0 0 2px rgba(14,165,233,0.05) inset;
+        }
+        
+        .section h2 {
+            font-size: 1.8rem;
+            color: var(--px-cyan);
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(11,194,232,0.35);
+        }
+        
+        .section h3 {
+            font-size: 1.2rem;
+            color: var(--px-ink-dim);
+            margin: 20px 0 10px 0;
+            text-shadow: none;
+        }
+        
+        .section p {
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            color: var(--px-ink);
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(180deg, #fafcff, #f4f9ff);
+            border: 5px solid var(--px-border);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            box-shadow: 0 12px 0 0 rgba(0,0,0,0.03), 0 0 0 3px rgba(14,165,233,0.08) inset;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            z-index: 1;
+        }
+        
+        .hero-background.active {
+            opacity: 1;
+        }
+        
+        .hero-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: none;
+            z-index: 2;
+            text-shadow: none;
+            background: linear-gradient(180deg, rgba(255,255,255,0), rgba(14,165,233,0.06), rgba(255,255,255,0.85));
+            padding: 24px 20px;
+            border-radius: 0;
+            margin: 0;
+            box-shadow: 0 -1px 0 rgba(14,165,233,0.12) inset;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--px-ink);
+            text-shadow: none;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            color: var(--px-ink-dim);
+            text-shadow: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Download Section */
+        .download-section {
+            background: #ffffff;
+            border: 4px solid var(--px-border);
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(180deg, var(--px-cyan-deep), var(--px-violet));
+            color: #ffffff;
+            padding: 20px 40px;
+            text-decoration: none;
+            border: 3px solid var(--px-border);
+            font-size: 1.2rem;
+            margin: 20px 0;
+            transition: all 0.2s ease;
+            text-shadow: none;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        }
+        
+        .download-btn:hover {
+            background: linear-gradient(180deg, var(--px-violet), var(--px-cyan-deep));
+            color: #ffffff;
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+        }
+        
+        /* News Section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .news-item {
+            background: #ffffff;
+            padding: 10px;
+            border: 2px solid var(--px-border);
+            border-radius: 5px;
+            box-shadow: none;
+        }
+        
+        .news-item h4 {
+            color: var(--px-ink);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-shadow: none;
+        }
+        
+        .news-item .date {
+            color: var(--px-ink-dim);
+            font-size: 0.6rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Community Section */
+        .community-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .community-link {
+            background: linear-gradient(180deg, #ffffff, #f6f9ff);
+            padding: 20px;
+            text-align: center;
+            border: 3px solid var(--px-border);
+            text-decoration: none;
+            color: var(--px-ink);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .community-link:hover {
+            background: #eef7ff;
+            color: var(--px-ink);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        }
+        
+        /* Support Section */
+        .faq-item {
+            background: #ffffff;
+            margin: 15px 0;
+            padding: 20px;
+            border: 2px solid var(--px-border);
+            border-radius: 5px;
+        }
+        
+        .faq-question {
+            color: var(--px-ink);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-shadow: none;
+        }
+        
+        .faq-answer {
+            color: var(--px-ink-dim);
+            font-size: 0.7rem;
+        }
+        
+        /* Media Section */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .media-item {
+            background: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid var(--px-border);
+            border-radius: 5px;
+        }
+        
+        .media-placeholder {
+            width: 100%;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid var(--px-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            position: relative;
+            image-rendering: pixelated;
+        }
+        
+        .media-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        .media-placeholder > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Profile Settings Modal (moved from inline styles) */
+        .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index: 2000; }
+        .profile-modal { display:none; position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); z-index:2100; background: #ffffff; border:4px solid var(--px-border); padding:24px; width:min(92%, 560px); }
+        .profile-title { text-align:center; color:var(--px-ink); margin-bottom:16px; text-shadow: none; }
+        .profile-row { display:flex; gap:16px; align-items:center; margin-bottom:16px; }
+        .profile-avatar-preview { width:72px; height:72px; border-radius:50%; border:2px solid var(--px-border); object-fit:cover; background:#f1f5f9; }
+        .btn-upload { display:inline-block; margin-top:8px; padding:8px 12px; border:2px solid var(--px-border); background: #ffffff; color: var(--px-ink); cursor:pointer; }
+        .divider { border-top:2px solid var(--px-border); margin:12px 0; }
+        .profile-input { padding:10px; border:2px solid var(--px-border); background: #ffffff; color: var(--px-ink); }
+        .btn-primary-small { padding:10px 16px; border:2px solid var(--px-border); background: linear-gradient(180deg, #2563eb, #0ea5e9); color:#fff; cursor:pointer; }
+        .btn-secondary-small { padding:10px 16px; border:2px solid var(--px-border); background:#e2e8f0; color:#0d1321; cursor:pointer; }
+        .btn-danger { padding:10px 16px; border:2px solid var(--px-border); background:#d9534f; color:#fff; cursor:pointer; }
+        .msg-error { color:#FF6666; min-height:18px; font-size:0.75rem; }
+
+        /* Password field eye icon inside input */
+        .password-container { position: relative; }
+        .password-input { padding-right: 44px !important; }
+        .password-toggle {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--px-border);
+            background: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--px-ink);
+        }
+        
+        /* Footer */
+        footer {
+            background: #ffffff;
+            color: var(--px-ink);
+            text-align: center;
+            padding: 40px 0;
+            border-top: 3px solid var(--px-border);
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: var(--px-ink);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            text-shadow: none;
+        }
+        
+        .footer-section a {
+            color: var(--px-ink-dim);
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+            font-size: 0.7rem;
+        }
+        
+        .footer-section a:hover {
+            color: var(--px-ink);
+            text-decoration: underline;
+            text-shadow: none;
+        }
+        
+
+        /* Tablet and smaller desktop */
+        @media (max-width: 1024px) {
+            .header-row {
+                gap: 8px;
+                padding: 0 12px;
+            }
+            .logo img {
+                height: 35px;
+            }
+            nav ul {
+                gap: 6px;
+            }
+            nav a, #auth-links a {
+                padding: 5px 8px;
+                font-size: 0.55rem;
+            }
+        }
+
+        /* Tablet portrait */
+        @media (max-width: 768px) {
+            .header-row {
+                gap: 6px;
+                padding: 0 10px;
+            }
+            .logo img {
+                height: 32px;
+            }
+            nav ul {
+                gap: 4px;
+            }
+            nav a, #auth-links a {
+                padding: 4px 6px;
+                font-size: 0.5rem;
+            }
+            main {
+                margin-top: 80px;
+            }
+        }
+
+        /* Mobile landscape */
+        @media (max-width: 640px) {
+            .header-row {
+                flex-direction: column;
+                gap: 4px;
+                height: auto;
+                padding: 6px 8px;
+            }
+            .header-left, .header-center, .header-right {
+                height: auto;
+                justify-content: center;
+            }
+            .header-center {
+                order: 2;
+                width: 100%;
+            }
+            .header-left {
+                order: 1;
+            }
+            .header-right {
+                order: 3;
+            }
+            .logo img {
+                height: 30px;
+            }
+            nav ul {
+                gap: 3px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav a, #auth-links a {
+                padding: 3px 5px;
+                font-size: 0.45rem;
+            }
+            main {
+                margin-top: 100px;
+            }
+        }
+
+        /* Mobile portrait */
+        @media (max-width: 480px) {
+            .header-row {
+                padding: 4px 6px;
+            }
+            .logo img {
+                height: 28px;
+            }
+            nav ul {
+                gap: 2px;
+            }
+            nav a, #auth-links a {
+                padding: 2px 4px;
+                font-size: 0.4rem;
+            }
+            main {
+                margin-top: 120px;
+            }
+        }
+
+        /* Very small mobile */
+        @media (max-width: 360px) {
+            .header-row {
+                padding: 3px 4px;
+            }
+            .logo img {
+                height: 25px;
+            }
+            nav a, #auth-links a {
+                padding: 2px 3px;
+                font-size: 0.35rem;
+            }
+            main {
+                margin-top: 130px;
+            }
+        }
+        
+    /* User dropdown styles */
+    .user-menu {
+        position: relative;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 60px;
+    }
+    .user-menu img {
+        width:44px;
+        height:44px;
+        border-radius:50%;
+        border:2px solid #144486;
+        object-fit:cover;
+        background:#222;
+        margin:0;
+        display:inline-block;
+        vertical-align:middle;
+    }
+    .user-menu span {
+        color:#ffffff;
+        font-size:1.2rem;
+        font-family:'Press Start 2P',monospace;
+        white-space:nowrap;
+        margin-left:8px;
+        display:inline-block;
+        vertical-align:middle;
+        line-height:44px;
+    }
+    .header-right, #auth-links {
+        height: 60px;
+        display: flex;
+        align-items: center;
+    }
+    .user-menu-dropdown {
+        display: none;
+        position: absolute;
+        top: 110%;
+        right: 0;
+        background: #222;
+        border: 2px solid #144486;
+        border-radius: 8px;
+        min-width: 160px;
+        z-index: 2000;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        font-family: 'Press Start 2P', monospace;
+    }
+    .user-menu-dropdown a {
+        display: block;
+        color: #fff;
+        padding: 12px 18px;
+        text-decoration: none;
+        font-size: 1rem;
+        border-bottom: 1px solid #333;
+        transition: background 0.2s;
+    }
+    .user-menu-dropdown a:last-child { border-bottom: none; }
+    .user-menu-dropdown a:hover {
+        background: #144486;
+        color: #222;
+    }
+  
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-row">
+            <div class="header-left">
+                <a href="#overview" class="logo">
+                    <img src="logo.png" alt="Pantheos RPG" />
+                </a>
+            </div>
+            <div class="header-center">
+                <nav>
+                    <ul>
+                        <li><a href="#download"><span class="nav-icon">⬇️</span> Download</a></li>
+                        <li><a href="#news"><span class="nav-icon">📰</span> News</a></li>
+                        <li><a href="#community"><span class="nav-icon">👥</span> Community</a></li>
+                        <li><a href="#support"><span class="nav-icon">🛠️</span> Support</a></li>
+                        <li><a href="#media"><span class="nav-icon">🖼️</span> Media</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div id="auth-links"></div>
+            </div>
+        </div>
+    </header>
+    
+    <script>
+    // Simple localStorage-based auth rendering with working logout and profile modal
+    (function(){
+        const AUTH_KEY = 'pantheosUser';
+        const authLinks = document.getElementById('auth-links');
+
+        function getUser(){
+            try { return JSON.parse(localStorage.getItem(AUTH_KEY)); } catch(_) { return null; }
+        }
+        function setUser(u){ localStorage.setItem(AUTH_KEY, JSON.stringify(u)); }
+        function clearUser(){ localStorage.removeItem(AUTH_KEY); }
+
+        function uiAvatar(name){
+            return 'https://ui-avatars.com/api/?name=' + encodeURIComponent(name || 'User') + '&background=0D1321&color=C9A227&size=64&font-size=0.33';
+        }
+
+        function openProfileModal(){
+            document.getElementById('profile-modal-backdrop').style.display = 'block';
+            document.getElementById('profile-modal').style.display = 'block';
+        }
+        function closeProfileModal(){
+            document.getElementById('profile-modal-backdrop').style.display = 'none';
+            document.getElementById('profile-modal').style.display = 'none';
+        }
+
+        function renderAuth(){
+            const user = getUser();
+            if (!authLinks) return;
+            if (user && user.username){
+                const avatar = user.avatar || uiAvatar(user.username);
+                authLinks.innerHTML = `
+                    <div class="user-menu" id="user-menu">
+                        <img id="user-avatar-thumb" src="${avatar}" alt="Profile">
+                        <span>${user.username}</span>
+                        <div class="user-menu-dropdown" id="user-menu-dropdown">
+                            <a href="#" id="profile-link">Profile Settings</a>
+                            <a href="#" id="logout-link">Logout</a>
+                        </div>
+                    </div>
+                `;
+                const userMenu = document.getElementById('user-menu');
+                const dropdown = document.getElementById('user-menu-dropdown');
+                userMenu.addEventListener('click', function(e){
+                    e.stopPropagation();
+                    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                });
+                document.addEventListener('click', function(){ dropdown.style.display = 'none'; });
+                document.getElementById('logout-link').addEventListener('click', function(e){
+                    e.preventDefault();
+                    clearUser();
+                    renderAuth();
+                });
+                document.getElementById('profile-link').addEventListener('click', function(e){
+                    e.preventDefault();
+                    // preload modal fields
+                    const u = getUser();
+                    document.getElementById('profile-username').textContent = u.username;
+                    const preview = document.getElementById('profile-avatar-preview');
+                    preview.src = u.avatar || uiAvatar(u.username);
+                    document.getElementById('profile-delete-error').textContent = '';
+                    document.getElementById('profile-password-error').textContent = '';
+                    openProfileModal();
+                });
+            } else {
+                authLinks.innerHTML = '<a href="#" id="open-login"><span class="nav-icon">🔐</span> Login</a>';
+                document.getElementById('open-login').addEventListener('click', function(e){ e.preventDefault(); document.getElementById('login-modal').style.display='block'; document.getElementById('modal-backdrop').style.display='block'; });
+            }
+        }
+
+        // Expose helpers to other scripts below
+        window.__auth = { getUser, setUser, clearUser, renderAuth };            
+        renderAuth();
+    })();
+    </script>
+
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-background" style="background-image: url('Pic1.png');"></div>
+                <div class="hero-background" style="background-image: url('Pic2.png');"></div>
+                <div class="hero-background" style="background-image: url('Pic3.png');"></div>
+                <div class="hero-background" style="background-image: url('Pic4.png');"></div>
+            </section>
+
+            <section class="section" aria-labelledby="welcome-title">
+                <h1 id="welcome-title">Welcome to Pantheos</h1>
+                <p>Start your journey in a 2D pixel-art MMORPG! Explore different worlds, fight strong enemies, and grow your character through experience in this classic-style online game.</p>
+            </section>
+
+            <!-- Game Overview Section -->
+            <section id="overview" class="section">
+                <h2>Game Overview</h2>
+                
+                <h3>The Story</h3>
+                <p>In the mystical realm of Pantheos, ancient powers have awakened, threatening the balance of the world. As a chosen hero, you must gather allies, master powerful abilities, and restore peace to the land. Your journey begins in the pixelated landscapes where every choice shapes your destiny.</p>
+                
+                <h3>Gameplay Mechanics</h3>
+                <p>• <strong>Character Progression:</strong> Level up your character through quests, battles, and exploration</p>
+                <p>• <strong>Class System:</strong> Choose from multiple classes, each with unique abilities and playstyles</p>
+                <p>• <strong>Combat System:</strong> Strategic turn-based combat with pixel-perfect animations</p>
+                <p>• <strong>Guild System:</strong> Join or create guilds to tackle challenging group content</p>
+                <p>• <strong>Economy:</strong> Trade, craft, and build your wealth in a player-driven economy</p>
+                
+                <h3>Progression Systems</h3>
+                <p>• <strong>Skill Trees:</strong> Customize your character with branching skill paths</p>
+                <p>• <strong>Equipment:</strong> Discover and upgrade powerful gear with unique pixel-art designs</p>
+                <p>• <strong>Reputation:</strong> Build your standing with different factions and NPCs</p>
+                <p>• <strong>Achievements:</strong> Unlock special rewards and titles for your accomplishments</p>
+            </section>
+
+            <!-- Download Section -->
+            <section id="download" class="section download-section">
+                <h2>Download Client</h2>
+                <p>Ready to begin your adventure? Download the official Pantheos Windows client and join thousands of players in this epic MMORPG experience!</p>
+                
+                <div style="text-align: center;">
+                    <a href="Download/Pantheos-Windows.exe" class="download-btn glow">Download for Windows</a>
+                </div>
+                
+                <h3>System Requirements</h3>
+                <p>• <strong>OS:</strong> Windows 10/11 (64-bit)</p>
+                <p>• <strong>Processor:</strong> Intel Core i3 or AMD equivalent</p>
+                <p>• <strong>Memory:</strong> 4 GB RAM</p>
+                <p>• <strong>Graphics:</strong> DirectX 11 compatible graphics card</p>
+                <p>• <strong>Storage:</strong> 2 GB available space</p>
+                <p>• <strong>Network:</strong> Broadband internet connection</p>
+            </section>
+
+            <!-- News & Updates Section -->
+            <section id="news" class="section">
+                <h2>News & Updates</h2>
+                <p>Stay informed about the latest developments, patches, and community events in Pantheos!</p>
+                
+                <div class="news-grid">
+                    <div class="news-item">
+                        <h4>Version 1.2.0 - "Mystic Realms" Update</h4>
+                        <div class="date">December 15, 2024</div>
+                        <p>New zones, quests, and the highly anticipated guild wars system are now live! Plus, performance improvements and bug fixes.</p>
+                    </div>
+                    
+                    <div class="news-item">
+                        <h4>Winter Festival Event</h4>
+                        <div class="date">December 10, 2024</div>
+                        <p>Join the annual Winter Festival with exclusive rewards, special quests, and community challenges running until January 5th!</p>
+                    </div>
+                    
+                    <div class="news-item">
+                        <h4>Developer Q&A Session</h4>
+                        <div class="date">December 5, 2024</div>
+                        <p>Our development team answered community questions about upcoming features, including the new crafting system and PvP arenas.</p>
+                    </div>
+                    
+                    <div class="news-item">
+                        <h4>Server Maintenance Complete</h4>
+                        <div class="date">December 1, 2024</div>
+                        <p>All servers are back online with improved stability and reduced latency. Thank you for your patience!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Section -->
+            <section id="community" class="section">
+                <h2>Community</h2>
+                <p>Connect with fellow adventurers, join guilds, and participate in community events!</p>
+                
+                <div class="community-links">
+                    <a href="#" class="community-link">
+                        <h3>Official Forums</h3>
+                        <p>Discuss strategies, share experiences, and connect with the community</p>
+                    </a>
+                    
+                    <a href="#" class="community-link">
+                        <h3>Guild Directory</h3>
+                        <p>Find or create guilds to tackle challenging group content together</p>
+                    </a>
+                    
+                    <a href="#" class="community-link">
+                        <h3>Discord Server</h3>
+                        <p>Join our Discord for real-time chat, voice channels, and events</p>
+                    </a>
+                    
+                    <a href="#" class="community-link">
+                        <h3>Community Events</h3>
+                        <p>Participate in tournaments, contests, and special community activities</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Support & FAQ Section -->
+            <section id="support" class="section">
+                <h2>Support & FAQ</h2>
+                <p>Need help? Check our frequently asked questions or contact our support team!</p>
+                
+                <h3>Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I create an account?</div>
+                    <div class="faq-answer">Simply download the client and follow the registration process. You'll need a valid email address to verify your account.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is Pantheos free to play?</div>
+                    <div class="faq-answer">Yes! Pantheos is completely free to play with optional cosmetic items available for purchase.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I play on multiple devices?</div>
+                    <div class="faq-answer">Your account is tied to your login credentials, so you can access your character from any Windows device with the client installed.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I report bugs or issues?</div>
+                    <div class="faq-answer">Use the in-game bug report feature or contact our support team through the official forums or Discord.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What payment methods do you accept?</div>
+                    <div class="faq-answer">We accept all major credit cards, PayPal, and various digital payment methods for optional purchases.</div>
+                </div>
+                
+                <h3>Contact Support</h3>
+                <p>• <strong>Email:</strong> support@pantheos-rpg.com</p>
+                <p>• <strong>Discord:</strong> #support channel in our official server</p>
+                <p>• <strong>Forums:</strong> Technical Support section</p>
+                <p>• <strong>Response Time:</strong> Usually within 24 hours</p>
+            </section>
+
+            <!-- Media Showcase Section -->
+            <section id="media" class="section">
+                <h2>Media Showcase</h2>
+                <p>Explore the beautiful pixel-art world of Pantheos through our screenshots, trailers, and artwork!</p>
+                
+                <div class="media-grid">
+                    <div class="media-item">
+                        <div class="media-placeholder" data-bg="Forest.png"></div>
+                        <p>Explore the enchanted Mystic Forest with its vibrant pixel-art environments</p>
+                    </div>
+                    
+                    <div class="media-item">
+                        <div class="media-placeholder" data-bg="Pic2.png"></div>
+                        <p>Face off against legendary bosses in challenging battles.</p>
+                    </div>
+                    
+                    <div class="media-item">
+                        <div class="media-placeholder" data-bg="Quest.png"></div>
+                        <p>Complete exciting quests to earn rewards.</p>
+                    </div>
+                    
+                    <div class="media-item">
+                        <div class="media-placeholder" data-bg="Trailer.png"></div>
+                        <p>Watch the official gameplay trailer showcasing combat and exploration</p>
+                    </div>
+                    
+                    <div class="media-item">
+                        <div class="media-placeholder" data-bg="Character.png"></div>
+                        <p>Discover the unique pixel-art designs of each character class</p>
+                    </div>
+                    
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Auth Modals -->
+    <div id="modal-backdrop" class="modal-backdrop" style="z-index:1500"></div>
+
+    <!-- Profile Settings Modal -->
+    <div id="profile-modal-backdrop" class="modal-backdrop"></div>
+    <div id="profile-modal" class="profile-modal">
+        <h2 class="profile-title">Profile Settings</h2>
+        <div class="profile-row">
+            <img id="profile-avatar-preview" class="profile-avatar-preview" src="" alt="Avatar">
+            <div>
+                <div style="font-size:0.9rem; color:#1A1A1A;">Username: <strong id="profile-username"></strong></div>
+                <label for="profile-avatar" class="btn-upload">Choose new avatar</label>
+                <input id="profile-avatar" type="file" accept="image/*" style="display:none;">
+                <!-- Avatar will be saved with the main Save button -->
+            </div>
+        </div>
+        <div class="divider"></div>
+        <form id="profile-password-form" style="margin-bottom:12px;">
+            <div style="font-size:0.9rem; color:#1A1A1A; margin-bottom:8px;">Change Password</div>
+            <div style="display:grid; grid-template-columns: 1fr; gap:8px;">
+                <input id="profile-current-pass" type="password" placeholder="Current password" class="profile-input">
+                <input id="profile-new-pass" type="password" placeholder="New password (min 6)" class="profile-input">
+                <input id="profile-new-pass2" type="password" placeholder="Confirm new password" class="profile-input">
+                <div id="profile-password-error" class="msg-error"></div>
+            </div>
+        </form>
+        <div class="divider"></div>
+        <div>
+            <div style="font-size:0.9rem; color:#1A1A1A; margin-bottom:8px;">Danger Zone</div>
+            <div id="profile-delete-error" class="msg-error"></div>
+            <button id="profile-delete-account" class="btn-danger">Delete Account</button>
+        </div>
+        <div class="divider"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+            <button id="profile-cancel" class="btn-secondary-small">Cancel</button>
+            <button id="profile-save" class="btn-primary-small">Save</button>
+        </div>
+    </div>
+
+    <div id="login-modal" class="auth-modal" style="display:none; position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); z-index:1600; background: #F7F7F7; border: 4px solid #E0E0E0; padding: 30px; width: min(92%, 520px); backdrop-filter: blur(10px);">
+        <h2 style="text-align:center; color:#144486; text-shadow:none; margin-bottom:20px;">Login</h2>
+        <form id="login-form">
+            <div style="margin-bottom:15px;">
+                <label for="login-email" style="display:block; color:#3E3E3E; margin-bottom:8px;">Email</label>
+                <input id="login-email" type="email" required placeholder="you@pantheos.com" style="width:100%; padding:12px 14px; border:3px solid #E0E0E0; background:#ffffff; font-family:'Press Start 2P', monospace; font-size:0.7rem;">
+            </div>
+            <div style="margin-bottom:15px;">
+                <label for="login-password" style="display:block; color:#3E3E3E; margin-bottom:8px;">Password</label>
+                <div class="password-container">
+                    <input id="login-password" type="password" required minlength="6" placeholder="••••••" class="password-input" style="width:100%; padding:12px 14px; border:3px solid #E0E0E0; background:#ffffff; font-family:'Press Start 2P', monospace; font-size:0.7rem;">
+                    <button type="button" class="password-toggle" data-target="login-password">👁️</button>
+                </div>
+            </div>
+            <div id="login-error" style="color:#FF6666; min-height:18px; font-size:0.7rem; margin-bottom:10px;"></div>
+            <div style="display:flex; gap:12px; justify-content:center;">
+                <button type="submit" class="btn-primary" style="cursor:pointer; padding:12px 20px; border:3px solid #E0E0E0; background:#144486; color:#FFFFFF; font-family:'Press Start 2P', monospace;">Login</button>
+                <button type="button" id="login-cancel" style="cursor:pointer; padding:12px 20px; border:3px solid #E0E0E0; background:#3E3E3E; color:#FFFFFF; font-family:'Press Start 2P', monospace;">Cancel</button>
+            </div>
+            <div style="text-align:center; margin-top:16px; font-size:0.75rem;">
+                <span style="color:#1A1A1A;">New here?</span>
+                <a href="#" id="login-open-signup" style="color:#144486; text-decoration:underline;">Create an account</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="signup-modal" class="auth-modal" style="display:none; position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); z-index:1600; background: #F7F7F7; border: 4px solid #E0E0E0; padding: 30px; width: min(92%, 520px); backdrop-filter: blur(10px);">
+        <h2 style="text-align:center; color:#144486; text-shadow:none; margin-bottom:20px;">Sign Up</h2>
+        <form id="signup-form">
+            <div style="margin-bottom:15px;">
+                <label for="signup-username" style="display:block; color:#3E3E3E; margin-bottom:8px;">Username</label>
+                <input id="signup-username" type="text" required minlength="3" placeholder="HeroName" style="width:100%; padding:12px 14px; border:3px solid #E0E0E0; background:#ffffff; font-family:'Press Start 2P', monospace; font-size:0.7rem;">
+            </div>
+            <div style="margin-bottom:15px;">
+                <label for="signup-email" style="display:block; color:#3E3E3E; margin-bottom:8px;">Email</label>
+                <input id="signup-email" type="email" required placeholder="you@pantheos.com" style="width:100%; padding:12px 14px; border:3px solid #E0E0E0; background:#ffffff; font-family:'Press Start 2P', monospace; font-size:0.7rem;">
+            </div>
+            <div style="margin-bottom:15px;">
+                <label for="signup-password" style="display:block; color:#3E3E3E; margin-bottom:8px;">Password</strong></label>
+                <div class="password-container">
+                    <input id="signup-password" type="password" required minlength="6" placeholder="At least 6 characters" class="password-input" style="width:100%; padding:12px 14px; border:3px solid #E0E0E0; background:#ffffff; font-family:'Press Start 2P', monospace; font-size:0.7rem;">
+                    <button type="button" class="password-toggle" data-target="signup-password">👁️</button>
+                </div>
+            </div>
+            <div style="margin-bottom:15px;">
+                <label for="signup-confirm" style="display:block; color:#3E3E3E; margin-bottom:8px;">Confirm Password</label>
+                <div class="password-container">
+                    <input id="signup-confirm" type="password" required minlength="6" placeholder="Repeat your password" class="password-input" style="width:100%; padding:12px 14px; border:3px solid #E0E0E0; background:#ffffff; font-family:'Press Start 2P', monospace; font-size:0.7rem;">
+                    <button type="button" class="password-toggle" data-target="signup-confirm">👁️</button>
+                </div>
+            </div>
+            <div id="signup-error" style="color:#FF6666; min-height:18px; font-size:0.7rem; margin-bottom:10px;"></div>
+            <div style="display:flex; gap:12px; justify-content:center;">
+                <button type="submit" class="btn-primary" style="cursor:pointer; padding:12px 20px; border:3px solid #E0E0E0; background:#144486; color:#FFFFFF; font-family:'Press Start 2P', monospace;">Create Account</button>
+                <button type="button" id="signup-cancel" style="cursor:pointer; padding:12px 20px; border:3px solid #E0E0E0; background:#3E3E3E; color:#FFFFFF; font-family:'Press Start 2P', monospace;">Cancel</button>
+            </div>
+            <div style="text-align:center; margin-top:16px; font-size:0.75rem;">
+                <span style="color:#1A1A1A;">Already have an account?</span>
+                <a href="#" id="signup-open-login" style="color:#144486; text-decoration:underline;">Log in</a>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Pantheos</h3>
+                    <a href="#">Game Overview</a>
+                    <a href="#">Development Team</a>
+                    <a href="#">Roadmap</a>
+                    <a href="#">Careers</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#">FAQ</a>
+                    <a href="#">Forums</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Server Status</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Refund Policy</a>
+                    <a href="#">Copyright</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <a href="#">Discord</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+            
+            <p style="font-size: 0.7rem; margin-top: 20px;">© 2024 Pantheos RPG. All rights reserved. All trademarks are property of their respective owners.</p>
+        </div>
+    </footer>
+
+    <script>
+         // Password visibility toggle (fix: no reliance on global event)
+         document.addEventListener('click', function(e){
+             const btn = e.target.closest('.password-toggle');
+             if (!btn) return;
+             const targetId = btn.getAttribute('data-target');
+             const input = document.getElementById(targetId);
+             if (!input) return;
+             if (input.type === 'password') {
+                 input.type = 'text';
+                 btn.textContent = '🙈';
+             } else {
+                 input.type = 'password';
+                 btn.textContent = '👁️';
+             }
+         });
+
+         // Nav active highlight
+         (function(){
+             const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+             const sections = navLinks
+                 .map(a => document.querySelector(a.getAttribute('href')))
+                 .filter(Boolean);
+             function setActiveById(id){
+                 navLinks.forEach(a => {
+                     a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+                 });
+             }
+             // On click
+             navLinks.forEach(a => a.addEventListener('click', function(){
+                 const href = this.getAttribute('href');
+                 if (href && href.startsWith('#')) setActiveById(href.slice(1));
+             }));
+             // On scroll
+             if ('IntersectionObserver' in window) {
+                 const observer = new IntersectionObserver((entries)=>{
+                     entries.forEach(entry => {
+                         if (entry.isIntersecting) setActiveById(entry.target.id);
+                     });
+                 }, { root: null, rootMargin: '0px', threshold: 0.5 });
+                 sections.forEach(sec => observer.observe(sec));
+             }
+         })();
+
+         // Hero section background rotation
+         document.addEventListener('DOMContentLoaded', function() {
+             const backgrounds = document.querySelectorAll('.hero-background');
+             let current = 0;
+             
+             // Show the first background initially
+             if (backgrounds.length > 0) {
+                 backgrounds[0].classList.add('active');
+             }
+             
+             // Function to rotate backgrounds
+             function rotateBackground() {
+                 // Remove active class from current background
+                 backgrounds[current].classList.remove('active');
+                 
+                 // Move to next background
+                 current = (current + 1) % backgrounds.length;
+                 
+                 // Add active class to new current background
+                 backgrounds[current].classList.add('active');
+             }
+             
+             // Start the rotation every 5 seconds
+             setInterval(rotateBackground, 5000);
+             
+             // Load media section background images
+             const mediaPlaceholders = document.querySelectorAll('.media-placeholder[data-bg]');
+             mediaPlaceholders.forEach(function(placeholder) {
+                 const imageSrc = placeholder.getAttribute('data-bg');
+                 if (imageSrc) {
+                     placeholder.style.backgroundImage = `url('${imageSrc}')`;
+                 }
+             });
+         });
+    </script>
+
+    <script>
+    // Modal open/close and auth wiring + profile settings
+    (function(){
+        const AUTH_KEY = 'pantheosUser';
+        const backdrop = document.getElementById('modal-backdrop');
+        const loginModal = document.getElementById('login-modal');
+        const signupModal = document.getElementById('signup-modal');
+
+        function getUser(){ try { return JSON.parse(localStorage.getItem(AUTH_KEY)); } catch(_) { return null; } }
+        function setUser(u){ localStorage.setItem(AUTH_KEY, JSON.stringify(u)); }
+
+        function openModal(which){
+            backdrop.style.display='block';
+            (which==='login'?loginModal:signupModal).style.display='block';
+        }
+        function closeModals(){
+            backdrop.style.display='none';
+            loginModal.style.display='none';
+            signupModal.style.display='none';
+            const le=document.getElementById('login-error'); if(le) le.textContent='';
+            const se=document.getElementById('signup-error'); if(se) se.textContent='';
+        }
+
+        document.getElementById('open-login')?.addEventListener('click', (e)=>{ e.preventDefault(); openModal('login'); });
+        backdrop.addEventListener('click', closeModals);
+        document.getElementById('login-cancel').addEventListener('click', closeModals);
+        document.getElementById('signup-cancel').addEventListener('click', closeModals);
+        document.getElementById('login-open-signup')?.addEventListener('click', (e)=>{ e.preventDefault(); closeModals(); openModal('signup'); });
+        document.getElementById('signup-open-login')?.addEventListener('click', (e)=>{ e.preventDefault(); closeModals(); openModal('login'); });
+
+        // Login submit
+        document.getElementById('login-form').addEventListener('submit', (e)=>{
+            e.preventDefault();
+            const email = (document.getElementById('login-email')).value.trim();
+            const password = (document.getElementById('login-password')).value;
+            const errEl = document.getElementById('login-error');
+            if (!email || !password) { errEl.textContent = 'Please fill in all fields.'; return; }
+            const user = getUser();
+            if (!user || user.email?.toLowerCase() !== email.toLowerCase()) { errEl.textContent = 'Account not found. Please sign up.'; return; }
+            if (!user.password || user.password !== password) { errEl.textContent = 'Invalid password.'; return; }
+            closeModals();
+            window.__auth?.renderAuth();
+        });
+
+        // Signup submit
+        document.getElementById('signup-form').addEventListener('submit', (e)=>{
+            e.preventDefault();
+            const username = (document.getElementById('signup-username')).value.trim();
+            const email = (document.getElementById('signup-email')).value.trim();
+            const password = (document.getElementById('signup-password')).value;
+            const confirm = (document.getElementById('signup-confirm')).value;
+            const errEl = document.getElementById('signup-error');
+            if (!username || !email || !password || !confirm) { errEl.textContent = 'Please fill in all fields.'; return; }
+            if (password.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; return; }
+            if (password !== confirm) { errEl.textContent = 'Passwords do not match.'; return; }
+            setUser({ username, email, password, avatar: '' });
+            closeModals();
+            window.__auth?.renderAuth();
+        });
+
+        // Profile modal wiring
+        const pBackdrop = document.getElementById('profile-modal-backdrop');
+        const pModal = document.getElementById('profile-modal');
+        const pCancel = document.getElementById('profile-cancel');
+        pBackdrop.addEventListener('click', ()=>{ pBackdrop.style.display='none'; pModal.style.display='none'; pendingAvatarData = ''; });
+        pCancel.addEventListener('click', (e)=>{ e.preventDefault(); pBackdrop.style.display='none'; pModal.style.display='none'; pendingAvatarData = ''; });
+
+        let pendingAvatarData = '';
+        document.getElementById('profile-avatar')?.addEventListener('change', function(){
+            const file = this.files && this.files[0]; if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev){
+                pendingAvatarData = ev.target.result; // hold in memory until saved
+                document.getElementById('profile-avatar-preview').src = pendingAvatarData; // preview only
+            };
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('profile-save').addEventListener('click', function(e){
+            e.preventDefault();
+            const u = getUser(); if (!u) return;
+
+            // Save avatar if pending
+            if (pendingAvatarData) {
+                u.avatar = pendingAvatarData;
+                document.getElementById('user-avatar-thumb')?.setAttribute('src', pendingAvatarData);
+                pendingAvatarData = '';
+            }
+
+            // Save password if provided
+            const current = document.getElementById('profile-current-pass').value;
+            const np = document.getElementById('profile-new-pass').value;
+            const np2 = document.getElementById('profile-new-pass2').value;
+            const err = document.getElementById('profile-password-error');
+            err.style.color = '#FF6666';
+            if (current || np || np2) {
+                if (!current || current !== u.password) { err.textContent = 'Current password incorrect.'; return; }
+                if (!np || np.length < 6) { err.textContent = 'New password must be at least 6 characters.'; return; }
+                if (np !== np2) { err.textContent = 'New passwords do not match.'; return; }
+                u.password = np;
+                err.textContent = '';
+            }
+
+            setUser(u);
+            // Close modal after save
+            pBackdrop.style.display='none'; pModal.style.display='none';
+        });
+
+        document.getElementById('profile-password-form').addEventListener('submit', function(e){
+            e.preventDefault();
+            const current = document.getElementById('profile-current-pass').value;
+            const np = document.getElementById('profile-new-pass').value;
+            const np2 = document.getElementById('profile-new-pass2').value;
+            const err = document.getElementById('profile-password-error');
+            const u = getUser();
+            if (!u) { err.textContent='No active user.'; return; }
+            if (current !== u.password) { err.textContent='Current password incorrect.'; return; }
+            if (!np || np.length < 6) { err.textContent='New password must be at least 6 characters.'; return; }
+            if (np !== np2) { err.textContent='New passwords do not match.'; return; }
+            u.password = np; setUser(u);
+            err.style.color = '#28a745'; err.textContent='Password updated.';
+            setTimeout(()=>{ err.textContent=''; err.style.color='#FF6666'; }, 2000);
+        });
+
+        document.getElementById('profile-delete-account').addEventListener('click', function(){
+            const u = getUser();
+            const err = document.getElementById('profile-delete-error');
+            if (!u) { err.textContent = 'No active user.'; return; }
+            if (!confirm('Are you sure you want to delete your account? This cannot be undone.')) return;
+            localStorage.removeItem(AUTH_KEY);
+            window.__auth?.renderAuth();
+            pBackdrop.style.display='none'; pModal.style.display='none';
+        });
+    })();
+    </script>
+</body>
+</html>
