@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantheos Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-purple: #2D1B69;
+            --royal-purple: #4A148C;
+            --mystic-purple: #6A1B9A;
+            --celestial-gold: #FFD700;
+            --ancient-gold: #B8860B;
+            --divine-gold: #FFA500;
+            --void-black: #0A0A0A;
+            --shadow-black: #1A1A1A;
+            --mystic-blue: #1E3A8A;
+            --ethereal-white: #F8FAFC;
+            --soft-white: #F5F5F5;
+            --danger: #ef4444;
+            --success: #22c55e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: linear-gradient(135deg, var(--void-black) 0%, var(--deep-purple) 50%, var(--mystic-blue) 100%);
+            color: var(--ethereal-white);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: linear-gradient(180deg, rgba(10,10,10,0.95), rgba(45,27,105,0.9));
+            border-bottom: 2px solid var(--celestial-gold);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+        }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; height: 72px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+        .brand { display: flex; align-items: center; gap: 12px; color: var(--celestial-gold); text-decoration: none; font-family: 'Press Start 2P', monospace; }
+        .brand img { height: 42px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.5)); }
+        .home-link { color: var(--ethereal-white); text-decoration: none; padding: 10px 16px; border: 1px solid var(--celestial-gold); border-radius: 10px; transition: all 0.2s ease; }
+        .home-link:hover { color: var(--celestial-gold); box-shadow: 0 8px 20px rgba(255,215,0,0.3); }
+
+        .layout { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 260px 1fr; gap: 24px; }
+        .sidebar { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,215,0,0.25); border-radius: 14px; padding: 16px; backdrop-filter: blur(8px); }
+        .sidebar h3 { font-family: 'Press Start 2P', monospace; font-size: 0.85rem; color: var(--celestial-gold); margin-bottom: 14px; }
+        .tab-btn { width: 100%; text-align: left; padding: 12px 14px; background: transparent; border: 1px solid rgba(255,215,0,0.25); color: var(--ethereal-white); border-radius: 10px; cursor: pointer; margin-bottom: 10px; transition: all 0.2s ease; }
+        .tab-btn:hover { border-color: var(--celestial-gold); box-shadow: 0 8px 20px rgba(255,215,0,0.2); }
+        .tab-btn.active { background: linear-gradient(135deg, rgba(45,27,105,0.5), rgba(30,58,138,0.5)); border-color: var(--celestial-gold); color: var(--celestial-gold); }
+
+        .content { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,215,0,0.25); border-radius: 14px; padding: 20px; backdrop-filter: blur(8px); min-height: 600px; }
+        .section-title { font-family: 'Press Start 2P', monospace; color: var(--celestial-gold); margin-bottom: 18px; font-size: 1.1rem; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+        .card { background: linear-gradient(135deg, rgba(45,27,105,0.35), rgba(30,58,138,0.35)); border: 1px solid rgba(255,215,0,0.25); border-radius: 12px; padding: 16px; }
+        .stat { font-size: 0.95rem; color: var(--soft-white); }
+        .value { font-size: 1.6rem; color: var(--celestial-gold); margin-top: 6px; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; margin-bottom: 6px; color: var(--soft-white); font-size: 0.95rem; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid rgba(255,215,0,0.35); border-radius: 10px; background: rgba(255,255,255,0.07); color: var(--ethereal-white); font-family: 'Share Tech Mono', monospace; }
+        textarea { min-height: 110px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border-radius: 10px; text-decoration: none; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; font-weight: 600; }
+        .btn-primary { background: linear-gradient(135deg, var(--mystic-purple), var(--royal-purple)); color: var(--ethereal-white); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(106,27,154,0.45); border-color: var(--celestial-gold); }
+        .btn-ghost { background: transparent; color: var(--celestial-gold); border-color: var(--celestial-gold); }
+        .btn-ghost:hover { background: rgba(255,215,0,0.12); }
+        .btn-danger { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: #fff; }
+
+        /* Shop */
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+        .shop-item { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,215,0,0.25); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+        .shop-thumb { height: 140px; background: radial-gradient(circle at 50% 30%, rgba(255,215,0,0.2), transparent 60%); display: grid; place-items: center; font-size: 42px; }
+        .shop-body { padding: 14px; display: grid; gap: 8px; }
+        .price { color: var(--celestial-gold); font-weight: 700; }
+
+        /* Wallet */
+        .wallet-balance { font-size: 2rem; color: var(--celestial-gold); }
+        .methods { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .method { padding: 10px 12px; border: 1px solid rgba(255,215,0,0.35); border-radius: 8px; cursor: pointer; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: linear-gradient(135deg, var(--void-black), var(--deep-purple)); border: 2px solid var(--celestial-gold); border-radius: 14px; width: 95%; max-width: 480px; padding: 18px; }
+        .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .close { cursor: pointer; color: var(--celestial-gold); font-size: 22px; }
+
+        /* Responsive */
+        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    </style>
+    <script>
+        // Basic mock DB using localStorage
+        const DB_KEYS = { user: 'pantheos_user', wallet: 'pantheos_wallet', inventory: 'pantheos_inventory', purchases: 'pantheos_purchases' };
+        function getLS(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } }
+        function setLS(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+
+        const SHOP_ITEMS = [
+            { id: 'crown_a', name: 'Golden Crown', price: 199, icon: '👑' },
+            { id: 'cloak_b', name: 'Arcane Cloak', price: 149, icon: '🧥' },
+            { id: 'sword_c', name: 'Celestial Blade', price: 249, icon: '⚔️' },
+            { id: 'wings_d', name: 'Ethereal Wings', price: 299, icon: '🕊️' }
+        ];
+
+        function initState() {
+            if (getLS(DB_KEYS.user, null) === null) setLS(DB_KEYS.user, { username: 'New Hero', email: 'hero@example.com', bio: '' });
+            if (getLS(DB_KEYS.wallet, null) === null) setLS(DB_KEYS.wallet, { currency: 'PHP', balance: 0 });
+            if (getLS(DB_KEYS.inventory, null) === null) setLS(DB_KEYS.inventory, []);
+            if (getLS(DB_KEYS.purchases, null) === null) setLS(DB_KEYS.purchases, []);
+        }
+
+        // Tab navigation
+        function setActiveTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+            document.querySelectorAll('.tab-panel').forEach(p => p.style.display = (p.id === tabId ? 'block' : 'none'));
+        }
+
+        // Render functions
+        function renderDashboard() {
+            const wallet = getLS(DB_KEYS.wallet, { balance: 0 });
+            const purchases = getLS(DB_KEYS.purchases, []);
+            document.getElementById('dash-balance').textContent = `₱ ${wallet.balance.toFixed(2)}`;
+            const recent = document.getElementById('recent-purchases');
+            recent.innerHTML = purchases.slice(-5).reverse().map(p => `<div class="card"><div class="stat">${p.name}</div><div class="value">₱ ${p.price.toFixed(2)}</div><div class="stat">${new Date(p.date).toLocaleString()}</div></div>`).join('') || '<div class="stat">No purchases yet.</div>';
+        }
+
+        function renderProfile() {
+            const user = getLS(DB_KEYS.user, {});
+            document.getElementById('username').value = user.username || '';
+            document.getElementById('email').value = user.email || '';
+            document.getElementById('bio').value = user.bio || '';
+        }
+
+        function renderShop() {
+            const inv = getLS(DB_KEYS.inventory, []);
+            const grid = document.getElementById('shop-grid');
+            grid.innerHTML = SHOP_ITEMS.map(it => {
+                const owned = inv.includes(it.id);
+                return `
+                <div class="shop-item">
+                    <div class="shop-thumb">${it.icon}</div>
+                    <div class="shop-body">
+                        <div style="font-weight:700">${it.name}</div>
+                        <div class="price">₱ ${it.price.toFixed(2)}</div>
+                        <button class="btn ${owned ? 'btn-ghost' : 'btn-primary'}" ${owned ? 'disabled' : ''} onclick="buyItem('${it.id}')">${owned ? 'Owned' : 'Buy'}</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderWallet() {
+            const wallet = getLS(DB_KEYS.wallet, { balance: 0 });
+            document.getElementById('wallet-balance').textContent = `₱ ${wallet.balance.toFixed(2)}`;
+        }
+
+        // Actions
+        function saveProfile(e) {
+            e.preventDefault();
+            const user = { username: document.getElementById('username').value.trim(), email: document.getElementById('email').value.trim(), bio: document.getElementById('bio').value.trim() };
+            setLS(DB_KEYS.user, user);
+            alert('Profile saved.');
+        }
+
+        function buyItem(itemId) {
+            const item = SHOP_ITEMS.find(i => i.id === itemId);
+            const wallet = getLS(DB_KEYS.wallet, { balance: 0 });
+            const inv = getLS(DB_KEYS.inventory, []);
+            if (!item) return;
+            if (inv.includes(itemId)) return alert('Item already owned.');
+            if (wallet.balance < item.price) return alert('Insufficient balance. Top up your wallet.');
+            wallet.balance -= item.price;
+            inv.push(itemId);
+            const purchases = getLS(DB_KEYS.purchases, []);
+            purchases.push({ id: itemId, name: item.name, price: item.price, date: Date.now() });
+            setLS(DB_KEYS.wallet, wallet); setLS(DB_KEYS.inventory, inv); setLS(DB_KEYS.purchases, purchases);
+            renderWallet(); renderShop(); renderDashboard();
+        }
+
+        // Top up modal
+        function openTopup() { document.getElementById('topup').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeTopup() { document.getElementById('topup').style.display = 'none'; document.body.style.overflow = ''; }
+        function submitTopup(e) {
+            e.preventDefault();
+            const amount = Number(document.getElementById('topup-amount').value);
+            const method = document.getElementById('topup-method').value;
+            if (!amount || amount <= 0) return alert('Enter a valid amount');
+            const wallet = getLS(DB_KEYS.wallet, { balance: 0 });
+            wallet.balance += amount;
+            setLS(DB_KEYS.wallet, wallet);
+            closeTopup();
+            renderWallet(); renderDashboard();
+            alert(`Top-up successful via ${method}.`);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initState();
+            setActiveTab('tab-dashboard');
+            renderDashboard();
+            renderProfile();
+            renderShop();
+            renderWallet();
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-wrap">
+            <a class="brand" href="pantheos-website.html"><img src="logo.png" alt="Pantheos"> Pantheos</a>
+            <a class="home-link" href="pantheos-website.html">← Back to Website</a>
+        </div>
+    </nav>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <h3>Account</h3>
+            <button class="tab-btn active" data-tab="tab-dashboard" onclick="setActiveTab('tab-dashboard')">User Dashboard</button>
+            <button class="tab-btn" data-tab="tab-profile" onclick="setActiveTab('tab-profile')">Profile</button>
+            <button class="tab-btn" data-tab="tab-shop" onclick="setActiveTab('tab-shop')">Shop (PHP)</button>
+            <button class="tab-btn" data-tab="tab-wallet" onclick="setActiveTab('tab-wallet')">Wallet & Top-up</button>
+            <button class="tab-btn" data-tab="tab-settings" onclick="setActiveTab('tab-settings')">Settings</button>
+        </aside>
+
+        <main class="content">
+            <section id="tab-dashboard" class="tab-panel" style="display:block">
+                <div class="section-title">User Dashboard</div>
+                <div class="grid">
+                    <div class="card">
+                        <div class="stat">Wallet Balance</div>
+                        <div id="dash-balance" class="value">₱ 0.00</div>
+                        <div style="margin-top:10px"><button class="btn btn-primary" onclick="openTopup()">Top Up</button></div>
+                    </div>
+                    <div class="card">
+                        <div class="stat">Owned Items</div>
+                        <div class="value" id="owned-count">—</div>
+                        <script>document.addEventListener('DOMContentLoaded',()=>{const inv=getLS(DB_KEYS.inventory,[]);document.getElementById('owned-count').textContent=String(inv.length);});</script>
+                    </div>
+                </div>
+                <div style="margin-top:16px">
+                    <div class="section-title" style="font-size:1rem">Recent Purchases</div>
+                    <div id="recent-purchases" class="grid"></div>
+                </div>
+            </section>
+
+            <section id="tab-profile" class="tab-panel" style="display:none">
+                <div class="section-title">Account Profile</div>
+                <form onsubmit="saveProfile(event)">
+                    <div class="form-row">
+                        <div class="form-group"><label>Username</label><input id="username" type="text" required></div>
+                        <div class="form-group"><label>Email</label><input id="email" type="email" required></div>
+                    </div>
+                    <div class="form-group"><label>Bio</label><textarea id="bio" placeholder="Tell us about your hero..."></textarea></div>
+                    <button class="btn btn-primary" type="submit">Save Profile</button>
+                </form>
+            </section>
+
+            <section id="tab-shop" class="tab-panel" style="display:none">
+                <div class="section-title">Cosmetics Shop (₱ PHP)</div>
+                <div id="shop-grid" class="shop-grid"></div>
+            </section>
+
+            <section id="tab-wallet" class="tab-panel" style="display:none">
+                <div class="section-title">Wallet & Top-up</div>
+                <div class="card" style="margin-bottom:12px">
+                    <div class="stat">Current Balance</div>
+                    <div id="wallet-balance" class="wallet-balance">₱ 0.00</div>
+                </div>
+                <div class="methods">
+                    <div class="method">GCash</div>
+                    <div class="method">Credit/Debit Card</div>
+                    <div class="method">Other E-Wallet</div>
+                </div>
+                <div style="margin-top:12px"><button class="btn btn-primary" onclick="openTopup()">Top Up Now</button></div>
+            </section>
+
+            <section id="tab-settings" class="tab-panel" style="display:none">
+                <div class="section-title">Settings</div>
+                <div class="card">
+                    <div class="form-group"><label>Theme</label>
+                        <select id="theme-select" onchange="document.body.dataset.theme=this.value">
+                            <option value="dark" selected>Dark</option>
+                            <option value="light">Light</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-danger" onclick="localStorage.clear(); location.reload();">Reset Local Data</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Top-up Modal -->
+    <div id="topup" class="modal" onclick="if(event.target===this)closeTopup()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="section-title" style="margin:0">Top Up Wallet</div>
+                <div class="close" onclick="closeTopup()">✕</div>
+            </div>
+            <form onsubmit="submitTopup(event)">
+                <div class="form-group"><label>Amount (PHP)</label><input id="topup-amount" type="number" min="10" step="10" placeholder="100"></div>
+                <div class="form-group"><label>Payment Method</label>
+                    <select id="topup-method">
+                        <option>GCash</option>
+                        <option>Credit/Debit Card</option>
+                        <option>Other E-Wallet</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit" style="width:100%">Confirm Top Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
