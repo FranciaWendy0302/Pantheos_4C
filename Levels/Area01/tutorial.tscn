@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://n00nubj62i0x"]
+[gd_scene load_steps=5 format=4 uid="uid://n00nubj62i0x"]
 
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="1_srvlr"]
 [ext_resource type="PackedScene" uid="uid://c64615u3q647u" path="res://Enemies/Slime/slime.tscn" id="2_f8ij2"]
 [ext_resource type="Script" uid="uid://chutxhipqg8tf" path="res://Levels/Area01/tutorial.gd" id="3_tutorial"]
+[ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="4_tafq5"]
 
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("3_tutorial")
@@ -12,3 +13,6 @@ tile_map_data = PackedByteArray("AAD3//v/AAADAAQAAFD3//z/AAADAAQAAFD3//3/AAADAAQ
 
 [node name="Slime" parent="." instance=ExtResource("2_f8ij2")]
 position = Vector2(364, 176)
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("4_tafq5")]
+position = Vector2(128, 203)

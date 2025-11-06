@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://bsk04xdwpj7oq"]
+[gd_scene load_steps=42 format=4 uid="uid://bsk04xdwpj7oq"]
 
 [ext_resource type="Script" uid="uid://cstl6m1m6016h" path="res://Levels/Dungeon1/dungeon04_boss_waves.gd" id="1_mwlot"]
 [ext_resource type="PackedScene" uid="uid://b4qoav36rna8p" path="res://Tile Maps/dungeon-01_.tscn" id="2_1qjnr"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="3_x0p6q"]
 [ext_resource type="PackedScene" uid="uid://bkmgd56mqv1ga" path="res://Levels/level_transition.tscn" id="4_ddb0b"]
 [ext_resource type="Texture2D" uid="uid://b468j80jdyogl" path="res://Tile Maps/Sprites/dungeon.png" id="4_i4r5w"]
-[ext_resource type="PackedScene" uid="uid://qljjrek18mwt" path="res://GeneralNodes/ItemDropper/item_dropper.tscn" id="7_rxipd"]
 [ext_resource type="PackedScene" uid="uid://dhwhulocgupsl" path="res://Props/torches/torch_dungeon.tscn" id="7_y3nde"]
 [ext_resource type="Script" uid="uid://cj6mjbi6islaf" path="res://Levels/Dungeon1/dark_wizard/script/dark_wizard_boss.gd" id="8_0wrr8"]
 [ext_resource type="PackedScene" uid="uid://bo3tbr8au0udv" path="res://GeneralNodes/PersistentDataHandler/persistent-data-handler.tscn" id="9_j52ye"]
@@ -16,9 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://c3g2w7rkn6aox" path="res://GeneralNodes/HitBox/hit_box.tscn" id="13_v30ab"]
 [ext_resource type="AudioStream" uid="uid://b7xy2hpine2a3" path="res://Levels/Dungeon1/dark_wizard/audio/boss_destroy.wav" id="14_44xbr"]
 [ext_resource type="PackedScene" uid="uid://2nqmstkgmi5f" path="res://Levels/Dungeon1/dark_wizard/dark_beam.tscn" id="15_gll4a"]
-[ext_resource type="Resource" uid="uid://7mo5t0sd63t8" path="res://Items/magical_flute.tres" id="17_p8vlu"]
-[ext_resource type="PackedScene" uid="uid://dutt7tppgllui" path="res://quests/utility_nodes/quest_advance_trigger.tscn" id="18_ws4n5"]
-[ext_resource type="Resource" uid="uid://ddtsakxdsgbpr" path="res://quests/recover_lost_flute.tres" id="19_iv5a4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5th0f"]
 texture = ExtResource("4_i4r5w")
@@ -862,7 +858,7 @@ tile_map_data = PackedByteArray("AAAGAAkAAAAMAAQAAAAGAAoAAAAMAAUAAAAGAAsAAAAMAAY
 tile_set = SubResource("TileSet_arucn")
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("3_x0p6q")]
-position = Vector2(112, 204)
+position = Vector2(253, 264)
 
 [node name="LevelTransition" parent="." instance=ExtResource("4_ddb0b")]
 position = Vector2(257, 288)
@@ -1036,17 +1032,3 @@ texture = SubResource("GradientTexture2D_1ikah")
 [node name="Sprite2D2" type="Sprite2D" parent="DarkWizardBoss/PositionTargets"]
 position = Vector2(117, 179)
 texture = SubResource("GradientTexture2D_1ikah")
-
-[node name="ItemDropper" parent="DarkWizardBoss" instance=ExtResource("7_rxipd")]
-position = Vector2(301, 160)
-item_data = ExtResource("17_p8vlu")
-
-[node name="QuestAdvanceTrigger" parent="DarkWizardBoss/ItemDropper" instance=ExtResource("18_ws4n5")]
-position = Vector2(-301, -160)
-signal_name = "drop_collected"
-linked_quest = ExtResource("19_iv5a4")
-quest_step = 2
-settings_summary = "UPDATE QUEST:
-Quest: Recover Lost Flute
-Step: 2 - find the flute
-Complete: false"

@@ -496,8 +496,8 @@ func _tm_get_cell_alternative_tile(tm, pos: Vector2i) -> int:
 	else:
 		return tm.get_cell_alternative_tile(0, pos)
 
-func _input(event: InputEvent) -> void:
-	# Handle toggle key
+func _unhandled_input(event: InputEvent) -> void:
+	# Handle toggle key for minimap
 	if event is InputEventKey:
 		var key_event = event as InputEventKey
 		if key_event.pressed and key_event.keycode == toggle_key:

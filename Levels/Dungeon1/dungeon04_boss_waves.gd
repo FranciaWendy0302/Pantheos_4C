@@ -4,9 +4,11 @@ const DARK_WIZARD_SCRIPT = preload("res://Levels/Dungeon1/dark_wizard/script/dar
 
 var boss_wave: int = 0
 var boss_waves_hp: Array[int] = [8, 15, 25]
+var boss_wave_names: Array[String] = ["Dark Wizard", "Enhanced Dark Wizard", "Dark Lord"]
 var boss_wave_completing: bool = false
 var boss_waves_completed: bool = false
 var current_boss: DarkWizardBoss = null
+var boss_damage_dealt: int = 0
 
 func _ready() -> void:
 	super._ready()
@@ -25,15 +27,16 @@ func start_boss_wave() -> void:
 		complete_boss_waves()
 		return
 	
-	# Get the existing DarkWizardBoss node
+	# Get the existing DarkWizardBoss node from the scene
+	# The boss already exists in 04.tscn with all beams positioned correctly
 	var boss_node = get_node_or_null("DarkWizardBoss")
-	if not boss_node:
-		# Boss doesn't exist, create it
+	if not boss_node or not is_instance_valid(boss_node):
+		# Boss doesn't exist in scene, create it (shouldn't happen in 04.tscn)
 		boss_node = DARK_WIZARD_SCRIPT.new()
 		boss_node.name = "DarkWizardBoss"
 		add_child(boss_node)
 		
-		# Set up the boss structure (minimal setup for tutorial)
+		# Set up the boss structure (minimal setup)
 		_setup_boss_structure(boss_node)
 	
 	# Configure boss HP based on wave
@@ -47,10 +50,22 @@ func start_boss_wave() -> void:
 	if boss_node.has_method("enable_hit_boxes"):
 		boss_node.enable_hit_boxes()
 	
-	# Position boss (if it doesn't have a BossNode yet, it will be positioned at spawn)
-	if boss_node.has_node("BossNode"):
-		var player_pos = PlayerManager.player.global_position
-		boss_node.global_position = player_pos + Vector2(200, -100)
+	# Show and update boss health bar for this wave
+	var boss_name = boss_wave_names[boss_wave]
+	PlayerHud.show_boss_health(boss_name)
+	PlayerHud.update_boss_health(boss_hp, boss_hp)
+	
+	# Show kill counter for boss waves
+	PlayerHud.show_kill_counter()
+	PlayerHud.update_wave_counter(boss_wave + 1, boss_damage_dealt, boss_hp)
+	
+	# Reset damage counter for this wave
+	boss_damage_dealt = 0
+	previous_boss_hp = boss_hp
+	
+	# Don't reposition boss - use its position from the scene file
+	# The boss and its beams are already positioned correctly in 04.tscn
+	# All beam positions are preserved as placed in the scene
 	
 	# Start monitoring boss HP
 	_start_boss_monitoring(boss_node)
@@ -73,10 +88,12 @@ func _setup_boss_structure(boss: Node2D) -> void:
 	position_targets.add_child(pos_marker)
 	pos_marker.global_position = boss.global_position
 	
-	# Create BeamAttacks (empty for now, beams will be optional)
-	var beam_attacks = Node2D.new()
-	beam_attacks.name = "BeamAttacks"
-	boss.add_child(beam_attacks)
+	# Create BeamAttacks only if it doesn't exist
+	# (In 04.tscn, BeamAttacks already exists with positioned beams, so don't recreate it)
+	if not boss.has_node("BeamAttacks"):
+		var beam_attacks = Node2D.new()
+		beam_attacks.name = "BeamAttacks"
+		boss.add_child(beam_attacks)
 	
 	# Create minimal required nodes (HurtBox, HitBox, AnimationPlayers, etc.)
 	# These are required by the boss script
@@ -166,8 +183,13 @@ func _setup_boss_structure(boss: Node2D) -> void:
 	boss_node.add_child(audio_player)
 	pass
 
+var previous_boss_hp: int = 0
+
 func _start_boss_monitoring(boss: DarkWizardBoss) -> void:
-	# Monitor boss HP to detect defeat
+	# Initialize previous HP for tracking damage
+	previous_boss_hp = boss.hp
+	
+	# Monitor boss HP to detect defeat and track damage
 	var check_timer = Timer.new()
 	check_timer.name = "BossMonitor"
 	check_timer.wait_time = 0.1
@@ -179,6 +201,16 @@ func _start_boss_monitoring(boss: DarkWizardBoss) -> void:
 		if not is_instance_valid(boss):
 			check_timer.queue_free()
 			return
+		
+		# Track damage dealt
+		if boss.hp < previous_boss_hp:
+			var damage = previous_boss_hp - boss.hp
+			boss_damage_dealt += damage
+			previous_boss_hp = boss.hp
+			
+			# Update wave counter with damage dealt
+			var boss_max_hp = boss_waves_hp[boss_wave]
+			PlayerHud.update_wave_counter(boss_wave + 1, boss_damage_dealt, boss_max_hp)
 		
 		if boss.hp <= 0:
 			# Boss defeated
@@ -199,17 +231,34 @@ func _on_boss_defeated() -> void:
 	boss_wave += 1
 	
 	if boss_wave < boss_waves_hp.size():
-		# Next wave - hide old boss and spawn new one
+		# Next wave - reset boss HP instead of destroying it
+		# This preserves the beam positions from the scene file
 		if is_instance_valid(current_boss):
-			# Hide the boss
-			current_boss.visible = false
-			current_boss.queue_free()
-			current_boss = null
+			# Reset boss HP and make it visible again
+			var boss_hp = boss_waves_hp[boss_wave]
+			current_boss.max_hp = boss_hp
+			current_boss.hp = boss_hp
+			current_boss.visible = true
+			if current_boss.has_method("enable_hit_boxes"):
+				current_boss.enable_hit_boxes()
+			
+			# Show and update boss health bar for the new wave
+			var boss_name = boss_wave_names[boss_wave]
+			PlayerHud.show_boss_health(boss_name)
+			PlayerHud.update_boss_health(boss_hp, boss_hp)
+			
+			# Reset damage counter and update wave counter
+			boss_damage_dealt = 0
+			previous_boss_hp = boss_hp
+			PlayerHud.update_wave_counter(boss_wave + 1, boss_damage_dealt, boss_hp)
+			
+			# Restart monitoring for the new wave
+			_start_boss_monitoring(current_boss)
 		
-		# Wait before spawning next boss
+		# Wait before starting next wave
 		await get_tree().create_timer(2.0).timeout
 		boss_wave_completing = false
-		start_boss_wave()
+		# Don't call start_boss_wave() again - we already reset the boss above
 	else:
 		# All waves complete
 		boss_wave_completing = false
@@ -218,6 +267,10 @@ func _on_boss_defeated() -> void:
 	pass
 
 func complete_boss_waves() -> void:
+	# Hide boss health bar and kill counter
+	PlayerHud.hide_boss_health()
+	PlayerHud.hide_kill_counter()
+	
 	# Hide any UI elements if needed
 	if is_instance_valid(current_boss):
 		current_boss.queue_free()

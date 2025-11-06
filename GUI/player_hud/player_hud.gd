@@ -43,6 +43,7 @@ var hearts: Array[HeartGUI] = []
 @onready var charge_indicator: ProgressBar = $Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton/ChargeIndicator
 
 @onready var kill_counter: Control = $Control/KillCounter
+@onready var kill_counter_toggle_arrow: Button = $Control/KillCounter/ToggleArrow
 @onready var wave_label: Label = %WaveLabel
 @onready var kill_count_label: Label = %CountLabel
 
@@ -91,6 +92,10 @@ func _ready():
 	
 	# Update skill labels based on class
 	call_deferred("update_skill_labels")
+	
+	# Connect kill counter toggle arrow button
+	if kill_counter_toggle_arrow:
+		kill_counter_toggle_arrow.pressed.connect(_on_kill_counter_toggle_arrow_pressed)
 	
 	pass
 	
@@ -213,6 +218,26 @@ func _on_hide_pause() -> void:
 	minimap.visible = true
 	pass
 
+func _on_kill_counter_toggle_arrow_pressed() -> void:
+	# Toggle panel visibility (arrow stays visible)
+	var panel = kill_counter.get_node_or_null("Panel")
+	if panel:
+		panel.visible = !panel.visible
+		# Update arrow text and position based on panel visibility
+		if panel.visible:
+			kill_counter_toggle_arrow.text = "<"
+			# Move arrow to right side of panel
+			kill_counter_toggle_arrow.anchors_preset = Control.PRESET_RIGHT_WIDE
+			kill_counter_toggle_arrow.offset_left = -30.0
+			kill_counter_toggle_arrow.offset_right = -10.0
+		else:
+			kill_counter_toggle_arrow.text = ">"
+			# Move arrow to very left side
+			kill_counter_toggle_arrow.anchors_preset = Control.PRESET_LEFT_WIDE
+			kill_counter_toggle_arrow.offset_left = 0.0
+			kill_counter_toggle_arrow.offset_right = 20.0
+	pass
+
 func _process(_delta: float) -> void:
 	update_skill_cooldowns(_delta)
 	pass
@@ -281,12 +306,30 @@ func update_charge_indicator(charge_progress: float, is_ready: bool) -> void:
 
 func show_kill_counter() -> void:
 	kill_counter.visible = true
+	var panel = kill_counter.get_node_or_null("Panel")
+	if panel:
+		panel.visible = true
 	wave_label.visible = true
 	kill_count_label.text = "0 / 0"
+	# Update arrow to show "<" and position on right side when visible
+	if kill_counter_toggle_arrow:
+		kill_counter_toggle_arrow.text = "<"
+		kill_counter_toggle_arrow.anchors_preset = Control.PRESET_RIGHT_WIDE
+		kill_counter_toggle_arrow.offset_left = -30.0
+		kill_counter_toggle_arrow.offset_right = -10.0
 	pass
 
 func hide_kill_counter() -> void:
-	kill_counter.visible = false
+	var panel = kill_counter.get_node_or_null("Panel")
+	if panel:
+		panel.visible = false
+	# Update arrow to show ">" and move to very left side when hidden
+	if kill_counter_toggle_arrow:
+		kill_counter_toggle_arrow.text = ">"
+		kill_counter_toggle_arrow.anchors_preset = Control.PRESET_LEFT_WIDE
+		kill_counter_toggle_arrow.offset_left = 0.0
+		kill_counter_toggle_arrow.offset_right = 20.0
+	# Keep kill_counter visible so the arrow stays visible
 	pass
 
 func update_kill_counter(count: int) -> void:
