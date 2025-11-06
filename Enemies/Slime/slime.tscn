@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c64615u3q647u"]
+[gd_scene load_steps=45 format=3 uid="uid://c64615u3q647u"]
 
 [ext_resource type="Script" uid="uid://cj4wmw4guajbp" path="res://Enemies/Scripts/enemy.gd" id="1_t8cwk"]
 [ext_resource type="Texture2D" uid="uid://cuj3m3yg7gavm" path="res://Enemies/Slime/Slime.png" id="1_wwfkb"]
@@ -18,6 +18,8 @@
 [ext_resource type="Resource" uid="uid://cyt2be4w5h0oa" path="res://Items/stone.tres" id="15_mevii"]
 [ext_resource type="Resource" uid="uid://bwowi1tqn7mfi" path="res://Items/apple.tres" id="16_qqw3w"]
 [ext_resource type="Resource" uid="uid://gkfifubyfqu1" path="res://Items/potion.tres" id="17_3ktsd"]
+[ext_resource type="PackedScene" uid="uid://cwgfgqnnc85kn" path="res://Enemies/vision_area.tscn" id="18_vision"]
+[ext_resource type="Script" uid="uid://dyhdxoxjsi4vl" path="res://Enemies/Scripts/states/enemy_state_chase.gd" id="19_chase"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t1krp"]
 radius = 12.0
@@ -478,10 +480,10 @@ tracks/2/path = NodePath("Sprite2D:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.025, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 0.0221067, 0.0221067, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 0.0221067, 0.0221067, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
 }
 tracks/3/type = "audio"
 tracks/3/imported = false
@@ -527,25 +529,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, -19), Vector2(0, -22), Vector2(0, -19), Vector2(0, -19)]
 }
-tracks/2/type = "value"
+tracks/2/type = "audio"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/path = NodePath("AudioStreamPlayer2D")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 0.0221067, 0.0221067, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "audio"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AudioStreamPlayer2D")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
@@ -553,7 +543,19 @@ tracks/3/keys = {
 }],
 "times": PackedFloat32Array(0)
 }
-tracks/3/use_blend = true
+tracks/2/use_blend = true
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.0221067, 0.0221067, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_vjyi2"]
 resource_name = "stun_up"
@@ -583,25 +585,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, -19), Vector2(0, -22), Vector2(0, -19), Vector2(0, -19)]
 }
-tracks/2/type = "value"
+tracks/2/type = "audio"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/path = NodePath("AudioStreamPlayer2D")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 0.0221067, 0.0221067, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "audio"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AudioStreamPlayer2D")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
@@ -609,7 +599,19 @@ tracks/3/keys = {
 }],
 "times": PackedFloat32Array(0)
 }
-tracks/3/use_blend = true
+tracks/2/use_blend = true
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.0221067, 0.0221067, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_pg00x"]
 resource_name = "walk_down"
@@ -811,10 +813,14 @@ _data = {
 &"destroy": SubResource("Animation_qqw3w")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vision"]
+radius = 80.0
+
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 256
 collision_mask = 16
 script = ExtResource("1_t8cwk")
+xp_reward = 5
 
 [node name="HurtBox" parent="." instance=ExtResource("2_fjr0p")]
 position = Vector2(0, -6)
@@ -856,15 +862,22 @@ autoplay = "idle_down"
 [node name="EnemyStateMachine" type="Node" parent="."]
 script = ExtResource("4_oij8y")
 
-[node name="Idle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("after_idle_state")]
+[node name="Idle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("after_idle_state", "chase_state")]
 script = ExtResource("5_pg00x")
 after_idle_state = NodePath("../Wander")
+chase_state = NodePath("../Chase")
 
-[node name="Wander" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("next_state")]
+[node name="Wander" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("next_state", "chase_state")]
 script = ExtResource("6_jlwhn")
-wander_speed = 30.0
-state_animation_duration = 0.7
+wander_speed = 15.0
+state_cycles_max = 2
 next_state = NodePath("../Idle")
+chase_state = NodePath("../Chase")
+
+[node name="Chase" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("vision_area", "next_state")]
+script = ExtResource("19_chase")
+vision_area = NodePath("../../VisionArea")
+next_state = NodePath("../Wander")
 
 [node name="Stun" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("next_state")]
 script = ExtResource("11_2qn7y")
@@ -887,3 +900,8 @@ hframes = 6
 libraries = {
 &"": SubResource("AnimationLibrary_5fdv8")
 }
+
+[node name="VisionArea" parent="." instance=ExtResource("18_vision")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_vision")

@@ -97,6 +97,12 @@ func hide_dialog() -> void:
 func start_dialog() -> void:
 	waiting_for_choice = false
 	show_dialog_button_indicator(false)
+	
+	# Safety check to prevent out of bounds access
+	if dialog_item_index < 0 or dialog_item_index >= dialog_items.size():
+		hide_dialog()
+		return
+	
 	var _d: DialogItem = dialog_items[dialog_item_index]
 	
 	if _d is DialogText:
@@ -122,10 +128,13 @@ func start_dialog_cutscene(_d: DialogCutscene) -> void:
 func set_dialog_text(_d: DialogText) -> void:
 	content.text = _d.text
 	choice_options.visible = false
-	name_label.text = _d.npc_info.npc_name
-	portrait_sprite.texture = _d.npc_info.portrait
-	portrait_sprite.audio_pitch_base = _d.npc_info.dialog_audio_pitch
+	if name_label:
+		name_label.text = _d.npc_info.npc_name
+	if portrait_sprite:
+		portrait_sprite.texture = _d.npc_info.portrait
+		portrait_sprite.audio_pitch_base = _d.npc_info.dialog_audio_pitch
 	content.visible_characters = 0
+	content.scroll_to_line(0)  # Reset scroll to top
 	text_length = content.get_total_character_count()
 	plain_text = content.get_parsed_text()
 	text_in_progress = true
@@ -162,15 +171,22 @@ func _on_timer_timeout() -> void:
 	content.visible_characters += 1
 	if content.visible_characters <= text_length:
 		letter_added.emit(plain_text[content.visible_characters - 1])
+		# Auto-scroll to bottom periodically to show new text as it appears
+		# Only scroll every few characters to avoid performance issues
+		if content.visible_characters % 10 == 0:
+			content.scroll_to_line(content.get_line_count() - 1)
 		start_timer()
 	else:
+		# Ensure we're scrolled to the end when text finishes
+		content.scroll_to_line(content.get_line_count() - 1)
 		show_dialog_button_indicator(true)
 		text_in_progress = false
 	pass	
 	
 func show_dialog_button_indicator(_is_visible: bool) -> void:
 	dialog_progress_indicator.visible = _is_visible
-	if dialog_item_index + 1 < dialog_items.size():
+	# Safety check to prevent out of bounds access
+	if dialog_items.size() > 0 and dialog_item_index + 1 < dialog_items.size():
 		dialog_progress_indicator_label.text = "NEXT"
 	else:
 		dialog_progress_indicator_label.text = "END"

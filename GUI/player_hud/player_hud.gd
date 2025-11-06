@@ -22,6 +22,37 @@ var hearts: Array[HeartGUI] = []
 
 @onready var notification_ui: NotificationUI = $Control/Notification
 
+@onready var skills_hud: Control = $Control/SkillsHUD
+@onready var minimap: Control = $Control/Minimap
+
+@onready var dash_skill_button: Button = $Control/SkillsHUD/HBoxContainer/DashSkill/SkillButton
+@onready var dash_cooldown_overlay: ColorRect = $Control/SkillsHUD/HBoxContainer/DashSkill/SkillButton/CooldownOverlay
+@onready var dash_cooldown_label: Label = $Control/SkillsHUD/HBoxContainer/DashSkill/SkillButton/CooldownLabel
+
+@onready var charge_dash_skill_button: Button = $Control/SkillsHUD/HBoxContainer/ChargeDashSkill/SkillButton
+@onready var charge_dash_cooldown_overlay: ColorRect = $Control/SkillsHUD/HBoxContainer/ChargeDashSkill/SkillButton/CooldownOverlay
+@onready var charge_dash_cooldown_label: Label = $Control/SkillsHUD/HBoxContainer/ChargeDashSkill/SkillButton/CooldownLabel
+
+@onready var spin_skill_button: Button = $Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton
+@onready var spin_cooldown_overlay: ColorRect = $Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton/CooldownOverlay
+@onready var spin_cooldown_label: Label = $Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton/CooldownLabel
+
+@onready var dash_skill_name_label: Label = $Control/SkillsHUD/HBoxContainer/DashSkill/SkillNameLabel
+@onready var charge_dash_skill_name_label: Label = $Control/SkillsHUD/HBoxContainer/ChargeDashSkill/SkillNameLabel
+@onready var spin_skill_name_label: Label = $Control/SkillsHUD/HBoxContainer/SpinSkill/SkillNameLabel
+@onready var charge_indicator: ProgressBar = $Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton/ChargeIndicator
+
+@onready var kill_counter: Control = $Control/KillCounter
+@onready var wave_label: Label = %WaveLabel
+@onready var kill_count_label: Label = %CountLabel
+
+var dash_cooldown_timer: float = 0.0
+var dash_cooldown_duration: float = 3.0
+var charge_dash_cooldown_timer: float = 0.0
+var charge_dash_cooldown_duration: float = 10.0
+var spin_cooldown_timer: float = 0.0
+var spin_cooldown_duration: float = 5.0
+
 
 func _ready():
 	for child in $Control/HFlowContainer.get_children():
@@ -41,6 +72,26 @@ func _ready():
 	update_ability_ui(0)
 	PauseMenu.shown.connect(_on_show_pause)
 	PauseMenu.hidden.connect(_on_hide_pause)
+	
+	# Initialize skill cooldown UI
+	dash_cooldown_overlay.visible = false
+	dash_cooldown_label.visible = false
+	dash_skill_button.disabled = false
+	
+	charge_dash_cooldown_overlay.visible = false
+	charge_dash_cooldown_label.visible = false
+	charge_dash_skill_button.disabled = false
+	
+	spin_cooldown_overlay.visible = false
+	spin_cooldown_label.visible = false
+	spin_skill_button.disabled = false
+	
+	# Update skill labels when level loads (after class is selected)
+	LevelManager.level_load_started.connect(_on_level_load_started)
+	
+	# Update skill labels based on class
+	call_deferred("update_skill_labels")
+	
 	pass
 	
 func update_hp(_hp: int, _max_hp: int) -> void:
@@ -152,8 +203,186 @@ func update_bomb_count(count: int) -> void:
 
 func _on_show_pause() -> void:
 	abilities.visible = false
+	skills_hud.visible = false
+	minimap.visible = false
 	pass
 	
 func _on_hide_pause() -> void:
 	abilities.visible = true
+	skills_hud.visible = true
+	minimap.visible = true
 	pass
+
+func _process(_delta: float) -> void:
+	update_skill_cooldowns(_delta)
+	pass
+
+func _on_level_load_started() -> void:
+	# Update skill labels when level loads (class should be set by now)
+	call_deferred("update_skill_labels")
+	pass
+
+func update_skill_labels() -> void:
+	# Remove skill names - buttons only show Q, W, E labels
+	dash_skill_button.text = ""
+	charge_dash_skill_button.text = ""
+	spin_skill_button.text = ""
+	
+	# Hide skill name labels initially
+	dash_skill_name_label.visible = false
+	charge_dash_skill_name_label.visible = false
+	spin_skill_name_label.visible = false
+	charge_indicator.visible = false
+	
+	# Hide kill counter initially
+	kill_counter.visible = false
+	pass
+
+func show_skill_name(skill_key: String, skill_name: String) -> void:
+	# Show skill name label when skill is activated
+	match skill_key:
+		"Q":
+			dash_skill_name_label.text = skill_name
+			dash_skill_name_label.visible = true
+		"W":
+			charge_dash_skill_name_label.text = skill_name
+			charge_dash_skill_name_label.visible = true
+		"E":
+			spin_skill_name_label.text = skill_name
+			spin_skill_name_label.visible = true
+	pass
+
+func hide_skill_name(skill_key: String) -> void:
+	# Hide skill name label when skill ends
+	match skill_key:
+		"Q":
+			dash_skill_name_label.visible = false
+		"W":
+			charge_dash_skill_name_label.visible = false
+		"E":
+			spin_skill_name_label.visible = false
+			charge_indicator.visible = false
+	pass
+
+func update_charge_indicator(charge_progress: float, is_ready: bool) -> void:
+	# Update charge indicator for E skill (big arrow)
+	if PlayerManager.selected_class == "Archer":
+		charge_indicator.value = charge_progress
+		charge_indicator.visible = true
+		
+		# Change color to green when ready, orange when charging
+		var fill_style = charge_indicator.get_theme_stylebox("fill")
+		if fill_style:
+			if is_ready:
+				fill_style.bg_color = Color(0, 1, 0, 0.8)  # Green when ready
+			else:
+				fill_style.bg_color = Color(1, 0.5, 0, 0.8)  # Orange when charging
+	pass
+
+func show_kill_counter() -> void:
+	kill_counter.visible = true
+	wave_label.visible = true
+	kill_count_label.text = "0 / 0"
+	pass
+
+func hide_kill_counter() -> void:
+	kill_counter.visible = false
+	pass
+
+func update_kill_counter(count: int) -> void:
+	kill_count_label.text = str(count)
+	pass
+
+func update_wave_counter(wave_num: int, killed: int, total: int) -> void:
+	wave_label.text = "Wave " + str(wave_num)
+	kill_count_label.text = str(killed) + " / " + str(total)
+	pass
+
+func update_skill_cooldowns(_delta: float) -> void:
+	# Update dash cooldown (Q)
+	if dash_cooldown_timer > 0.0:
+		dash_cooldown_timer -= _delta
+		dash_cooldown_timer = max(0.0, dash_cooldown_timer)
+		
+		if dash_cooldown_timer > 0.0:
+			dash_cooldown_overlay.visible = true
+			dash_cooldown_label.visible = true
+			dash_cooldown_label.text = "%.1f" % dash_cooldown_timer
+			dash_skill_button.disabled = true
+			
+			# Update overlay alpha based on cooldown progress
+			var progress: float = dash_cooldown_timer / dash_cooldown_duration
+			dash_cooldown_overlay.color.a = 0.3 + (0.3 * progress)
+		else:
+			dash_cooldown_overlay.visible = false
+			dash_cooldown_label.visible = false
+			dash_skill_button.disabled = false
+	
+	# Update charge dash cooldown (W)
+	charge_dash_cooldown_timer -= _delta
+	charge_dash_cooldown_timer = max(0.0, charge_dash_cooldown_timer)
+	
+	if charge_dash_cooldown_timer > 0.0:
+		charge_dash_cooldown_overlay.visible = true
+		charge_dash_cooldown_label.visible = true
+		charge_dash_cooldown_label.text = "%.1f" % charge_dash_cooldown_timer
+		charge_dash_skill_button.disabled = true
+		
+		# Update overlay alpha based on cooldown progress
+		var progress: float = charge_dash_cooldown_timer / charge_dash_cooldown_duration
+		charge_dash_cooldown_overlay.color.a = 0.3 + (0.3 * progress)
+	else:
+		charge_dash_cooldown_overlay.visible = false
+		charge_dash_cooldown_label.visible = false
+		charge_dash_skill_button.disabled = false
+	
+	# Update spin cooldown (E)
+	if spin_cooldown_timer > 0.0:
+		spin_cooldown_timer -= _delta
+		spin_cooldown_timer = max(0.0, spin_cooldown_timer)
+		
+		if spin_cooldown_timer > 0.0:
+			spin_cooldown_overlay.visible = true
+			spin_cooldown_label.visible = true
+			spin_cooldown_label.text = "%.1f" % spin_cooldown_timer
+			spin_skill_button.disabled = true
+			
+			# Update overlay alpha based on cooldown progress
+			var progress: float = spin_cooldown_timer / spin_cooldown_duration
+			spin_cooldown_overlay.color.a = 0.3 + (0.3 * progress)
+		else:
+			spin_cooldown_overlay.visible = false
+			spin_cooldown_label.visible = false
+			spin_skill_button.disabled = false
+	
+	pass
+
+func start_dash_cooldown() -> void:
+	dash_cooldown_timer = dash_cooldown_duration
+	dash_cooldown_overlay.visible = true
+	dash_cooldown_label.visible = true
+	dash_skill_button.disabled = true
+	pass
+
+func start_charge_dash_cooldown() -> void:
+	charge_dash_cooldown_timer = charge_dash_cooldown_duration
+	charge_dash_cooldown_overlay.visible = true
+	charge_dash_cooldown_label.visible = true
+	charge_dash_skill_button.disabled = true
+	pass
+
+func start_spin_cooldown() -> void:
+	spin_cooldown_timer = spin_cooldown_duration
+	spin_cooldown_overlay.visible = true
+	spin_cooldown_label.visible = true
+	spin_skill_button.disabled = true
+	pass
+
+func is_dash_on_cooldown() -> bool:
+	return dash_cooldown_timer > 0.0
+
+func is_charge_dash_on_cooldown() -> bool:
+	return charge_dash_cooldown_timer > 0.0
+
+func is_spin_on_cooldown() -> bool:
+	return spin_cooldown_timer > 0.0

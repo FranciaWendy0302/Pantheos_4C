@@ -14,21 +14,42 @@ func _ready():
 	pass
 	
 func Enter() -> void:
+	# Prevent Archer from using Warrior dash skill
+	if PlayerManager.selected_class == "Archer":
+		# Archer should not be in this state, go back to idle
+		state_machine.ChangeState(idle)
+		return
+	
 	player.invulnerable = true
 	player.UpdateAnimation("dash")
 	player.animation_player.animation_finished.connect(_on_animation_finished)
-	direction = player.direction
+	
+	# Get direction to mouse cursor
+	direction = player.get_direction_to_mouse()
 	if direction == Vector2.ZERO:
 		direction = player.cardinal_direction
+	
 	if dash_audio:
 		player.audio.stream = dash_audio
 		player.audio.play()
 	effect_timer = 0
+	
+	# Start dash cooldown
+	PlayerHud.start_dash_cooldown()
+	
+	# Show skill name label
+	if PlayerManager.selected_class != "Archer":
+		PlayerHud.show_skill_name("Q", "Dash")
 	pass
 
 func Exit() -> void:
 	player.invulnerable = false
 	player.animation_player.animation_finished.disconnect(_on_animation_finished)
+	
+	# Hide skill name label
+	if PlayerManager.selected_class != "Archer":
+		PlayerHud.hide_skill_name("Q")
+	
 	next_state = null
 	pass
 	

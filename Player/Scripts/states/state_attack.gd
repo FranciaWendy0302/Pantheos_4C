@@ -16,6 +16,14 @@ var attacking: bool = false
 
 	
 func Enter() -> void:
+	# Prevent Archer from using sword attacks
+	if PlayerManager.selected_class == "Archer":
+		# Archer should not be in this state, go back to idle
+		state_machine.ChangeState(idle)
+		return
+	
+	# Swordsman/Warrior has no attack cooldown - can attack freely
+	
 	player.UpdateAnimation("attack")
 	attack_anim.play("attack_" + player.AnimDirection())
 	animation_player.animation_finished.connect(EndAttack)
@@ -54,6 +62,4 @@ func HandleInput(_event: InputEvent) -> State:
 	return null
 
 func EndAttack(_newAnimName: String) -> void:
-	if Input.is_action_pressed("attack"):
-		state_machine.ChangeState(charge_attack)
 	attacking = false

@@ -21,10 +21,14 @@ func Enter() -> void:
 
 func Exit() -> void:
 	if throwable:
-		if player.direction == Vector2.ZERO:
-			throwable.throw_direction = player.cardinal_direction
-		else:
-			throwable.throw_direction = player.direction
+		# Get direction to mouse cursor for throwing
+		var throw_dir = player.get_direction_to_mouse()
+		if throw_dir == Vector2.ZERO:
+			if player.direction == Vector2.ZERO:
+				throw_dir = player.cardinal_direction
+			else:
+				throw_dir = player.direction
+		throwable.throw_direction = throw_dir
 			
 		if state_machine.next_state == stun:
 			throwable.throw_direction = throwable.throw_direction.rotated(PI)

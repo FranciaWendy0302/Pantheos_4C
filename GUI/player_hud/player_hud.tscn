@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cebqlld4ws2yt"]
+[gd_scene load_steps=31 format=3 uid="uid://cebqlld4ws2yt"]
 
 [ext_resource type="Texture2D" uid="uid://b5hymo20jb5sa" path="res://GUI/player_hud/gui-health.png" id="1_alx7a"]
 [ext_resource type="Script" uid="uid://d34gqlcplff3r" path="res://GUI/player_hud/player_hud.gd" id="1_oghrr"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bxfwsslb6gcov" path="res://GUI/player_hud/panel_notification.png" id="8_terqw"]
 [ext_resource type="AudioStream" uid="uid://cugklxafoeytd" path="res://GUI/player_hud/notification.wav" id="9_ea3vn"]
 [ext_resource type="Texture2D" uid="uid://scetlauprb2n" path="res://Player/Sprites/ability-icons.png" id="10_terqw"]
+[ext_resource type="Script" uid="uid://lofqecjogdvs" path="res://GUI/player_hud/minimap.gd" id="11_minimap"]
 
 [sub_resource type="FontVariation" id="FontVariation_yhjvm"]
 base_font = ExtResource("4_4b3j6")
@@ -286,7 +287,7 @@ region = Rect2(128, 16, 16, 16)
 atlas = ExtResource("10_terqw")
 region = Rect2(128, 0, 16, 16)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3m3x0"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_notification"]
 content_margin_left = 12.0
 content_margin_top = 6.0
 content_margin_right = 12.0
@@ -399,6 +400,12 @@ _data = {
 &"RESET": SubResource("Animation_e1kye"),
 &"show_notification": SubResource("Animation_5nb4v")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_charge_bg"]
+bg_color = Color(0.3, 0.3, 0.3, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_charge"]
+bg_color = Color(0, 1, 0, 0.8)
 
 [node name="PlayerHud" type="CanvasLayer"]
 layer = 2
@@ -627,6 +634,7 @@ horizontal_alignment = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/Abilities"]
 layout_mode = 0
@@ -716,7 +724,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 249.0
 offset_bottom = 53.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_3m3x0")
+theme_override_styles/panel = SubResource("StyleBoxTexture_notification")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/Notification/PanelContainer"]
 layout_mode = 2
@@ -742,6 +750,340 @@ autowrap_mode = 2
 libraries = {
 &"": SubResource("AnimationLibrary_w5viu")
 }
+
+[node name="SkillsHUD" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/SkillsHUD"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DashSkill" type="Control" parent="Control/SkillsHUD/HBoxContainer"]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+
+[node name="SkillButton" type="Button" parent="Control/SkillsHUD/HBoxContainer/DashSkill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = -3.0
+offset_right = 32.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KeyLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/DashSkill/SkillButton"]
+layout_mode = 1
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 36.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CooldownOverlay" type="ColorRect" parent="Control/SkillsHUD/HBoxContainer/DashSkill/SkillButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CooldownLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/DashSkill/SkillButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "3.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillNameLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/DashSkill"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = 5.0
+offset_right = 90.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChargeDashSkill" type="Control" parent="Control/SkillsHUD/HBoxContainer"]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+
+[node name="SkillButton" type="Button" parent="Control/SkillsHUD/HBoxContainer/ChargeDashSkill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = -4.0
+offset_right = 50.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.558966, 0.558966)
+text = "Charge Dash"
+
+[node name="KeyLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/ChargeDashSkill/SkillButton"]
+layout_mode = 1
+offset_left = 7.15607
+offset_top = -8.9451
+offset_right = 52.1561
+offset_bottom = 30.0549
+scale = Vector2(1.70298, 1.96153)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CooldownOverlay" type="ColorRect" parent="Control/SkillsHUD/HBoxContainer/ChargeDashSkill/SkillButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CooldownLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/ChargeDashSkill/SkillButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "10.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillNameLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/ChargeDashSkill"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = 5.0
+offset_right = 90.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpinSkill" type="Control" parent="Control/SkillsHUD/HBoxContainer"]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+
+[node name="SkillButton" type="Button" parent="Control/SkillsHUD/HBoxContainer/SpinSkill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -5.0
+offset_right = 18.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.566218, 0.566218)
+text = "Spin Attack"
+
+[node name="KeyLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton"]
+layout_mode = 1
+offset_left = 21.1933
+offset_top = 14.1288
+offset_right = 41.1933
+offset_bottom = 30.1288
+scale = Vector2(1.92569, 1.92569)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CooldownOverlay" type="ColorRect" parent="Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CooldownLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "2.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChargeIndicator" type="ProgressBar" parent="Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -6.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_charge_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_charge")
+max_value = 1.0
+fill_mode = 1
+show_percentage = false
+
+[node name="SkillNameLabel" type="Label" parent="Control/SkillsHUD/HBoxContainer/SpinSkill"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = 5.0
+offset_right = 90.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KillCounter" type="Control" parent="Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 220.0
+offset_bottom = 150.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Control/KillCounter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/KillCounter/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TitleLabel" type="Label" parent="Control/KillCounter/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "Enemies Killed"
+horizontal_alignment = 1
+
+[node name="WaveLabel" type="Label" parent="Control/KillCounter/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "Wave 1"
+horizontal_alignment = 1
+
+[node name="CountLabel" type="Label" parent="Control/KillCounter/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "0 / 0"
+horizontal_alignment = 1
+
+[node name="Minimap" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -132.0
+offset_top = 56.0
+offset_right = -38.0
+offset_bottom = 133.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("11_minimap")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"

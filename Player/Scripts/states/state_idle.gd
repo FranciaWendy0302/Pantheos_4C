@@ -2,6 +2,7 @@ class_name State_Idle extends State
 
 @onready var walk: Node = $"../Walk"
 @onready var attack: State_Attack = $"../Attack"
+@onready var bow: State_Bow = $"../Bow"
 @onready var dash: State = $"../Dash"
 
 	
@@ -23,9 +24,20 @@ func Physics(_delta: float) -> State:
 	
 func HandleInput(_event: InputEvent) -> State:
 	if _event.is_action_pressed("attack"):
-		return attack
+		# Check basic attack cooldown only for Archer
+		if PlayerManager.selected_class == "Archer" and player.basic_attack_cooldown > 0.0:
+			return null  # Attack is on cooldown, ignore input
+		
+		# Archer always uses bow, Warrior uses sword
+		if PlayerManager.selected_class == "Archer":
+			# Check if Archer can attack (cooldown check is in bow state)
+			return bow
+		else:
+			return attack
 	elif _event.is_action_pressed("interact"):
 		PlayerManager.interact()
 	elif _event.is_action_pressed("dash"):
-		return dash
+		# Dash is only for Warrior class, not Archer
+		if PlayerManager.selected_class != "Archer" and not PlayerHud.is_dash_on_cooldown():
+			return dash
 	return null

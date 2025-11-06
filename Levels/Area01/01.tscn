@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://b3eefjkqiqyg2"]
+[gd_scene load_steps=14 format=4 uid="uid://b3eefjkqiqyg2"]
 
 [ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_22ele"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="1_vbl6q"]
@@ -7,7 +7,6 @@
 [ext_resource type="AudioStream" uid="uid://m2qfqkogj3f5" path="res://Levels/music/example_music_01.ogg" id="6_8itkk"]
 [ext_resource type="Texture2D" uid="uid://bg18oxs1hxg31" path="res://Tile Maps/Sprites/Grass-01.png" id="6_blojo"]
 [ext_resource type="Texture2D" uid="uid://cnxgv2a08rug8" path="res://Tile Maps/Sprites/dungeon_entrance.png" id="7_7f7fh"]
-[ext_resource type="PackedScene" uid="uid://6pbtq7dqq7jo" path="res://Enemies/goblin/goblin.tscn" id="11_an23e"]
 [ext_resource type="PackedScene" uid="uid://bbihhl8fanjpa" path="res://quests/utility_nodes/quest_activated_switch.tscn" id="17_mpmqi"]
 [ext_resource type="Script" uid="uid://cpohape2qpkwa" path="res://quests/utility_nodes/quest_node.gd" id="23_8k3ch"]
 [ext_resource type="Resource" uid="uid://ddtsakxdsgbpr" path="res://quests/recover_lost_flute.tres" id="24_ylqqd"]
@@ -551,18 +550,3 @@ settings_summary = "UPDATE QUEST:
 Quest: Recover Lost Flute
 Step: 0 - N/A
 Complete: false"
-
-[node name="Goblin" parent="." instance=ExtResource("11_an23e")]
-position = Vector2(27, 61)
-
-[node name="Goblin2" parent="." instance=ExtResource("11_an23e")]
-position = Vector2(28, 121)
-
-[node name="Goblin3" parent="." instance=ExtResource("11_an23e")]
-position = Vector2(25, 178)
-
-[node name="Goblin4" parent="." instance=ExtResource("11_an23e")]
-position = Vector2(28, 235)
-
-[node name="Goblin5" parent="." instance=ExtResource("11_an23e")]
-position = Vector2(29, 286)

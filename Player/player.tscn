@@ -26,7 +26,6 @@
 [ext_resource type="Script" uid="uid://dsf88nehtqhwh" path="res://Player/Scripts/Abilities/abilities.gd" id="17_pisgm"]
 [ext_resource type="Script" uid="uid://djhg20ctp62w4" path="res://Player/Scripts/states/state_lift.gd" id="17_qemgg"]
 [ext_resource type="Script" uid="uid://hikdbeycwm2w" path="res://Player/Scripts/states/state_carry.gd" id="18_8viyr"]
-[ext_resource type="PackedScene" uid="uid://ii788ly3vgvb" path="res://GeneralNodes/ItemMagnet/item_magnet.tscn" id="18_b1ygp"]
 [ext_resource type="AudioStream" uid="uid://cbk86jiibjoii" path="res://Player/Audio/huwh.wav" id="18_sm0op"]
 [ext_resource type="AudioStream" uid="uid://70ouhfo72pu7" path="res://Player/Audio/throw.wav" id="20_sm0op"]
 [ext_resource type="Script" uid="uid://6nyd1aoprbvu" path="res://Player/Scripts/states/state_death.gd" id="21_76lrf"]
@@ -35,10 +34,12 @@
 [ext_resource type="AudioStream" uid="uid://yvqhs3ghv71c" path="res://Player/Audio/hwaah.wav" id="26_jp1hh"]
 [ext_resource type="Script" uid="uid://cf2d21h8u3ort" path="res://Player/Scripts/states/state_bow.gd" id="27_qs4pp"]
 [ext_resource type="AudioStream" uid="uid://y68loulkf4u3" path="res://Player/Audio/level_up_jingle.wav" id="28_bbimk"]
-[ext_resource type="Script" uid="uid://s0eawjvxxpmc" path="res://Player/Scripts/states/state_grapple.gd" id="28_f4lon"]
+[ext_resource type="Script" uid="uid://cc4hx1i2buf5i" path="res://Player/Scripts/states/state_invisibility.gd" id="28_invis"]
+[ext_resource type="Script" uid="uid://byv6sfvjwk16m" path="res://Player/Scripts/states/state_arrow_barrage.gd" id="29_barrage"]
 [ext_resource type="AudioStream" uid="uid://b5yck3ruoswp8" path="res://Player/Audio/grapple_fire.wav" id="29_ie76m"]
 [ext_resource type="FontFile" uid="uid://b4rp70lyqgf78" path="res://GUI/fonts/m5x7.ttf" id="30_755ss"]
 [ext_resource type="AudioStream" uid="uid://uaw310y8ib2v" path="res://Player/Audio/grapple_stick.wav" id="30_dy65m"]
+[ext_resource type="Script" uid="uid://s0eawjvxxpmc" path="res://Player/Scripts/states/state_grapple.gd" id="30_f4lon"]
 [ext_resource type="AudioStream" uid="uid://67chekwrij1t" path="res://Player/Audio/grapple_clang.wav" id="31_maysp"]
 [ext_resource type="PackedScene" uid="uid://c36gawtk8y7pm" path="res://GeneralNodes/footstep_audio_2d/footstep_audio_2d.tscn" id="34_j2n6q"]
 [ext_resource type="Texture2D" uid="uid://cwnef3pkbp5nm" path="res://Player/Sprites/grapple.png" id="38_iyprq"]
@@ -1812,9 +1813,6 @@ _data = {
 &"level_up": SubResource("Animation_6pogt")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_o28un"]
-radius = 50.0
-
 [sub_resource type="Gradient" id="Gradient_ie76m"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
@@ -1833,9 +1831,24 @@ color_ramp = SubResource("GradientTexture1D_dy65m")
 size = Vector2(16, 15)
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 24
-motion_mode = 1
+collision_layer = 4
+collision_mask = 16
 script = ExtResource("1_4ntmi")
+
+[node name="Nameplate2D" type="Node2D" parent="."]
+position = Vector2(0, -60)
+
+[node name="Label" type="Label" parent="Nameplate2D"]
+custom_minimum_size = Vector2(80, 14)
+offset_left = -40.0
+offset_right = 40.0
+offset_bottom = 14.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("30_755ss")
+text = "Adventurer Lv.1"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_l8h54")
@@ -1982,8 +1995,14 @@ dash_audio = ExtResource("26_jp1hh")
 [node name="Bow" type="Node" parent="StateMachine"]
 script = ExtResource("27_qs4pp")
 
+[node name="Invisibility" type="Node" parent="StateMachine"]
+script = ExtResource("28_invis")
+
+[node name="ArrowBarrage" type="Node" parent="StateMachine"]
+script = ExtResource("29_barrage")
+
 [node name="Grapple" type="Node" parent="StateMachine"]
-script = ExtResource("28_f4lon")
+script = ExtResource("30_f4lon")
 grapple_distance = 150.0
 grapple_speed = 400.0
 grapple_fire_audio = ExtResource("29_ie76m")
@@ -2045,14 +2064,6 @@ libraries = {
 [node name="Abilities" type="Node" parent="."]
 script = ExtResource("17_pisgm")
 
-[node name="ItemMagnet" parent="." instance=ExtResource("18_b1ygp")]
-position = Vector2(0, -21)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemMagnet"]
-position = Vector2(0, 5)
-shape = SubResource("CircleShape2D_o28un")
-debug_color = Color(0.522, 0.933, 1, 0)
-
 [node name="Label" type="Label" parent="."]
 visible = false
 offset_left = -23.0
@@ -2088,6 +2099,7 @@ patch_margin_top = 16
 patch_margin_bottom = 9
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Control" type="Control" parent="GrappleHook/NinePatchRect"]
 layout_mode = 1
@@ -2098,6 +2110,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="GrappleHurtBox" parent="GrappleHook/NinePatchRect/Control" instance=ExtResource("10_x3vf3")]
 collision_mask = 256

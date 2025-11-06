@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantheos 4C - Official Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>PANTHEOS 4C</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#features" class="nav-link">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#shop" class="nav-link">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#downloads" class="nav-link">Downloads</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">PANTHEOS 4C</h1>
+                <p class="hero-subtitle">An Epic Action RPG Adventure</p>
+                <p class="hero-description">
+                    Embark on a thrilling journey through mystical realms, battle fearsome enemies, 
+                    and uncover ancient secrets in this immersive action RPG experience.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#downloads" class="btn btn-primary">Download Now</a>
+                    <a href="#trailer" class="btn btn-secondary">Watch Trailer</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="game-preview">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Pantheos 4C</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Pantheos 4C is a modern action RPG built with Godot 4, featuring 
+                        stunning visuals, engaging combat, and a rich storyline. Players 
+                        will explore diverse environments, battle challenging enemies, 
+                        and progress through an epic quest system.
+                    </p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>32+</h3>
+                            <p>Unit Tests</p>
+                        </div>
+                        <div class="stat">
+                            <h3>4.4</h3>
+                            <p>Godot Version</p>
+                        </div>
+                        <div class="stat">
+                            <h3>100%</h3>
+                            <p>Open Source</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="feature-showcase">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Game Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sword"></i>
+                    </div>
+                    <h3>Combat System</h3>
+                    <p>Engaging real-time combat with multiple abilities and weapon types</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <h3>Exploration</h3>
+                    <p>Discover vast worlds with hidden secrets and treasures</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Quest System</h3>
+                    <p>Rich storyline with branching quests and meaningful choices</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3>Inventory</h3>
+                    <p>Comprehensive inventory management with equipment and items</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-save"></i>
+                    </div>
+                    <h3>Save System</h3>
+                    <p>Reliable save/load functionality for your progress</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Multiplayer</h3>
+                    <p>High-level multiplayer support for cooperative gameplay</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="shop">
+        <div class="container">
+            <h2 class="section-title">In-Game Shop</h2>
+            <div class="shop-tabs">
+                <button class="tab-btn active" onclick="showTab('skins')">Character Skins</button>
+                <button class="tab-btn" onclick="showTab('weapons')">Weapons</button>
+                <button class="tab-btn" onclick="showTab('cosmetics')">Cosmetics</button>
+                <button class="tab-btn" onclick="showTab('bundles')">Bundles</button>
+            </div>
+            
+            <!-- Character Skins Tab -->
+            <div id="skins" class="shop-tab active">
+                <div class="shop-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-user-ninja"></i>
+                        </div>
+                        <h3>Shadow Assassin Skin</h3>
+                        <p class="product-description">Dark ninja outfit with stealth effects</p>
+                        <div class="product-price">₱299</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Royal Knight Skin</h3>
+                        <p class="product-description">Golden armor with royal effects</p>
+                        <div class="product-price">₱399</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h3>Flame Warrior Skin</h3>
+                        <p class="product-description">Fire-themed armor with flame trails</p>
+                        <div class="product-price">₱349</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <h3>Ice Mage Skin</h3>
+                        <p class="product-description">Frost robes with ice particle effects</p>
+                        <div class="product-price">₱379</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Nature Guardian Skin</h3>
+                        <p class="product-description">Forest-themed armor with nature effects</p>
+                        <div class="product-price">₱329</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Cosmic Warrior Skin</h3>
+                        <p class="product-description">Space-themed armor with star effects</p>
+                        <div class="product-price">₱449</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weapons Tab -->
+            <div id="weapons" class="shop-tab">
+                <div class="shop-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-sword"></i>
+                        </div>
+                        <h3>Legendary Katana</h3>
+                        <p class="product-description">Rare katana with lightning effects</p>
+                        <div class="product-price">₱599</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <h3>Thunder Hammer</h3>
+                        <p class="product-description">Massive hammer with thunder strikes</p>
+                        <div class="product-price">₱699</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-bow-arrow"></i>
+                        </div>
+                        <h3>Phoenix Bow</h3>
+                        <p class="product-description">Magical bow with fire arrows</p>
+                        <div class="product-price">₱549</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3>Staff of Elements</h3>
+                        <p class="product-description">Powerful staff with elemental magic</p>
+                        <div class="product-price">₱649</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Dragon Shield</h3>
+                        <p class="product-description">Legendary shield with dragon protection</p>
+                        <div class="product-price">₱499</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Crystal Dagger</h3>
+                        <p class="product-description">Mystical dagger with crystal powers</p>
+                        <div class="product-price">₱449</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cosmetics Tab -->
+            <div id="cosmetics" class="shop-tab">
+                <div class="shop-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-hat-wizard"></i>
+                        </div>
+                        <h3>Mystic Hat</h3>
+                        <p class="product-description">Magical hat with floating particles</p>
+                        <div class="product-price">₱199</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-mask"></i>
+                        </div>
+                        <h3>Shadow Mask</h3>
+                        <p class="product-description">Mysterious mask with dark aura</p>
+                        <div class="product-price">₱179</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-ring"></i>
+                        </div>
+                        <h3>Power Ring</h3>
+                        <p class="product-description">Enchanted ring with glowing effects</p>
+                        <div class="product-price">₱249</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-feather-alt"></i>
+                        </div>
+                        <h3>Angel Wings</h3>
+                        <p class="product-description">Beautiful wings with light effects</p>
+                        <div class="product-price">₱399</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Glowing Eyes</h3>
+                        <p class="product-description">Mystical eyes with magical glow</p>
+                        <div class="product-price">₱149</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <h3>Beast Claws</h3>
+                        <p class="product-description">Ferocious claws with beast effects</p>
+                        <div class="product-price">₱299</div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bundles Tab -->
+            <div id="bundles" class="shop-tab">
+                <div class="shop-grid">
+                    <div class="product-card bundle-card">
+                        <div class="product-image">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Starter Pack</h3>
+                        <p class="product-description">Shadow Assassin Skin + Crystal Dagger + Mystic Hat</p>
+                        <div class="product-price">₱699 <span class="original-price">₱747</span></div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card bundle-card">
+                        <div class="product-image">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Warrior Bundle</h3>
+                        <p class="product-description">Royal Knight Skin + Legendary Katana + Dragon Shield</p>
+                        <div class="product-price">₱1,299 <span class="original-price">₱1,497</span></div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card bundle-card">
+                        <div class="product-image">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Mage Bundle</h3>
+                        <p class="product-description">Ice Mage Skin + Staff of Elements + Power Ring</p>
+                        <div class="product-price">₱1,199 <span class="original-price">₱1,277</span></div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                    <div class="product-card bundle-card">
+                        <div class="product-image">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Ultimate Bundle</h3>
+                        <p class="product-description">All skins + All weapons + All cosmetics</p>
+                        <div class="product-price">₱4,999 <span class="original-price">₱6,247</span></div>
+                        <button class="btn btn-shop">Purchase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section id="downloads" class="downloads">
+        <div class="container">
+            <h2 class="section-title">Download Pantheos 4C</h2>
+            <div class="download-content">
+                <div class="download-info">
+                    <h3>Get the Game</h3>
+                    <p>Download Pantheos 4C for Windows and start your adventure today!</p>
+                    <div class="download-stats">
+                        <div class="download-stat">
+                            <i class="fas fa-download"></i>
+                            <span>Free Download</span>
+                        </div>
+                        <div class="download-stat">
+                            <i class="fas fa-windows"></i>
+                            <span>Windows Compatible</span>
+                        </div>
+                        <div class="download-stat">
+                            <i class="fas fa-code"></i>
+                            <span>Open Source</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="download-buttons">
+                    <a href="#" class="btn btn-download">
+                        <i class="fas fa-download"></i>
+                        Download for Windows
+                    </a>
+                    <a href="https://github.com/yourusername/pantheos-4c" class="btn btn-secondary">
+                        <i class="fab fa-github"></i>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Connect With Us</h3>
+                    <p>Have questions, feedback, or want to collaborate? We'd love to hear from you!</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@pantheos4c.com</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-discord"></i>
+                            <span>Join our Discord</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-twitter"></i>
+                            <span>Follow on Twitter</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Pantheos 4C</h3>
+                    <p>An epic action RPG adventure built with Godot 4</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#downloads">Downloads</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Reddit</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">License</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Pantheos 4C. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

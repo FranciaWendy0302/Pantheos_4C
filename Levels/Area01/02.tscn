@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cpnnvyl4vml8u" path="res://Levels/scripts/level.gd" id="1_x70af"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="2_tek06"]
 [ext_resource type="AudioStream" uid="uid://b2dbw4cfahuw2" path="res://Levels/music/example_music_02.ogg" id="2_wi5as"]
-[ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="3_mwxiv"]
 [ext_resource type="PackedScene" uid="uid://ph10wrsaxdqo" path="res://Tile Maps/awdawdawd.tscn" id="4_45xa8"]
 [ext_resource type="PackedScene" uid="uid://cg0kg5d3txb2u" path="res://Props/Plants/plant.tscn" id="4_tek06"]
 [ext_resource type="PackedScene" uid="uid://bkmgd56mqv1ga" path="res://Levels/level_transition.tscn" id="5_mwxiv"]
@@ -32,6 +31,7 @@
 [ext_resource type="Resource" uid="uid://cp275ob2pk0r1" path="res://Items/ability_grapple.tres" id="30_mdb57"]
 [ext_resource type="Resource" uid="uid://bhppf8j7asawa" path="res://Items/w_katana.tres" id="31_s3up8"]
 [ext_resource type="Resource" uid="uid://bmqpuqox8w5lj" path="res://Items/a_leather_jacket.tres" id="32_dffud"]
+[ext_resource type="PackedScene" uid="uid://6pbtq7dqq7jo" path="res://Enemies/goblin/goblin.tscn" id="34_gm670"]
 
 [sub_resource type="Resource" id="Resource_dffud"]
 resource_local_to_scene = true
@@ -64,9 +64,6 @@ tile_map_data = PackedByteArray("AAD9//3/AAACAAUAADD9//7/AAACAAQAADD9////AAAOAAY
 
 [node name="Awdawdawd" parent="." instance=ExtResource("4_45xa8")]
 tile_map_data = PackedByteArray("AAALAP7/AAAKAAgAAAALAP//AAAKAAkAAAALAAAAAAAKAAoAAAALAAEAAAAKAAsAAAAMAP7/AAALAAgAAAAMAP//AAALAAkAAAAMAAAAAAALAAoAAAAMAAEAAAALAAsAAAAMAAIAAAAKAA4AAAAMAAMAAAAKAA8AAAANAP7/AAAMAAgAAAANAP//AAAMAAkAAAANAAAAAAAMAAoAAAANAAEAAAAMAAsAAAANAAIAAAALAA4AAAANAAMAAAALAA8AAAAOAP7/AAANAAgAAAAOAP//AAANAAkAAAAOAAAAAAANAAoAAAAOAAEAAAANAAsAAAAOAAIAAAAMAA4AAAAOAAMAAAAMAA8AAAAPAP7/AAAOAAgAAAAPAP//AAAOAAkAAAAPAAAAAAAOAAoAAAAPAAEAAAAOAAsAAAAPAAIAAAANAA4AAAAPAAMAAAANAA8AAAAQAP7/AAAPAAgAAAAQAP//AAAPAAkAAAAQAAAAAAAPAAoAAAAQAAEAAAAPAAsAAAAMAP3/AAALAAcAAAANAP3/AAAMAAcAAAAOAP3/AAANAAcAAAAPAP3/AAAOAAcAAAA=")
-
-[node name="PlayerSpawn" parent="." instance=ExtResource("3_mwxiv")]
-position = Vector2(30, 183)
 
 [node name="Plant" parent="." instance=ExtResource("4_tek06")]
 position = Vector2(285, -13)
@@ -221,14 +218,19 @@ script = SubResource("GDScript_xflnv")
 position = Vector2(244, 203)
 item_data = ExtResource("23_a2klq")
 item_count = 2
+fade_out_duration = 1.0
+auto_collect = false
 
 [node name="ItemPickup2" parent="." instance=ExtResource("22_d1jyu")]
 position = Vector2(280, 203)
 item_data = ExtResource("24_0j6pc")
 item_count = 3
+fade_out_duration = 1.0
+auto_collect = false
 
 [node name="GrapplePost2" parent="." instance=ExtResource("25_a2klq")]
 position = Vector2(60, 398)
+scale = Vector2(0.929555, 0.0943868)
 
 [node name="GrapplePost3" parent="." instance=ExtResource("25_a2klq")]
 position = Vector2(1, 268)
@@ -252,9 +254,14 @@ item_data = ExtResource("30_mdb57")
 [node name="ItemPickup3" parent="." instance=ExtResource("22_d1jyu")]
 position = Vector2(391, 194)
 item_data = ExtResource("31_s3up8")
-item_count = 1
+fade_out_duration = 1.0
+auto_collect = false
 
 [node name="ItemPickup4" parent="." instance=ExtResource("22_d1jyu")]
 position = Vector2(430, 194)
 item_data = ExtResource("32_dffud")
-item_count = 1
+fade_out_duration = 1.0
+auto_collect = false
+
+[node name="Goblin" parent="." instance=ExtResource("34_gm670")]
+position = Vector2(122, 230)

@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://fnadu0s1huqo"]
+[gd_scene load_steps=15 format=4 uid="uid://fnadu0s1huqo"]
 
 [ext_resource type="Script" uid="uid://ctt0gi04rppul" path="res://title_scene/title_scene.gd" id="1_i4gmv"]
 [ext_resource type="PackedScene" uid="uid://b4qoav36rna8p" path="res://Tile Maps/dungeon-01_.tscn" id="1_uvhto"]
 [ext_resource type="PackedScene" uid="uid://nu1ro7iqvu7s" path="res://Interactables/Dungeon/pushable_statue.tscn" id="2_5xqkb"]
+[ext_resource type="FontFile" uid="uid://cfbdty76erfpi" path="res://GUI/fonts/Abaddon Light.ttf" id="2_qocm2"]
 [ext_resource type="AudioStream" uid="uid://icx6asre1fmq" path="res://title_scene/audio/waves.mp3" id="2_wgj1g"]
+[ext_resource type="FontFile" uid="uid://cdoaw5mbxum1d" path="res://GUI/fonts/Abaddon Bold.ttf" id="3_dwuo2"]
 [ext_resource type="AudioStream" uid="uid://b1l1luvqdj2vq" path="res://title_scene/audio/menu_focus.wav" id="3_lj5tl"]
 [ext_resource type="AudioStream" uid="uid://m7auftsxvkjy" path="res://title_scene/audio/menu_select.wav" id="4_fkwea"]
 [ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="5_0q24l"]
@@ -47,6 +49,18 @@ _data = {
 &"RESET": SubResource("Animation_lj5tl"),
 &"default": SubResource("Animation_wgj1g")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.15, 0.15, 0.2, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.6, 0.9, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="TitleScene" type="Node2D"]
 script = ExtResource("1_i4gmv")
@@ -106,7 +120,7 @@ offset_left = 187.0
 offset_top = 186.0
 offset_right = 322.0
 offset_bottom = 212.0
-text = "new game"
+text = "enter game"
 
 [node name="ButtonContinue" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 0
@@ -114,7 +128,189 @@ offset_left = 187.0
 offset_top = 221.0
 offset_right = 322.0
 offset_bottom = 247.0
-text = "continue"
+text = "exit game"
+
+[node name="CharacterPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -80.0
+offset_right = 180.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/CharacterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Control/CharacterPanel/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+text = "SELECT CHARACTER SLOT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="CanvasLayer/Control/CharacterPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Slot1Button" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Create Character 1"
+
+[node name="Slot2Button" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Create Character 2"
+
+[node name="BackFromCharacter" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Back"
+
+[node name="ClassPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -160.0
+offset_right = 240.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/ClassPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/ClassPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ClassLabel" type="Label" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+text = "SELECT YOUR CLASS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassGrid" type="GridContainer" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 3
+
+[node name="SwordsmanButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Swordsman"
+
+[node name="ArcherButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Archer"
+
+[node name="MageButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Mage"
+
+[node name="AssassinButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Assassin"
+
+[node name="SupportButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Support"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LockedMessageLabel" type="Label" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.2, 0.2, 1)
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "This class is locked"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackFromClass" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Back"
+
+[node name="NicknamePanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -80.0
+offset_right = 180.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/NicknamePanel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="NickLabel" type="Label" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+text = "ENTER NICKNAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NickInput" type="LineEdit" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+placeholder_text = "Nickname"
+
+[node name="ClassDisplayLabel" type="Label" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.9, 1)
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Class: Swordsman"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Start Game"
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("5_0q24l")]
 position = Vector2(239, 137)

@@ -65,7 +65,8 @@ func boomerang_ability() -> void:
 	player.add_sibling(_b)
 	_b.global_position = player.global_position
 	
-	var throw_direction = player.direction
+	# Get direction to mouse cursor
+	var throw_direction = player.get_direction_to_mouse()
 	if throw_direction == Vector2.ZERO:
 		throw_direction = player.cardinal_direction
 		
@@ -86,8 +87,14 @@ func bomb_ability() -> void:
 		player.add_sibling(bomb)
 		bomb.global_position = player.global_position
 		
+		# Get direction to mouse cursor and set throw direction
+		var throw_direction = player.get_direction_to_mouse()
+		if throw_direction == Vector2.ZERO:
+			throw_direction = player.cardinal_direction
+		
 		PlayerManager.interact_handled = false
 		var throwable: ThrowableBomb = bomb.find_child("Throwable")
+		throwable.throw_direction = throw_direction
 		throwable.player_interact()
 	pass
 

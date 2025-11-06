@@ -2,7 +2,7 @@ class_name EnemyStateChase extends EnemyState
 
 const PATHFINDER: PackedScene = preload("res://Enemies/pathfinder.tscn")
 
-@export var anim_name: String = "chase"
+@export var anim_name: String = "walk"
 @export var chase_speed: float = 40.0
 @export var turn_rate: float = 0.25
 
@@ -25,6 +25,10 @@ func init() -> void:
 	pass
 	
 func enter() -> void:
+	# Check if enemy is dead - don't enter chase if dead
+	if enemy.hp <= 0:
+		return
+	
 	pathfinder = PATHFINDER.instantiate() as Pathfinder
 	enemy.add_child(pathfinder)
 	_timer = state_aggro_duration
@@ -41,6 +45,10 @@ func exit() -> void:
 	pass
 	
 func process(_delta: float) -> EnemyState:
+	# Check if enemy is dead - if so, stop chasing
+	if enemy.hp <= 0:
+		return next_state
+	
 	if PlayerManager.player.hp <= 0:
 		return next_state
 	#var new_dir: Vector2 = enemy.global_position.direction_to(PlayerManager.player.global_position)
@@ -49,6 +57,18 @@ func process(_delta: float) -> EnemyState:
 	enemy.velocity = _direction * chase_speed
 	if enemy.set_direction(_direction):
 		enemy.update_animation(anim_name)
+	
+	# Check if player is in attack range and attack
+	if attack_area and attack_area.has_overlapping_bodies():
+		for body in attack_area.get_overlapping_bodies():
+			if body is Player:
+				# Player is in attack range - damage is handled by HurtBox
+				# Continue chasing to maintain attack
+				_timer = state_aggro_duration
+				if _can_see_player:
+					_timer = state_aggro_duration
+				return null
+	
 	if _can_see_player == false:
 		_timer -= _delta
 		if _timer < 0:

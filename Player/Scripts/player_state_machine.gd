@@ -19,6 +19,9 @@ func _physics_process(delta):
 	pass
 	
 func _unhandled_input(event) -> void:
+	# Skip if event was already handled (e.g., by player skill inputs)
+	if event.has_meta("handled") and event.get_meta("handled"):
+		return
 	ChangeState(current_state.HandleInput(event))
 	pass
 

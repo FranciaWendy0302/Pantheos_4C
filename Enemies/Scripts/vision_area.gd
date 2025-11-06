@@ -13,6 +13,7 @@ func _ready() -> void:
 func _on_body_enter(_b: Node2D) -> void:
 	if _b is Player:
 		player_entered.emit()
+		print("Vision area detected player!")
 	pass
 	
 func _on_body_exit(_b: Node2D) -> void:

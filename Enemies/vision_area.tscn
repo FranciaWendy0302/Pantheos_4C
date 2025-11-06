@@ -4,5 +4,6 @@
 
 [node name="VisionArea" type="Area2D"]
 collision_layer = 0
+collision_mask = 4
 monitorable = false
 script = ExtResource("1_gvod7")
