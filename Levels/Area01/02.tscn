@@ -78,7 +78,7 @@ position = Vector2(285, 25)
 position = Vector2(325, 25)
 
 [node name="LevelTransition" parent="." instance=ExtResource("5_mwxiv")]
-position = Vector2(64, -96)
+position = Vector2(64, -87)
 level = "uid://b3eefjkqiqyg2"
 target_position_area = "LevelTransition2"
 side = 2
@@ -218,15 +218,11 @@ script = SubResource("GDScript_xflnv")
 position = Vector2(244, 203)
 item_data = ExtResource("23_a2klq")
 item_count = 2
-fade_out_duration = 1.0
-auto_collect = false
 
 [node name="ItemPickup2" parent="." instance=ExtResource("22_d1jyu")]
 position = Vector2(280, 203)
 item_data = ExtResource("24_0j6pc")
 item_count = 3
-fade_out_duration = 1.0
-auto_collect = false
 
 [node name="GrapplePost2" parent="." instance=ExtResource("25_a2klq")]
 position = Vector2(60, 398)
@@ -254,14 +250,10 @@ item_data = ExtResource("30_mdb57")
 [node name="ItemPickup3" parent="." instance=ExtResource("22_d1jyu")]
 position = Vector2(391, 194)
 item_data = ExtResource("31_s3up8")
-fade_out_duration = 1.0
-auto_collect = false
 
 [node name="ItemPickup4" parent="." instance=ExtResource("22_d1jyu")]
 position = Vector2(430, 194)
 item_data = ExtResource("32_dffud")
-fade_out_duration = 1.0
-auto_collect = false
 
 [node name="Goblin" parent="." instance=ExtResource("34_gm670")]
 position = Vector2(122, 230)

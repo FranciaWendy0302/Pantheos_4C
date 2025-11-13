@@ -347,4 +347,3 @@ func _show_thank_you_message() -> void:
 	label.modulate.a = 0.0
 	tween.tween_property(label, "modulate:a", 1.0, 1.0)
 	pass
-

@@ -51,7 +51,7 @@ _data = {
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.15, 0.15, 0.2, 0.95)
+bg_color = Color(0.1, 0.1, 0.15, 0.98)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -92,6 +92,74 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ServerPanelBackdrop" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="ServerPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -120.0
+offset_right = 200.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/ServerPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+text = "Connect to Server"
+horizontal_alignment = 1
+
+[node name="AddressInput" type="LineEdit" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+placeholder_text = "Tailscale IP (100.x.x.x)"
+
+[node name="PortInput" type="LineEdit" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+text = "9000"
+placeholder_text = "Port (9000)"
+
+[node name="NicknameInput" type="LineEdit" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+placeholder_text = "Your Nickname"
+
+[node name="ModeLabel" type="Label" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+text = "Mode: party"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ConnectPartyButton" type="Button" parent="CanvasLayer/Control/ServerPanel/VBox/Buttons"]
+layout_mode = 2
+text = "Connect Party"
+
+[node name="ConnectDuelButton" type="Button" parent="CanvasLayer/Control/ServerPanel/VBox/Buttons"]
+layout_mode = 2
+text = "Connect Duel"
+
+[node name="CancelButton" type="Button" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+text = "Cancel"
+
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 15
@@ -116,19 +184,73 @@ autoplay = "default"
 
 [node name="ButtonNew" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 187.0
+offset_left = 167.0
 offset_top = 186.0
-offset_right = 322.0
+offset_right = 302.0
 offset_bottom = 212.0
-text = "enter game"
+text = "New Game"
 
 [node name="ButtonContinue" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 187.0
-offset_top = 221.0
-offset_right = 322.0
-offset_bottom = 247.0
-text = "exit game"
+offset_left = 167.0
+offset_top = 220.0
+offset_right = 302.0
+offset_bottom = 246.0
+text = "Continue Game"
+
+[node name="ModeSelectionBackdrop" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="ModeSelectionPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/ModeSelectionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Control/ModeSelectionPanel/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+text = "SELECT GAME MODE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TutorialButton" type="Button" parent="CanvasLayer/Control/ModeSelectionPanel/VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Tutorial (Single Player)"
+
+[node name="OnlineButton" type="Button" parent="CanvasLayer/Control/ModeSelectionPanel/VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Online (Multiplayer)"
+
+[node name="BackFromMode" type="Button" parent="CanvasLayer/Control/ModeSelectionPanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Back"
 
 [node name="CharacterPanel" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
@@ -158,8 +280,10 @@ vertical_alignment = 1
 
 [node name="HBox" type="HBoxContainer" parent="CanvasLayer/Control/CharacterPanel/VBox"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_constants/separation = 20
+alignment = 1
 
 [node name="Slot1Button" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
 custom_minimum_size = Vector2(150, 50)
@@ -167,11 +291,32 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_qocm2")
 text = "Create Character 1"
 
+[node name="Slot1DeleteButton" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
+visible = false
+custom_minimum_size = Vector2(40, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "X"
+
 [node name="Slot2Button" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_qocm2")
 text = "Create Character 2"
+
+[node name="Slot2DeleteButton" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
+visible = false
+custom_minimum_size = Vector2(40, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "X"
+
+[node name="ConfirmButton" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox"]
+visible = false
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Confirm"
 
 [node name="BackFromCharacter" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox"]
 custom_minimum_size = Vector2(0, 40)

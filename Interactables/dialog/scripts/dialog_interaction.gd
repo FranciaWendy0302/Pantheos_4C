@@ -10,6 +10,7 @@ signal finished
 var dialog_items: Array[DialogItem]
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var interact_button: Button = $InteractButton
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -17,6 +18,10 @@ func _ready() -> void:
 		
 	area_entered.connect(_on_area_enter)
 	area_exited.connect(_on_area_exit)
+	
+	# Connect button click
+	if interact_button:
+		interact_button.pressed.connect(player_interact)
 	
 	for c in get_children():
 		if c is DialogItem:

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://quests/scripts/quest_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+title = "Tutorial Quest"
+description = "Learn the basics of combat, movement, and game mechanics."
+steps = ["movement", "attack", "skills", "inventory", "currency", "loot", "quest_waves", "item_stats"]
+reward_xp = 100
+reward_items = []

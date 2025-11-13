@@ -22,4 +22,12 @@ func remove_value() -> void:
 
 func _get_name() -> String:
 	#"res://levels/area01/01.tscn"
-	return get_tree().current_scene.scene_file_path + "/" + get_parent().name + "/" + name
+	var current_scene = get_tree().current_scene
+	if not current_scene or not is_instance_valid(current_scene):
+		return ""
+	
+	var scene_path = current_scene.get("scene_file_path")
+	if scene_path == null or not scene_path is String:
+		return ""
+	
+	return scene_path + "/" + get_parent().name + "/" + name

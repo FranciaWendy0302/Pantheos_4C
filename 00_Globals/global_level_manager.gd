@@ -46,6 +46,15 @@ func ChangeTilemapBounds(bounds: Array[Vector2]) -> void:
 	#pass
 	
 func load_new_level(level_path: String, _target_transition: String, _position_offset: Vector2) -> void:
+	# Validate level path
+	if level_path == null or level_path.is_empty():
+		push_error("LevelManager.load_new_level: Invalid level path provided")
+		return
+	
+	if not ResourceLoader.exists(level_path):
+		push_error("LevelManager.load_new_level: Level path does not exist: " + level_path)
+		return
+	
 	get_tree().paused = true
 	target_transition = _target_transition
 	position_offset = _position_offset

@@ -42,12 +42,22 @@ var hearts: Array[HeartGUI] = []
 @onready var spin_skill_name_label: Label = $Control/SkillsHUD/HBoxContainer/SpinSkill/SkillNameLabel
 @onready var charge_indicator: ProgressBar = $Control/SkillsHUD/HBoxContainer/SpinSkill/SkillButton/ChargeIndicator
 
-@onready var kill_counter: Control = $Control/KillCounter
-@onready var kill_counter_toggle_arrow: Button = $Control/KillCounter/ToggleArrow
 @onready var wave_label: Label = %WaveLabel
 @onready var kill_count_label: Label = %CountLabel
+@onready var currency_label: Label = %CurrencyLabel
+
+var wave_counter_active: bool = false
+var currency_item: ItemData = preload("res://Items/gem.tres")
+
+@onready var quest_tracker: Control = $Control/QuestTracker
+@onready var quest_title_label: Label = $Control/QuestTracker/VBoxContainer/QuestTitle
+@onready var quest_steps_container: VBoxContainer = $Control/QuestTracker/VBoxContainer/StepsContainer
 
 var dash_cooldown_timer: float = 0.0
+var quest_update_delay: float = 0.0
+var pending_quest_update: bool = false
+var last_completed_step: String = ""
+var show_completed_step: bool = false
 var dash_cooldown_duration: float = 3.0
 var charge_dash_cooldown_timer: float = 0.0
 var charge_dash_cooldown_duration: float = 10.0
@@ -93,9 +103,15 @@ func _ready():
 	# Update skill labels based on class
 	call_deferred("update_skill_labels")
 	
-	# Connect kill counter toggle arrow button
-	if kill_counter_toggle_arrow:
-		kill_counter_toggle_arrow.pressed.connect(_on_kill_counter_toggle_arrow_pressed)
+	# Connect to quest updates
+	if not QuestManager.quest_updated.is_connected(_on_quest_updated):
+		QuestManager.quest_updated.connect(_on_quest_updated)
+	
+	# Initialize quest tracker
+	call_deferred("update_quest_tracker")
+	
+	# Update currency display
+	update_currency_display()
 	
 	pass
 	
@@ -124,6 +140,12 @@ func show_game_over_screen() -> void:
 	game_over.visible = true
 	game_over.mouse_filter = Control.MOUSE_FILTER_STOP
 	
+	# Hide minimap and skills HUD when died
+	if minimap:
+		minimap.visible = false
+	if skills_hud:
+		skills_hud.visible = false
+	
 	var can_continue: bool = SaveManager.get_save_file() != null
 	continue_button.visible = can_continue
 	
@@ -140,10 +162,37 @@ func hide_game_over_screen() -> void:
 	game_over.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	game_over.modulate = Color(1,1,1,0)
 	
+	# Show minimap and skills HUD again after respawning
+	if minimap:
+		minimap.visible = true
+	if skills_hud:
+		skills_hud.visible = true
+	
 func load_game() -> void:
 	play_audio(button_select_audio)
 	await fade_to_black()
-	SaveManager.load_game()
+	
+	# Save current progress before respawning (especially tutorial progress)
+	SaveManager.save_game()
+	
+	# Check if we're in the tutorial - if so, respawn in tutorial
+	var current_scene = get_tree().current_scene
+	var was_in_tutorial = false
+	if current_scene and is_instance_valid(current_scene):
+		var scene_path = current_scene.get("scene_file_path")
+		if scene_path == "res://Levels/Area01/tutorial.tscn":
+			was_in_tutorial = true
+	
+	# If in tutorial, force load tutorial map instead of saved scene
+	if was_in_tutorial:
+		# Temporarily override scene_path to tutorial
+		var original_scene_path = SaveManager.current_save.get("scene_path", "")
+		SaveManager.current_save.scene_path = "res://Levels/Area01/tutorial.tscn"
+		SaveManager.load_game()
+		# Restore original scene path after loading
+		SaveManager.current_save.scene_path = original_scene_path
+	else:
+		SaveManager.load_game()
 	
 func title_screen() -> void:
 	play_audio(button_select_audio)
@@ -207,39 +256,28 @@ func update_bomb_count(count: int) -> void:
 	pass
 
 func _on_show_pause() -> void:
-	abilities.visible = false
-	skills_hud.visible = false
-	minimap.visible = false
+	# Hide the entire player HUD
+	$Control.visible = false
 	pass
 	
 func _on_hide_pause() -> void:
-	abilities.visible = true
-	skills_hud.visible = true
-	minimap.visible = true
+	# Show the entire player HUD
+	$Control.visible = true
 	pass
 
-func _on_kill_counter_toggle_arrow_pressed() -> void:
-	# Toggle panel visibility (arrow stays visible)
-	var panel = kill_counter.get_node_or_null("Panel")
-	if panel:
-		panel.visible = !panel.visible
-		# Update arrow text and position based on panel visibility
-		if panel.visible:
-			kill_counter_toggle_arrow.text = "<"
-			# Move arrow to right side of panel
-			kill_counter_toggle_arrow.anchors_preset = Control.PRESET_RIGHT_WIDE
-			kill_counter_toggle_arrow.offset_left = -30.0
-			kill_counter_toggle_arrow.offset_right = -10.0
-		else:
-			kill_counter_toggle_arrow.text = ">"
-			# Move arrow to very left side
-			kill_counter_toggle_arrow.anchors_preset = Control.PRESET_LEFT_WIDE
-			kill_counter_toggle_arrow.offset_left = 0.0
-			kill_counter_toggle_arrow.offset_right = 20.0
-	pass
+
 
 func _process(_delta: float) -> void:
 	update_skill_cooldowns(_delta)
+	
+	# Handle quest update delay (for showing completed step)
+	if pending_quest_update:
+		quest_update_delay -= _delta
+		if quest_update_delay <= 0.0:
+			pending_quest_update = false
+			show_completed_step = false
+			last_completed_step = ""
+			update_quest_tracker()  # Now show the next step
 	pass
 
 func _on_level_load_started() -> void:
@@ -259,8 +297,6 @@ func update_skill_labels() -> void:
 	spin_skill_name_label.visible = false
 	charge_indicator.visible = false
 	
-	# Hide kill counter initially
-	kill_counter.visible = false
 	pass
 
 func show_skill_name(skill_key: String, skill_name: String) -> void:
@@ -290,46 +326,29 @@ func hide_skill_name(skill_key: String) -> void:
 	pass
 
 func update_charge_indicator(charge_progress: float, is_ready: bool) -> void:
-	# Update charge indicator for E skill (big arrow)
-	if PlayerManager.selected_class == "Archer":
-		charge_indicator.value = charge_progress
-		charge_indicator.visible = true
-		
-		# Change color to green when ready, orange when charging
-		var fill_style = charge_indicator.get_theme_stylebox("fill")
-		if fill_style:
-			if is_ready:
-				fill_style.bg_color = Color(0, 1, 0, 0.8)  # Green when ready
-			else:
-				fill_style.bg_color = Color(1, 0.5, 0, 0.8)  # Orange when charging
+	# Update charge indicator for E skill (spin attack)
+	charge_indicator.value = charge_progress
+	charge_indicator.visible = true
+	
+	# Change color to green when ready, orange when charging
+	var fill_style = charge_indicator.get_theme_stylebox("fill")
+	if fill_style:
+		if is_ready:
+			fill_style.bg_color = Color(0, 1, 0, 0.8)  # Green when ready
+		else:
+			fill_style.bg_color = Color(1, 0.5, 0, 0.8)  # Orange when charging
 	pass
 
 func show_kill_counter() -> void:
-	kill_counter.visible = true
-	var panel = kill_counter.get_node_or_null("Panel")
-	if panel:
-		panel.visible = true
-	wave_label.visible = true
+	wave_counter_active = true
+	wave_label.text = "Wave 1"
 	kill_count_label.text = "0 / 0"
-	# Update arrow to show "<" and position on right side when visible
-	if kill_counter_toggle_arrow:
-		kill_counter_toggle_arrow.text = "<"
-		kill_counter_toggle_arrow.anchors_preset = Control.PRESET_RIGHT_WIDE
-		kill_counter_toggle_arrow.offset_left = -30.0
-		kill_counter_toggle_arrow.offset_right = -10.0
+	update_quest_tracker()  # Refresh quest tracker to show wave counter
 	pass
 
 func hide_kill_counter() -> void:
-	var panel = kill_counter.get_node_or_null("Panel")
-	if panel:
-		panel.visible = false
-	# Update arrow to show ">" and move to very left side when hidden
-	if kill_counter_toggle_arrow:
-		kill_counter_toggle_arrow.text = ">"
-		kill_counter_toggle_arrow.anchors_preset = Control.PRESET_LEFT_WIDE
-		kill_counter_toggle_arrow.offset_left = 0.0
-		kill_counter_toggle_arrow.offset_right = 20.0
-	# Keep kill_counter visible so the arrow stays visible
+	wave_counter_active = false
+	update_quest_tracker()  # Refresh quest tracker to hide wave counter
 	pass
 
 func update_kill_counter(count: int) -> void:
@@ -339,6 +358,7 @@ func update_kill_counter(count: int) -> void:
 func update_wave_counter(wave_num: int, killed: int, total: int) -> void:
 	wave_label.text = "Wave " + str(wave_num)
 	kill_count_label.text = str(killed) + " / " + str(total)
+	update_quest_tracker()  # Refresh quest tracker to update wave counter
 	pass
 
 func update_skill_cooldowns(_delta: float) -> void:
@@ -357,27 +377,42 @@ func update_skill_cooldowns(_delta: float) -> void:
 			var progress: float = dash_cooldown_timer / dash_cooldown_duration
 			dash_cooldown_overlay.color.a = 0.3 + (0.3 * progress)
 		else:
+			# Cooldown finished - re-enable button
+			dash_cooldown_overlay.visible = false
+			dash_cooldown_label.visible = false
+			dash_skill_button.disabled = false
+	else:
+		# Ensure button is enabled when not on cooldown
+		if dash_skill_button.disabled:
 			dash_cooldown_overlay.visible = false
 			dash_cooldown_label.visible = false
 			dash_skill_button.disabled = false
 	
 	# Update charge dash cooldown (W)
-	charge_dash_cooldown_timer -= _delta
-	charge_dash_cooldown_timer = max(0.0, charge_dash_cooldown_timer)
-	
 	if charge_dash_cooldown_timer > 0.0:
-		charge_dash_cooldown_overlay.visible = true
-		charge_dash_cooldown_label.visible = true
-		charge_dash_cooldown_label.text = "%.1f" % charge_dash_cooldown_timer
-		charge_dash_skill_button.disabled = true
+		charge_dash_cooldown_timer -= _delta
+		charge_dash_cooldown_timer = max(0.0, charge_dash_cooldown_timer)
 		
-		# Update overlay alpha based on cooldown progress
-		var progress: float = charge_dash_cooldown_timer / charge_dash_cooldown_duration
-		charge_dash_cooldown_overlay.color.a = 0.3 + (0.3 * progress)
+		if charge_dash_cooldown_timer > 0.0:
+			charge_dash_cooldown_overlay.visible = true
+			charge_dash_cooldown_label.visible = true
+			charge_dash_cooldown_label.text = "%.1f" % charge_dash_cooldown_timer
+			charge_dash_skill_button.disabled = true
+			
+			# Update overlay alpha based on cooldown progress
+			var progress: float = charge_dash_cooldown_timer / charge_dash_cooldown_duration
+			charge_dash_cooldown_overlay.color.a = 0.3 + (0.3 * progress)
+		else:
+			# Cooldown finished - re-enable button
+			charge_dash_cooldown_overlay.visible = false
+			charge_dash_cooldown_label.visible = false
+			charge_dash_skill_button.disabled = false
 	else:
-		charge_dash_cooldown_overlay.visible = false
-		charge_dash_cooldown_label.visible = false
-		charge_dash_skill_button.disabled = false
+		# Ensure button is enabled when not on cooldown
+		if charge_dash_skill_button.disabled:
+			charge_dash_cooldown_overlay.visible = false
+			charge_dash_cooldown_label.visible = false
+			charge_dash_skill_button.disabled = false
 	
 	# Update spin cooldown (E)
 	if spin_cooldown_timer > 0.0:
@@ -394,38 +429,166 @@ func update_skill_cooldowns(_delta: float) -> void:
 			var progress: float = spin_cooldown_timer / spin_cooldown_duration
 			spin_cooldown_overlay.color.a = 0.3 + (0.3 * progress)
 		else:
+			# Cooldown finished - re-enable button
 			spin_cooldown_overlay.visible = false
 			spin_cooldown_label.visible = false
 			spin_skill_button.disabled = false
-	
-	pass
+	else:
+		# Ensure button is enabled when not on cooldown
+		if spin_skill_button.disabled:
+			spin_cooldown_overlay.visible = false
+			spin_cooldown_label.visible = false
+			spin_skill_button.disabled = false
 
 func start_dash_cooldown() -> void:
 	dash_cooldown_timer = dash_cooldown_duration
-	dash_cooldown_overlay.visible = true
-	dash_cooldown_label.visible = true
-	dash_skill_button.disabled = true
+	if dash_cooldown_overlay:
+		dash_cooldown_overlay.visible = true
+	if dash_cooldown_label:
+		dash_cooldown_label.visible = true
+	if dash_skill_button:
+		dash_skill_button.disabled = true
 	pass
 
 func start_charge_dash_cooldown() -> void:
 	charge_dash_cooldown_timer = charge_dash_cooldown_duration
-	charge_dash_cooldown_overlay.visible = true
-	charge_dash_cooldown_label.visible = true
-	charge_dash_skill_button.disabled = true
+	if charge_dash_cooldown_overlay:
+		charge_dash_cooldown_overlay.visible = true
+	if charge_dash_cooldown_label:
+		charge_dash_cooldown_label.visible = true
+	if charge_dash_skill_button:
+		charge_dash_skill_button.disabled = true
 	pass
 
 func start_spin_cooldown() -> void:
 	spin_cooldown_timer = spin_cooldown_duration
-	spin_cooldown_overlay.visible = true
-	spin_cooldown_label.visible = true
-	spin_skill_button.disabled = true
+	if spin_cooldown_overlay:
+		spin_cooldown_overlay.visible = true
+	if spin_cooldown_label:
+		spin_cooldown_label.visible = true
+	if spin_skill_button:
+		spin_skill_button.disabled = true
 	pass
 
 func is_dash_on_cooldown() -> bool:
+	# Ensure timer is never negative
+	dash_cooldown_timer = max(0.0, dash_cooldown_timer)
 	return dash_cooldown_timer > 0.0
 
 func is_charge_dash_on_cooldown() -> bool:
+	# Ensure timer is never negative
+	charge_dash_cooldown_timer = max(0.0, charge_dash_cooldown_timer)
 	return charge_dash_cooldown_timer > 0.0
 
 func is_spin_on_cooldown() -> bool:
+	# Ensure timer is never negative
+	spin_cooldown_timer = max(0.0, spin_cooldown_timer)
 	return spin_cooldown_timer > 0.0
+
+
+func _on_quest_updated(quest: Dictionary) -> void:
+	# Check if a step was just completed
+	var quest_data: Quest = QuestManager.find_quest_by_title(quest.title)
+	if quest_data and quest.completed_steps.size() > 0:
+		var latest_step = quest.completed_steps[quest.completed_steps.size() - 1]
+		
+		# Find the step name from quest data
+		for step in quest_data.steps:
+			if step.to_lower() == latest_step:
+				# A step was just completed - show it with checkmark for 2 seconds
+				last_completed_step = step.capitalize()
+				show_completed_step = true
+				quest_update_delay = 2.0
+				pending_quest_update = true
+				update_quest_tracker()  # Show the completed step immediately
+				return
+	
+	# No step completed, just update normally
+	update_quest_tracker()
+	pass
+
+func update_quest_tracker() -> void:
+	if not quest_tracker:
+		return
+	
+	# Clear existing steps
+	for child in quest_steps_container.get_children():
+		child.queue_free()
+	
+	# Find the first active (incomplete) quest
+	var active_quest: Dictionary = {}
+	var quest_data: Quest = null
+	
+	for q in QuestManager.current_quests:
+		if not q.is_complete:
+			active_quest = q
+			quest_data = QuestManager.find_quest_by_title(q.title)
+			break
+	
+	# If no active quest, hide tracker
+	if active_quest.is_empty() or quest_data == null:
+		quest_tracker.visible = false
+		return
+	
+	# Show tracker and update content
+	quest_tracker.visible = true
+	quest_title_label.text = quest_data.title
+	
+	# Determine what to display
+	var current_step_text = ""
+	var is_showing_completed = false
+	
+	# If we're showing a completed step (with delay)
+	if show_completed_step and last_completed_step != "":
+		current_step_text = last_completed_step
+		is_showing_completed = true
+	else:
+		# Find the current (first incomplete) step
+		var found_current = false
+		
+		for step in quest_data.steps:
+			var is_complete = active_quest.completed_steps.has(step.to_lower())
+			if not is_complete and not found_current:
+				# This is the current step to complete
+				current_step_text = step.capitalize()
+				found_current = true
+				break
+		
+		# If all steps are complete but quest isn't marked complete yet
+		if not found_current:
+			current_step_text = "Complete!"
+			is_showing_completed = true
+	
+	# Display the step
+	if current_step_text != "":
+		var step_label = Label.new()
+		step_label.add_theme_font_override("font", load("res://GUI/fonts/m5x7.ttf"))
+		step_label.add_theme_color_override("font_outline_color", Color.BLACK)
+		step_label.add_theme_constant_override("outline_size", 2)
+		
+		if is_showing_completed:
+			step_label.text = "[✓] " + current_step_text
+			step_label.add_theme_color_override("font_color", Color(0.5, 1, 0.5))  # Green
+		else:
+			step_label.text = "[ ] " + current_step_text
+			step_label.add_theme_color_override("font_color", Color(1, 1, 1))  # White
+		
+		quest_steps_container.add_child(step_label)
+		
+		# Add wave counter if active (for wave-based quests)
+		if wave_counter_active:
+			var wave_counter_label = Label.new()
+			wave_counter_label.add_theme_font_override("font", load("res://GUI/fonts/m5x7.ttf"))
+			wave_counter_label.add_theme_color_override("font_outline_color", Color.BLACK)
+			wave_counter_label.add_theme_constant_override("outline_size", 2)
+			wave_counter_label.add_theme_color_override("font_color", Color(0.8, 0.8, 1))
+			wave_counter_label.text = "    " + wave_label.text + ": " + kill_count_label.text
+			quest_steps_container.add_child(wave_counter_label)
+	pass
+
+
+func update_currency_display() -> void:
+	if currency_label and currency_item:
+		var amount = PlayerManager.INVENTORY_DATA.get_item_held_quantity(currency_item)
+		currency_label.text = str(amount)
+	pass

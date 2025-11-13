@@ -16,11 +16,6 @@ var attacking: bool = false
 
 	
 func Enter() -> void:
-	# Prevent Archer from using sword attacks
-	if PlayerManager.selected_class == "Archer":
-		# Archer should not be in this state, go back to idle
-		state_machine.ChangeState(idle)
-		return
 	
 	# Swordsman/Warrior has no attack cooldown - can attack freely
 	

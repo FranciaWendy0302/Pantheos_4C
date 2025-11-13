@@ -1,9 +1,215 @@
-[gd_scene load_steps=5 format=4 uid="uid://n00nubj62i0x"]
+[gd_scene load_steps=30 format=4 uid="uid://n00nubj62i0x"]
 
+[ext_resource type="Script" uid="uid://bs2jtbypkv17b" path="res://npc/scripts/npc.gd" id="1_npc"]
 [ext_resource type="PackedScene" uid="uid://dxsnq7k1cs0tx" path="res://Tile Maps/grass-01.tscn" id="1_srvlr"]
 [ext_resource type="PackedScene" uid="uid://c64615u3q647u" path="res://Enemies/Slime/slime.tscn" id="2_f8ij2"]
+[ext_resource type="Texture2D" uid="uid://cmtv866hcn6jc" path="res://Player/Sprites/Shadow.png" id="3_shadow"]
 [ext_resource type="Script" uid="uid://chutxhipqg8tf" path="res://Levels/Area01/tutorial.gd" id="3_tutorial"]
-[ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="4_tafq5"]
+[ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="4_spawn"]
+[ext_resource type="Script" uid="uid://bvb0abtfpkpyf" path="res://Interactables/dialog/scripts/dialog_interaction.gd" id="6_dialog_interaction"]
+[ext_resource type="Resource" uid="uid://c5bbuxfhxnm0y" path="res://npc/00_npcs/npc_01.tres" id="6_o2jgf"]
+[ext_resource type="Texture2D" uid="uid://unblr0weeh1y" path="res://npc/sprites/npc_sprite.png" id="7_6vgsl"]
+[ext_resource type="Resource" uid="uid://cy3xny44l52h7" path="res://npc/00_npcs/tutorial_narrator.tres" id="8_tutorial_npc"]
+[ext_resource type="Script" uid="uid://bl2li7lbphm71" path="res://Interactables/dialog/scripts/dialog_text.gd" id="10_dialog_text"]
+[ext_resource type="Script" uid="uid://di8n5aycuwrg0" path="res://Items/scripts/item_data.gd" id="13_c4vi8"]
+[ext_resource type="Resource" uid="uid://bfrsd4wus1hk3" path="res://Items/w_iron_sword.tres" id="amulet_item"]
+[ext_resource type="Resource" uid="uid://bwowi1tqn7mfi" path="res://Items/apple.tres" id="apple_item"]
+[ext_resource type="Resource" uid="uid://b5t0a60wqowkc" path="res://Items/a_fiber_cloth.tres" id="fiber_cloth_item"]
+[ext_resource type="Resource" uid="uid://bmqpuqox8w5lj" path="res://Items/a_leather_jacket.tres" id="leather_jacket_item"]
+[ext_resource type="PackedScene" uid="uid://bfkdcrt3rnaqs" path="res://Interactables/ShopKeeper/shopkeeper.tscn" id="shopkeeper_scene"]
+
+[sub_resource type="Animation" id="Animation_npc_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_idle_down"]
+resource_name = "idle_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_idle_side"]
+resource_name = "idle_side"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_idle_up"]
+resource_name = "idle_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_npc"]
+_data = {
+&"RESET": SubResource("Animation_npc_reset"),
+&"idle_down": SubResource("Animation_idle_down"),
+&"idle_side": SubResource("Animation_idle_side"),
+&"idle_up": SubResource("Animation_idle_up")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_npc"]
+radius = 6.0
+height = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dialog"]
+size = Vector2(44, 32)
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InteractButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-12, -64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InteractButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_default"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InteractButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-12, -64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InteractButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hide"]
+resource_name = "hide"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InteractButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-12, -67), Vector2(-12, -64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InteractButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_show"]
+resource_name = "show"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InteractButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-12, -64), Vector2(-12, -67)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InteractButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dialog"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"default": SubResource("Animation_default"),
+&"hide": SubResource("Animation_hide"),
+&"show": SubResource("Animation_show")
+}
 
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("3_tutorial")
@@ -14,5 +220,68 @@ tile_map_data = PackedByteArray("AAD3//v/AAADAAQAAFD3//z/AAADAAQAAFD3//3/AAADAAQ
 [node name="Slime" parent="." instance=ExtResource("2_f8ij2")]
 position = Vector2(364, 176)
 
-[node name="PlayerSpawn" parent="." instance=ExtResource("4_tafq5")]
+[node name="PlayerSpawn" parent="." instance=ExtResource("4_spawn")]
 position = Vector2(128, 203)
+
+[node name="TutorialNPC" type="CharacterBody2D" parent="."]
+position = Vector2(200, 200)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_npc")
+npc_resource = ExtResource("6_o2jgf")
+
+[node name="Sprite2D" type="Sprite2D" parent="TutorialNPC"]
+position = Vector2(0, -20)
+texture = ExtResource("7_6vgsl")
+hframes = 15
+
+[node name="ShadowSprite" type="Sprite2D" parent="TutorialNPC/Sprite2D"]
+modulate = Color(0, 0, 0, 0.701961)
+show_behind_parent = true
+position = Vector2(0, 21)
+texture = ExtResource("3_shadow")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialNPC"]
+libraries = {
+&"": SubResource("AnimationLibrary_npc")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialNPC"]
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_npc")
+
+[node name="DialogInteraction" type="Area2D" parent="TutorialNPC"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("6_dialog_interaction")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialNPC/DialogInteraction"]
+shape = SubResource("RectangleShape2D_dialog")
+
+[node name="InteractButton" type="Button" parent="TutorialNPC/DialogInteraction"]
+offset_left = -12.0
+offset_top = -64.0
+offset_right = 12.0
+offset_bottom = -40.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "G"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialNPC/DialogInteraction"]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_dialog")
+}
+autoplay = "default"
+
+[node name="Dialog1" type="Node" parent="TutorialNPC/DialogInteraction"]
+script = ExtResource("10_dialog_text")
+text = "Greetings, adventurer! I have a quest that will teach you the basics of survival in this world. Press G to accept!"
+npc_info = ExtResource("8_tutorial_npc")
+
+[node name="Shopkeeper" parent="." instance=ExtResource("shopkeeper_scene")]
+position = Vector2(300, 200)
+shop_inventory = Array[ExtResource("13_c4vi8")]([ExtResource("apple_item"), ExtResource("amulet_item"), ExtResource("leather_jacket_item"), ExtResource("fiber_cloth_item")])

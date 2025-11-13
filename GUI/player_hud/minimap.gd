@@ -2,6 +2,7 @@ extends Control
 
 @export var minimap_size: Vector2 = Vector2(120, 120)
 @export var player_color: Color = Color.BLUE
+@export var party_member_color: Color = Color.CYAN
 @export var enemy_color: Color = Color.RED
 @export var map_bounds_color: Color = Color.WHITE
 @export var background_color: Color = Color(0, 0, 0, 0.5)
@@ -413,6 +414,9 @@ func _draw() -> void:
 			var end_pos = player_pos + direction.normalized() * 5
 			draw_line(player_pos, end_pos, player_color, 2.0)
 	
+	# Draw party members (remote avatars)
+	_draw_party_members()
+	
 	# Draw enemies
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty():
@@ -721,3 +725,21 @@ func _find_nodes_recursive(node: Node, target_class_name: String, results: Array
 	
 	for child in node.get_children():
 		_find_nodes_recursive(child, target_class_name, results)
+
+func _draw_party_members() -> void:
+	# Get NetworkManager to access remote avatars
+	if not has_node("/root/NetworkManager"):
+		return
+	
+	var network_manager = get_node("/root/NetworkManager")
+	if not network_manager or not "_peer_id_to_avatar" in network_manager:
+		return
+	
+	# Draw each party member
+	for peer_id in network_manager._peer_id_to_avatar.keys():
+		var avatar = network_manager._peer_id_to_avatar[peer_id]
+		if is_instance_valid(avatar):
+			var party_pos = world_to_minimap_view(avatar.global_position)
+			if _is_in_view(party_pos):
+				draw_circle(party_pos, 3, party_member_color)
+	pass

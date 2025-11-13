@@ -55,8 +55,6 @@ func update_quest(_title: String, _completed_steps: String = "", _is_complete: b
 			
 		current_quests.append(new_quest)
 		quest_updated.emit(new_quest)
-		
-		PlayerHud.queue_notificaiton("Quest Started", _title)
 		pass
 	else:
 		var q = current_quests[quest_index]
@@ -69,20 +67,13 @@ func update_quest(_title: String, _completed_steps: String = "", _is_complete: b
 		quest_updated.emit(q)
 		
 		if q.is_complete == true:
-			PlayerHud.queue_notificaiton("Quest Complete!", _title)
 			disperse_quests_rewards(find_quest_by_title(_title))
-		else:
-			PlayerHud.queue_notificaiton("Quest Updated", _title + ": " + _completed_steps)
 	pass
 	
 func disperse_quests_rewards(_q: Quest) -> void:
-	var _message: String = str(_q.reward_xp) + "xp"
 	PlayerManager.reward_xp(_q.reward_xp)
 	for i  in _q.reward_items:
 		PlayerManager.INVENTORY_DATA.add_item(i.item, i.quantity)
-		_message += ", " + i.item.name + " x" + str(i.quantity)
-	
-	PlayerHud.queue_notificaiton("Quest Rewards Recieved!", _message)
 	pass
 	
 func find_quest(_quest: Quest) -> Dictionary:

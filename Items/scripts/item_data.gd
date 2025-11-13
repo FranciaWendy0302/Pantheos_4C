@@ -4,6 +4,7 @@ class_name ItemData extends Resource
 @export_multiline var description: String = ""
 @export var texture: Texture2D
 @export var cost: int = 10
+@export var hide_in_inventory: bool = false
 
 @export_category("Item Use Effects")
 @export var effect: Array[ItemEffect]

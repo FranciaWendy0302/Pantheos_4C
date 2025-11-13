@@ -35,6 +35,12 @@ func set_slot_data(value: SlotData) -> void:
 		texture_rect.texture = null
 		label.text = ""
 		return
+	
+	# Hide items marked as hide_in_inventory (like currency)
+	if slot_data.item_data.hide_in_inventory:
+		texture_rect.texture = null
+		label.text = ""
+		return
 		
 	texture_rect.texture = slot_data.item_data.texture
 	if slot_data.item_data is EquipableItemData:

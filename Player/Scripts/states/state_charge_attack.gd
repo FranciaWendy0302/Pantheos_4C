@@ -39,11 +39,6 @@ func _on_dash_did_damage() -> void:
 	pass
 	
 func Enter() -> void:
-	# Prevent Archer from using Warrior charge attack skills
-	if PlayerManager.selected_class == "Archer":
-		# Archer should not be in this state, go back to idle
-		state_machine.ChangeState(idle)
-		return
 	
 	timer = charge_duration
 	is_attacking = false
@@ -72,15 +67,13 @@ func Enter() -> void:
 		# Start W skill cooldown
 		PlayerHud.start_charge_dash_cooldown()
 		# Show skill name label
-		if PlayerManager.selected_class != "Archer":
-			PlayerHud.show_skill_name("W", "Charge Dash")
+		PlayerHud.show_skill_name("W", "Charge Dash")
 	else:
 		# E charge mode (spin attack charge) - disable all hurtboxes during charge
 		charge_hurt_box.monitoring = false
 		attack_hurt_box.monitoring = false
 		# Show skill name label
-		if PlayerManager.selected_class != "Archer":
-			PlayerHud.show_skill_name("E", "Spin Attack")
+		PlayerHud.show_skill_name("E", "Spin Attack")
 	
 	# Face mouse direction when starting charge
 	var mouse_dir = player.get_direction_to_mouse()
@@ -99,12 +92,11 @@ func Exit() -> void:
 	spin_effect_sprite_2d.visible = false
 	gpu_particles_2d.emitting = false
 	
-	# Hide skill name labels (check before resetting _dash_mode)
-	if PlayerManager.selected_class != "Archer":
-		if _dash_mode:
-			PlayerHud.hide_skill_name("W")
-		else:
-			PlayerHud.hide_skill_name("E")
+	# Hide skill name labels
+	if _dash_mode:
+		PlayerHud.hide_skill_name("W")
+	else:
+		PlayerHud.hide_skill_name("E")
 	
 	_dash_mode = false
 	player.invulnerable = false

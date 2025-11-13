@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EquipableItemData" load_steps=8 format=3 uid="uid://b5t0a60wqowkc"]
 
-[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_lonko"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_t5s5i"]
 [ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="2_t5s5i"]
 [ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="3_jse1l"]
 [ext_resource type="Texture2D" uid="uid://dby0en4m7e8ej" path="res://Items/sprites/gear.png" id="4_iudqu"]
@@ -25,5 +25,5 @@ name = "Cloth & Cape"
 description = "Lightweight protective gear made from toughened fiber, offering health with basic defense."
 texture = SubResource("AtlasTexture_1w3hl")
 cost = 500
-effect = Array[ExtResource("1_lonko")]([])
+effect = Array[ExtResource("1_t5s5i")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

@@ -11,7 +11,6 @@ const ARROW = preload("res://Interactables/arrow/arrow.tscn")
 
 var direction: Vector2 = Vector2.ZERO
 var next_state: State = null
-var _auto_attack_timer: float = 0.0
 var _is_auto_attacking: bool = false
 var _charge_timer: float = 0.0
 var _is_charging: bool = false
@@ -20,8 +19,6 @@ var _animation_finished: bool = false
 func _ready():
 	pass
 	
-var _is_e_skill_charge: bool = false  # Track if this is E skill charge
-
 func Enter() -> void:
 	# Update player direction to face mouse cursor
 	_update_player_facing()
@@ -34,28 +31,9 @@ func Enter() -> void:
 	if direction == Vector2.ZERO:
 		direction = player.cardinal_direction
 	
-	# Check if this is E skill charge (set by player.gd when E is pressed)
-	if _is_e_skill_charge and PlayerManager.selected_class == "Archer":
-		# This is Archer E skill charge - start charging
-		_is_charging = true
-		_charge_timer = 0.0
-		_auto_attack_timer = 0.0
-		# Make player invulnerable during charge (uninterruptible)
-		player.invulnerable = true
-		_is_e_skill_charge = false  # Reset flag
-		# Show skill name label
-		PlayerHud.show_skill_name("E", "Charge Arrow")
-		# Show charge indicator
-		PlayerHud.update_charge_indicator(0.0, false)
-	else:
-		# Normal attack - single shot (no charge, no hold)
-		if PlayerManager.selected_class == "Archer":
-			# Start basic attack cooldown
-			player.basic_attack_cooldown = player.basic_attack_cooldown_duration
-			_shoot_arrow(false)
-		else:
-			_shoot_arrow(false)
-		_is_auto_attacking = false
+	# Normal attack - single shot (no charge, no hold)
+	_shoot_arrow(false)
+	_is_auto_attacking = false
 	pass
 
 func Exit() -> void:
@@ -66,9 +44,6 @@ func Exit() -> void:
 	_animation_finished = false
 	# Restore invulnerability
 	player.invulnerable = false
-	# Hide skill name and charge indicator
-	if PlayerManager.selected_class == "Archer":
-		PlayerHud.hide_skill_name("E")
 	pass
 	
 func Process(_delta: float) -> State:
@@ -100,44 +75,6 @@ func Physics(_delta: float) -> State:
 	return null
 	
 func HandleInput(_event: InputEvent) -> State:
-	# Handle Archer E skill release (for charge attack)
-	if PlayerManager.selected_class == "Archer" and _is_charging:
-		if _event is InputEventKey:
-			var key_event = _event as InputEventKey
-			if key_event.keycode == KEY_E and not key_event.pressed:
-				# E key released - fire big arrow if charged enough
-				if _charge_timer >= charge_required:
-					# Shoot big arrow (uninterruptible)
-					# Big arrow consumes arrows, so check if we have arrows
-					if player.arrow_count > 0:
-						# Shoot big arrow
-						_shoot_arrow(true)  # Big arrow
-						_animation_finished = false
-						_is_charging = false
-						# Player is invulnerable during shot
-						player.invulnerable = true
-					else:
-						# No arrows for big arrow, go to idle
-						_is_charging = false
-						player.invulnerable = false
-						return idle
-				else:
-					# Not charged enough, go back to idle
-					_is_charging = false
-					player.invulnerable = false
-					return idle
-	
-	# Disable attack button hold to charge - only E key works for Archer
-	# For non-Archer, attack button release should not trigger charge
-	if _event.is_action_released("attack"):
-		# Only allow charge from attack button for non-Archer classes
-		# But since we removed hold-to-charge, this should just return to idle
-		if _is_charging and PlayerManager.selected_class != "Archer":
-			# Not Archer, but somehow charging from attack - cancel it
-			_is_charging = false
-			player.invulnerable = false
-			return idle
-	
 	return null
 
 func _shoot_arrow(is_big: bool) -> void:
@@ -149,9 +86,8 @@ func _shoot_arrow(is_big: bool) -> void:
 	if direction == Vector2.ZERO:
 		direction = player.cardinal_direction
 	
-	# For Archer class, normal attacks don't consume arrows (unlimited)
-	# Only big arrow (E skill) consumes arrows
-	var should_consume_arrow = is_big  # Only consume for big arrow
+	# Consume arrows for attacks
+	var should_consume_arrow = true
 	
 	if should_consume_arrow:
 		# Check if we have arrows for big arrow

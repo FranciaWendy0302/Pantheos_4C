@@ -602,21 +602,27 @@ layout_mode = 2
 [node name="QuestItem" parent="Control/TabContainer/Quest/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("8_iqcer")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Quest"]
+[node name="ScrollContainer2" type="ScrollContainer" parent="Control/TabContainer/Quest"]
 layout_mode = 0
 offset_left = 228.0
 offset_top = 21.0
 offset_right = 438.0
 offset_bottom = 197.0
+follow_focus = true
+horizontal_scroll_mode = 0
 
-[node name="TitleLabel" type="Label" parent="Control/TabContainer/Quest/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Quest/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="Control/TabContainer/Quest/ScrollContainer2/VBoxContainer"]
 modulate = Color(0.785124, 0.677068, 0.292737, 1)
 custom_minimum_size = Vector2(180, 10)
 layout_mode = 2
 text = "Quest Title"
 autowrap_mode = 2
 
-[node name="DescriptionLabel" type="Label" parent="Control/TabContainer/Quest/VBoxContainer"]
+[node name="DescriptionLabel" type="Label" parent="Control/TabContainer/Quest/ScrollContainer2/VBoxContainer"]
 modulate = Color(0.613144, 0.539453, 0.465178, 1)
 custom_minimum_size = Vector2(180, 10)
 layout_mode = 2
@@ -624,11 +630,11 @@ theme_override_fonts/font = ExtResource("9_qikl0")
 text = "Quest Description"
 autowrap_mode = 2
 
-[node name="Control" type="Control" parent="Control/TabContainer/Quest/VBoxContainer"]
+[node name="Control" type="Control" parent="Control/TabContainer/Quest/ScrollContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="QuestStepItem" parent="Control/TabContainer/Quest/VBoxContainer" instance=ExtResource("10_40d0i")]
+[node name="QuestStepItem" parent="Control/TabContainer/Quest/ScrollContainer2/VBoxContainer" instance=ExtResource("10_40d0i")]
 layout_mode = 2
 
 [node name="Button_Close_Quest" type="Button" parent="Control/TabContainer/Quest"]
@@ -655,30 +661,80 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -77.0
-offset_top = -28.0
-offset_right = 77.0
-offset_bottom = 28.0
+offset_left = -120.0
+offset_top = -92.0
+offset_right = 120.0
+offset_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
 
-[node name="Button_Save" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "Save"
+theme_override_constants/separation = 10
 
-[node name="Button_Load" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
+[node name="MasterVolumeLabel" type="Label" parent="Control/TabContainer/System/VBoxContainer/MasterVolumeContainer"]
 layout_mode = 2
-text = "Load"
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Master Volume:"
+vertical_alignment = 1
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Control/TabContainer/System/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MusicVolumeLabel" type="Label" parent="Control/TabContainer/System/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Music Volume:"
+vertical_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="Control/TabContainer/System/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SFXVolumeLabel" type="Label" parent="Control/TabContainer/System/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "SFX Volume:"
+vertical_alignment = 1
+
+[node name="SFXVolumeSlider" type="HSlider" parent="Control/TabContainer/System/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Button_Mute" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Mute"
 
 [node name="Button_Quit" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Quit"
 
 [node name="Button_Close" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Close"
 

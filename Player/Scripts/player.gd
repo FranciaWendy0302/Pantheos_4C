@@ -12,8 +12,8 @@ var has_move_target: bool = false
 var follow_mouse: bool = false  # Whether to continuously follow mouse
 
 var invulnerable: bool = false
-var hp: int = 6
-var max_hp: int = 6
+var hp: int = 10
+var max_hp: int = 10
 
 var level: int = 1
 var xp: int = 0
@@ -122,47 +122,11 @@ func _input(_event: InputEvent) -> void:
 			has_move_target = false
 			move_target = global_position
 			direction = Vector2.ZERO
-		# Skill bindings - different for Archer class
+		# Skill bindings for Swordsman and other classes
 		# Skills should work from any state, so handle them here before state machine
 		if key_event.pressed:
-			if PlayerManager.selected_class == "Archer":
-				# Archer-specific skills
-				match key_event.keycode:
-					KEY_Q:
-						# Invisibility - transparent, undetectable, immune for 2 seconds
-						if not PlayerHud.is_dash_on_cooldown():
-							var invis = $StateMachine/Invisibility as State_Invisibility
-							if invis:
-								state_machine.ChangeState(invis)
-								PlayerHud.start_dash_cooldown()
-								# Mark event as handled to prevent state machine from processing it
-								_event.set_meta("handled", true)
-					KEY_W:
-						# Arrow barrage - fire 5 arrows in short distance
-						if not PlayerHud.is_charge_dash_on_cooldown():
-							var barrage = $StateMachine/ArrowBarrage as State_ArrowBarrage
-							if barrage and arrow_count >= 5:
-								state_machine.ChangeState(barrage)
-								# Mark event as handled to prevent state machine from processing it
-								_event.set_meta("handled", true)
-							else:
-								# Not enough arrows - could show feedback here
-								pass
-					KEY_E:
-						# Charge big unstoppable arrow - enter bow state with charge
-						if not PlayerHud.is_spin_on_cooldown() and arrow_count > 0:
-							var bow = $StateMachine/Bow as State_Bow
-							if bow:
-								# Set flag to indicate this is E skill charge
-								bow._is_e_skill_charge = true
-								# Enter bow state - it will handle the charge on enter
-								state_machine.ChangeState(bow)
-								PlayerHud.start_spin_cooldown()
-								# Mark event as handled to prevent state machine from processing it
-								_event.set_meta("handled", true)
-			else:
-				# Default skills for other classes
-				match key_event.keycode:
+			# Default skills for Swordsman and other classes
+			match key_event.keycode:
 					KEY_Q:
 						# Dash if available
 						if not PlayerHud.is_dash_on_cooldown():

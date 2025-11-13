@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EquipableItemData" load_steps=8 format=3 uid="uid://bfrsd4wus1hk3"]
 
-[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_y8yd3"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_inskq"]
 [ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="2_ruas2"]
 [ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="3_inskq"]
 [ext_resource type="Texture2D" uid="uid://dfggcgkjw4c47" path="res://Player/Sprites/player_sprite_sword.png" id="4_inskq"]
@@ -25,5 +25,5 @@ name = "Iron Sword"
 description = "A sturdy blade forged from iron, reliable for close combat and effective against most foes."
 texture = SubResource("AtlasTexture_1w3hl")
 cost = 500
-effect = Array[ExtResource("1_y8yd3")]([])
+effect = Array[ExtResource("1_inskq")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

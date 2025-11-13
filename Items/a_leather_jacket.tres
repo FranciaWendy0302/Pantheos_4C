@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EquipableItemData" load_steps=10 format=3 uid="uid://bmqpuqox8w5lj"]
 
-[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_nru2v"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_kwkdy"]
 [ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="2_oorjc"]
 [ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="3_pukp7"]
 [ext_resource type="Texture2D" uid="uid://cw276gk2bmwhe" path="res://Player/Sprites/player_sprite_ninja_suit.png" id="4_kwkdy"]
@@ -37,5 +37,5 @@ name = "Leather Jacket"
 description = "A rugged garment made from treated hide, offering moderate protection and a stylish, versatile look."
 texture = SubResource("AtlasTexture_1w3hl")
 cost = 1000
-effect = Array[ExtResource("1_nru2v")]([])
+effect = Array[ExtResource("1_kwkdy")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

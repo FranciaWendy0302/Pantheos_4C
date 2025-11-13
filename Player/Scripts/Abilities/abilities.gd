@@ -114,10 +114,13 @@ func grapple_ability() -> void:
 	pass
 
 func _on_game_loaded() -> void:
-	var new_abilities = SaveManager.current_save.abilities
-	abilities.clear()
-	for i in new_abilities:
-		abilities.append(i)
+	var new_abilities = SaveManager.current_save.get("abilities", ["", "", "", ""])
+	if new_abilities is Array:
+		abilities.clear()
+		for i in new_abilities:
+			abilities.append(i)
+	else:
+		abilities = ["", "", "", ""]
 	setup_abilities()
 	pass
 

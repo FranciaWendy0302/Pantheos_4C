@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh1sdbep1sp1u"
-path="res://.godot/imported/player_sprite.png-b725e88656dbe70f8a11b96831749ee0.ctex"
+uid="uid://de1lo1tw205dp"
+path="res://.godot/imported/boss-cloak-1.png CRIMSON RED-1.png (1).png-1d1f253297ba6c5d137d6bd66790aa40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Sprites/player_sprite.png"
-dest_files=["res://.godot/imported/player_sprite.png-b725e88656dbe70f8a11b96831749ee0.ctex"]
+source_file="res://Levels/Dungeon1/dark_wizard/sprites/boss-cloak-1.png CRIMSON RED-1.png (1).png"
+dest_files=["res://.godot/imported/boss-cloak-1.png CRIMSON RED-1.png (1).png-1d1f253297ba6c5d137d6bd66790aa40.ctex"]
 
 [params]
 

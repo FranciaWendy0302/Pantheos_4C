@@ -48,7 +48,11 @@ func show_menu(items: Array[ItemData], dialog_triggered: bool = true) -> void:
 	enable_menu()
 	populate_item_list(items)
 	update_gems()
-	shop_item_container.get_child(0).grab_focus()
+	# Only grab focus if there are items
+	if shop_item_container.get_child_count() > 0:
+		shop_item_container.get_child(0).grab_focus()
+	else:
+		close_button.grab_focus()
 	play_audio(OPEN_SHOP)
 	shown.emit()
 	pass

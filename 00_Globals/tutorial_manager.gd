@@ -12,7 +12,14 @@ func _on_level_loaded() -> void:
 	if tutorial_shown:
 		return
 	
-	var current_scene_path = get_tree().current_scene.scene_file_path
+	var current_scene = get_tree().current_scene
+	if not current_scene or not is_instance_valid(current_scene):
+		return
+	
+	var current_scene_path = current_scene.get("scene_file_path")
+	if current_scene_path == null or not current_scene_path is String:
+		return
+		
 	if current_scene_path == "res://Levels/Area01/01.tscn":
 		await get_tree().create_timer(0.5).timeout  # Wait for level to fully load
 		show_tutorial_dialog()
@@ -33,12 +40,12 @@ func show_tutorial_dialog() -> void:
 	
 	var dialog3: DialogText = DialogText.new()
 	dialog3.npc_info = TUTORIAL_NPC
-	dialog3.text = "There are five classes available: Swordsman, Archer, Mage, Assassin, and Support. Each class has unique quests tailored to their playstyle and abilities."
+	dialog3.text = "There are five classes available: Swordsman, Mage, Assassin, and Support. Each class has unique quests tailored to their playstyle and abilities."
 	add_child(dialog3)
 	
 	var dialog4: DialogText = DialogText.new()
 	dialog4.npc_info = TUTORIAL_NPC
-	dialog4.text = "If you choose a different class, you'll receive different quests that match your class's strengths. Swordsmen protect kingdoms, Archers hunt from afar, Mages unlock ancient mysteries, Assassins work in the shadows, and Support classes aid their allies."
+	dialog4.text = "If you choose a different class, you'll receive different quests that match your class's strengths. Swordsmen protect kingdoms, Mages unlock ancient mysteries, Assassins work in the shadows, and Support classes aid their allies."
 	add_child(dialog4)
 	
 	var dialog5: DialogText = DialogText.new()
@@ -60,4 +67,3 @@ func show_tutorial_dialog() -> void:
 	tutorial_shown = true
 	for dialog in tutorial_dialogs:
 		dialog.queue_free()
-

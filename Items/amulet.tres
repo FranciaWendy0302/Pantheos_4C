@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EquipableItemData" load_steps=8 format=3 uid="uid://c2wqm7n2i86pc"]
 
-[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_qe1iy"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_0j5hl"]
 [ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="2_0j5hl"]
 [ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="3_kw1cl"]
 [ext_resource type="Texture2D" uid="uid://dby0en4m7e8ej" path="res://Items/sprites/gear.png" id="4_0j5hl"]
@@ -29,5 +29,5 @@ name = "Red Man's Amulet"
 description = ""
 texture = SubResource("AtlasTexture_a1bgs")
 cost = 300
-effect = Array[ExtResource("1_qe1iy")]([])
+effect = Array[ExtResource("1_0j5hl")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

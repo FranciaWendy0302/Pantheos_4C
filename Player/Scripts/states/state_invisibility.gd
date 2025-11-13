@@ -30,9 +30,9 @@ func Enter() -> void:
 	
 	player.UpdateAnimation("idle")
 	
-	# Show skill name label
-	if PlayerManager.selected_class == "Archer":
-		PlayerHud.show_skill_name("Q", "Invisibility")
+	# Start cooldown when skill is activated (same as Swordsman Dash)
+	PlayerHud.start_dash_cooldown()
+	
 	pass
 
 func Exit() -> void:
@@ -45,9 +45,6 @@ func Exit() -> void:
 	# Restore vulnerability
 	player.invulnerable = false
 	
-	# Hide skill name label
-	if PlayerManager.selected_class == "Archer":
-		PlayerHud.hide_skill_name("Q")
 	
 	_next_state = null
 	pass

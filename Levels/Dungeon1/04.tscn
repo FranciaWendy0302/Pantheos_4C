@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dhwhulocgupsl" path="res://Props/torches/torch_dungeon.tscn" id="7_y3nde"]
 [ext_resource type="Script" uid="uid://cj6mjbi6islaf" path="res://Levels/Dungeon1/dark_wizard/script/dark_wizard_boss.gd" id="8_0wrr8"]
 [ext_resource type="PackedScene" uid="uid://bo3tbr8au0udv" path="res://GeneralNodes/PersistentDataHandler/persistent-data-handler.tscn" id="9_j52ye"]
-[ext_resource type="Texture2D" uid="uid://6drvlsmvhx48" path="res://Levels/Dungeon1/dark_wizard/sprites/boss-cloak.png" id="10_efvuu"]
+[ext_resource type="Texture2D" uid="uid://de1lo1tw205dp" path="res://Levels/Dungeon1/dark_wizard/sprites/boss-cloak-1.png CRIMSON RED-1.png (1).png" id="10_1ikah"]
 [ext_resource type="Texture2D" uid="uid://dsg6emxcetcff" path="res://Levels/Dungeon1/dark_wizard/sprites/boss-hand.png" id="11_s2y2i"]
 [ext_resource type="PackedScene" uid="uid://njwv2txjer5s" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="12_4485n"]
 [ext_resource type="PackedScene" uid="uid://c3g2w7rkn6aox" path="res://GeneralNodes/HitBox/hit_box.tscn" id="13_v30ab"]
@@ -903,7 +903,7 @@ texture = SubResource("GradientTexture2D_twwkh")
 [node name="CloakSprite" type="Sprite2D" parent="DarkWizardBoss/BossNode"]
 modulate = Color(2, 1.25, 1.5, 1)
 position = Vector2(0, -36)
-texture = ExtResource("10_efvuu")
+texture = ExtResource("10_1ikah")
 hframes = 9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DarkWizardBoss/BossNode/CloakSprite"]

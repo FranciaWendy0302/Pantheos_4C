@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EquipableItemData" load_steps=8 format=3 uid="uid://bhppf8j7asawa"]
 
-[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_dchiq"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_50xaj"]
 [ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="2_50xaj"]
 [ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="3_c65fy"]
 [ext_resource type="Texture2D" uid="uid://buc6gyxc13ka3" path="res://Player/Sprites/player_sprite_sword_katana.png" id="4_50xaj"]
@@ -25,5 +25,5 @@ name = "Katana"
 description = "A finely crafted, curved blade of eastern origin, prized for its sharpness, speed, and precision."
 texture = SubResource("AtlasTexture_1w3hl")
 cost = 2000
-effect = Array[ExtResource("1_dchiq")]([])
+effect = Array[ExtResource("1_50xaj")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

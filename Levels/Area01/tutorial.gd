@@ -20,7 +20,6 @@ enum TutorialStep {
 	QUEST_WAVES,
 	ITEM_STATS,
 	LEVEL_UP,
-	ARCHER_WAVES,
 	BOSS_WAVES,
 	COMPLETE
 }
@@ -35,7 +34,6 @@ var loot_completed: bool = false
 var quest_waves_completed: bool = false
 var item_stats_completed: bool = false
 var level_up_explained: bool = false
-var archer_waves_completed: bool = false
 var boss_waves_completed: bool = false
 
 # Wave system (part 2 - slimes)
@@ -46,23 +44,65 @@ var wave_sizes: Array[int] = [3, 5, 10]
 var wave_spawn_positions: Array[Vector2] = []
 var wave_completing: bool = false  # Prevent multiple simultaneous wave completions
 
-# Archer waves system (part 3 - goblins)
-var archer_wave: int = 0
-var archer_enemies_killed: int = 0
-var archer_wave_enemies: Array[Node] = []
-var archer_wave_sizes: Array[int] = [5, 10, 15]
-var archer_wave_completing: bool = false
+var tutorial_npc: NPC = null
+var tutorial_started: bool = false
 
 func _ready() -> void:
 	# Wait a moment for everything to load
 	await get_tree().create_timer(0.5).timeout
-	start_tutorial()
 	
-	# Connect to enemy death signals
+	# Connect enemy signals and level up signal first
 	_connect_enemy_signals()
-	
-	# Connect to level up signal
 	PlayerManager.player_leveled_up.connect(_on_player_leveled_up)
+	
+	# Get reference to tutorial NPC
+	tutorial_npc = get_node_or_null("TutorialNPC")
+	if tutorial_npc:
+		var dialog_interaction = tutorial_npc.get_node_or_null("DialogInteraction")
+		if dialog_interaction:
+			dialog_interaction.player_interacted.connect(_on_tutorial_npc_interacted)
+	
+	# Check if tutorial was already completed - if so, skip tutorial
+	if SaveManager.current_save.get("tutorial_completed", false):
+		current_step = TutorialStep.COMPLETE
+		return
+	
+	# Check if we have saved tutorial progress - if so, resume from there
+	var tutorial_progress = SaveManager.current_save.get("tutorial_progress", {})
+	if tutorial_progress.has("current_step") and tutorial_progress.current_step >= 0:
+		# Resume tutorial from saved progress
+		tutorial_started = true
+		_ensure_tutorial_quest()  # Ensure quest exists when resuming
+		resume_tutorial(tutorial_progress)
+	pass
+
+func _on_tutorial_npc_interacted() -> void:
+	# Only give quest on first interaction
+	if not tutorial_started:
+		tutorial_started = true
+		
+		# Show brief welcome dialog and give quest
+		var welcome_dialogs: Array[DialogItem] = []
+		
+		var dialog1: DialogText = DialogText.new()
+		dialog1.npc_info = TUTORIAL_NPC
+		dialog1.text = "Welcome, " + PlayerManager.nickname + "! I have a quest for you to learn the basics of this world."
+		welcome_dialogs.append(dialog1)
+		
+		var dialog2: DialogText = DialogText.new()
+		dialog2.npc_info = TUTORIAL_NPC
+		dialog2.text = "Complete the tutorial quest to learn movement, combat, and game mechanics. Good luck!"
+		welcome_dialogs.append(dialog2)
+		
+		DialogSystem.show_dialog(welcome_dialogs)
+		await DialogSystem.finished
+		
+		# Give the tutorial quest
+		QuestManager.update_quest("Tutorial Quest", "", false)
+		
+		# Start the actual tutorial steps
+		current_step = TutorialStep.MOVEMENT
+		show_movement_tutorial()
 	pass
 
 func _connect_enemy_signals() -> void:
@@ -73,16 +113,75 @@ func _connect_enemy_signals() -> void:
 				child.enemy_destroyed.connect(_on_enemy_destroyed)
 	pass
 
+func _ensure_tutorial_quest() -> void:
+	# Ensure the tutorial quest is active in QuestManager
+	# Check if tutorial quest already exists
+	var tutorial_quest_exists = false
+	var quest_index = -1
+	for i in range(QuestManager.current_quests.size()):
+		var quest = QuestManager.current_quests[i]
+		if quest.has("title") and quest.title.to_lower().contains("tutorial"):
+			tutorial_quest_exists = true
+			quest_index = i
+			break
+	
+	# If tutorial quest doesn't exist and tutorial is not completed, create it
+	if not tutorial_quest_exists and not SaveManager.current_save.get("tutorial_completed", false):
+		# Create tutorial quest
+		var tutorial_progress = SaveManager.current_save.get("tutorial_progress", {})
+		var _current_step_value = tutorial_progress.get("current_step", TutorialStep.WELCOME)
+		
+		# Determine quest status based on current step and completion flags
+		var is_complete = false
+		var completed_steps = []
+		
+		# Add completed steps based on completion flags
+		if tutorial_progress.get("movement_completed", false):
+			completed_steps.append("movement")
+		if tutorial_progress.get("attack_completed", false):
+			completed_steps.append("attack")
+		if tutorial_progress.get("skills_completed", false):
+			completed_steps.append("skills")
+		if tutorial_progress.get("inventory_completed", false):
+			completed_steps.append("inventory")
+		if tutorial_progress.get("currency_completed", false):
+			completed_steps.append("currency")
+		if tutorial_progress.get("loot_completed", false):
+			completed_steps.append("loot")
+		if tutorial_progress.get("quest_waves_completed", false):
+			completed_steps.append("quest_waves")
+		if tutorial_progress.get("item_stats_completed", false):
+			completed_steps.append("item_stats")
+		
+		# Check if tutorial is complete
+		if SaveManager.current_save.get("tutorial_completed", false):
+			is_complete = true
+		
+		# Update or create tutorial quest
+		QuestManager.update_quest("Tutorial Quest", "", is_complete)
+		
+		# Add completed steps to the quest
+		quest_index = QuestManager.get_quest_index_by_title("Tutorial Quest")
+		if quest_index >= 0 and completed_steps.size() > 0:
+			var quest = QuestManager.current_quests[quest_index]
+			for step in completed_steps:
+				if not quest.completed_steps.has(step.to_lower()):
+					quest.completed_steps.append(step.to_lower())
+	pass
+
+func _update_tutorial_quest_progress(step_name: String) -> void:
+	# Update tutorial quest when a step is completed
+	var quest_index = QuestManager.get_quest_index_by_title("Tutorial Quest")
+	if quest_index >= 0:
+		var quest = QuestManager.current_quests[quest_index]
+		if not quest.completed_steps.has(step_name.to_lower()):
+			QuestManager.update_quest("Tutorial Quest", step_name, false)
+	pass
+
 func _on_enemy_destroyed(_hurt_box: HurtBox) -> void:
 	if current_step == TutorialStep.QUEST_WAVES:
 		enemies_killed_in_wave += 1
 		_check_wave_complete()
-	elif current_step == TutorialStep.ARCHER_WAVES:
-		archer_enemies_killed += 1
-		var wave_size = archer_wave_sizes[archer_wave]
-		# Update wave counter
-		PlayerHud.update_wave_counter(archer_wave + 1, archer_enemies_killed, wave_size)
-		_check_archer_wave_complete()
 	pass
 
 func _on_player_leveled_up() -> void:
@@ -97,6 +196,140 @@ func _on_player_leveled_up() -> void:
 func start_tutorial() -> void:
 	current_step = TutorialStep.WELCOME
 	show_welcome_dialog()
+	pass
+
+func start_tutorial_with_intro() -> void:
+	# Create tutorial quest when starting fresh
+	QuestManager.update_quest("Tutorial Quest", "", false)
+	# Show intro dialog explaining the game before tutorial
+	show_game_intro_dialog()
+	pass
+
+func show_game_intro_dialog() -> void:
+	var intro_dialogs: Array[DialogItem] = []
+	
+	var dialog1: DialogText = DialogText.new()
+	dialog1.npc_info = TUTORIAL_NPC
+	dialog1.text = "Welcome, " + PlayerManager.nickname + "! Welcome to Pantheos."
+	intro_dialogs.append(dialog1)
+	
+	var dialog2: DialogText = DialogText.new()
+	dialog2.npc_info = TUTORIAL_NPC
+	dialog2.text = "This is a multipath adventure. Your journey will be different based on the class you chose and the choices you make."
+	intro_dialogs.append(dialog2)
+	
+	var dialog3: DialogText = DialogText.new()
+	dialog3.npc_info = TUTORIAL_NPC
+	dialog3.text = "Pantheos is an item-based game. Many items can help you clear quests and fight enemies. Every piece of equipment has unique skills and abilities."
+	intro_dialogs.append(dialog3)
+	
+	var dialog4: DialogText = DialogText.new()
+	dialog4.npc_info = TUTORIAL_NPC
+	dialog4.text = "There are five classes available: Swordsman, Mage, Assassin, and Support. Each class has unique abilities and playstyles."
+	intro_dialogs.append(dialog4)
+	
+	var dialog5: DialogText = DialogText.new()
+	dialog5.npc_info = TUTORIAL_NPC
+	dialog5.text = "After completing this tutorial, each class will receive different story quests tailored to their strengths. Swordsmen protect kingdoms, Mages unlock ancient mysteries, Assassins work in the shadows, and Support classes aid their allies."
+	intro_dialogs.append(dialog5)
+	
+	var dialog6: DialogText = DialogText.new()
+	dialog6.npc_info = TUTORIAL_NPC
+	dialog6.text = "Now, let me teach you the basics of combat and movement."
+	intro_dialogs.append(dialog6)
+	
+	DialogSystem.show_dialog(intro_dialogs)
+	await DialogSystem.finished
+	
+	# Start movement tutorial
+	current_step = TutorialStep.MOVEMENT
+	show_movement_tutorial()
+	pass
+
+func resume_tutorial(progress: Dictionary) -> void:
+	# Restore completion flags
+	if progress.has("movement_completed"):
+		movement_completed = progress.movement_completed
+	if progress.has("attack_completed"):
+		attack_completed = progress.attack_completed
+	if progress.has("skills_completed"):
+		skills_completed = progress.skills_completed
+	if progress.has("inventory_completed"):
+		inventory_completed = progress.inventory_completed
+	if progress.has("currency_completed"):
+		currency_completed = progress.currency_completed
+	if progress.has("loot_completed"):
+		loot_completed = progress.loot_completed
+	if progress.has("quest_waves_completed"):
+		quest_waves_completed = progress.quest_waves_completed
+	if progress.has("item_stats_completed"):
+		item_stats_completed = progress.item_stats_completed
+	
+	# Restore current step
+	var saved_step = progress.get("current_step", TutorialStep.WELCOME)
+	current_step = saved_step
+	
+	# Resume from the appropriate step
+	match current_step:
+		TutorialStep.WELCOME:
+			current_step = TutorialStep.MOVEMENT
+			show_movement_tutorial()
+		TutorialStep.MOVEMENT:
+			if movement_completed:
+				current_step = TutorialStep.ATTACK
+				show_attack_tutorial()
+			else:
+				show_movement_tutorial()
+		TutorialStep.ATTACK:
+			if attack_completed:
+				current_step = TutorialStep.SKILLS
+				show_skills_tutorial()
+			else:
+				show_attack_tutorial()
+		TutorialStep.SKILLS:
+			if skills_completed:
+				current_step = TutorialStep.INVENTORY
+				show_inventory_tutorial()
+			else:
+				show_skills_tutorial()
+		TutorialStep.INVENTORY:
+			if inventory_completed:
+				current_step = TutorialStep.CURRENCY
+				show_currency_tutorial()
+			else:
+				show_inventory_tutorial()
+		TutorialStep.CURRENCY:
+			if currency_completed:
+				current_step = TutorialStep.LOOT
+				show_loot_tutorial()
+			else:
+				show_currency_tutorial()
+		TutorialStep.LOOT:
+			if loot_completed:
+				current_step = TutorialStep.QUEST_WAVES
+				show_quest_waves_tutorial()
+			else:
+				show_loot_tutorial()
+		TutorialStep.QUEST_WAVES:
+			if quest_waves_completed:
+				current_step = TutorialStep.ITEM_STATS
+				show_item_stats_tutorial()
+			else:
+				# Resume wave system
+				current_step = TutorialStep.QUEST_WAVES
+				quest_waves_completed = false
+				current_wave = 0
+				start_wave()
+		TutorialStep.ITEM_STATS:
+			if item_stats_completed:
+				current_step = TutorialStep.COMPLETE
+				complete_tutorial()
+			else:
+				show_item_stats_tutorial()
+		_:
+			# Default: start from movement
+			current_step = TutorialStep.MOVEMENT
+			show_movement_tutorial()
 	pass
 
 func show_welcome_dialog() -> void:
@@ -209,6 +442,10 @@ func show_currency_tutorial() -> void:
 	await DialogSystem.finished
 	
 	currency_completed = true
+	# Update tutorial quest
+	_update_tutorial_quest_progress("currency")
+	# Auto-save progress
+	SaveManager.save_game()
 	show_loot_tutorial()
 	pass
 
@@ -229,6 +466,10 @@ func show_loot_tutorial() -> void:
 	await DialogSystem.finished
 	
 	loot_completed = true
+	# Update tutorial quest
+	_update_tutorial_quest_progress("loot")
+	# Auto-save progress
+	SaveManager.save_game()
 	show_quest_waves_tutorial()
 	pass
 
@@ -265,6 +506,10 @@ func start_wave() -> void:
 	if current_wave < 0 or current_wave >= wave_sizes.size():
 		# All waves complete
 		quest_waves_completed = true
+		# Update tutorial quest
+		_update_tutorial_quest_progress("quest_waves")
+		# Auto-save progress
+		SaveManager.save_game()
 		reward_amulet()
 		return
 	
@@ -348,6 +593,10 @@ func _check_wave_complete() -> void:
 			wave_completing = false
 			PlayerHud.hide_kill_counter()
 			quest_waves_completed = true
+			# Update tutorial quest
+			_update_tutorial_quest_progress("quest_waves")
+			# Auto-save progress
+			SaveManager.save_game()
 			# Remove all slimes and spawn only goblins
 			_remove_all_slimes_and_spawn_goblins()
 	pass
@@ -451,6 +700,10 @@ func show_item_stats_tutorial() -> void:
 	await DialogSystem.finished
 	
 	item_stats_completed = true
+	# Update tutorial quest
+	_update_tutorial_quest_progress("item_stats")
+	# Auto-save progress
+	SaveManager.save_game()
 	
 	# Check if player leveled up during waves
 	if level_up_explained:
@@ -487,31 +740,25 @@ func show_level_up_explanation() -> void:
 	pass
 
 func complete_tutorial() -> void:
+	# Tutorial complete - proceed to boss fight
 	var complete_dialogs: Array[DialogItem] = []
 	
 	var dialog1: DialogText = DialogText.new()
 	dialog1.npc_info = TUTORIAL_NPC
-	dialog1.text = "Perfect! You've learned the basics. Now let's test your skills as an Archer!"
+	dialog1.text = "Perfect! You've learned the basics. Now teleport to the dungeon to face the Dark Wizard boss!"
 	complete_dialogs.append(dialog1)
-	
-	var dialog2: DialogText = DialogText.new()
-	dialog2.npc_info = TUTORIAL_NPC
-	dialog2.text = "I'll switch you to the Archer class and send waves of goblin archers. They'll fire arrows at you every 5 seconds!"
-	complete_dialogs.append(dialog2)
 	
 	DialogSystem.show_dialog(complete_dialogs)
 	await DialogSystem.finished
 	
-	# Switch to Archer class
-	PlayerManager.selected_class = "Archer"
-	PlayerHud.update_skill_labels()
+	# Mark tutorial as completed in save
+	SaveManager.current_save.tutorial_completed = true
+	SaveManager.save_game()
 	
-	# Wait a moment for class switch
-	await get_tree().create_timer(1.0).timeout
-	
-	# Start part 3: Archer waves
-	current_step = TutorialStep.ARCHER_WAVES
-	show_archer_waves_tutorial()
+	# Teleport to dungeon level 04 for boss fight
+	current_step = TutorialStep.COMPLETE
+	# Set target_transition to "PlayerSpawn" so the PlayerSpawn node knows to place the player there
+	LevelManager.load_new_level("res://Levels/Dungeon1/04.tscn", "PlayerSpawn", Vector2.ZERO)
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -525,9 +772,13 @@ func _input(event: InputEvent) -> void:
 			var mouse_event = event as InputEventMouseButton
 			if mouse_event.button_index == MOUSE_BUTTON_RIGHT and mouse_event.pressed:
 				movement_completed = true
+				# Update tutorial quest
+				_update_tutorial_quest_progress("movement")
 				# Wait 2-3 seconds before showing next dialog
 				await get_tree().create_timer(2.5).timeout
 				current_step = TutorialStep.ATTACK
+				# Auto-save progress when step changes
+				SaveManager.save_game()
 				show_attack_tutorial()
 				return
 	
@@ -535,9 +786,13 @@ func _input(event: InputEvent) -> void:
 	if current_step == TutorialStep.ATTACK and not attack_completed:
 		if event.is_action_pressed("attack"):
 			attack_completed = true
+			# Update tutorial quest
+			_update_tutorial_quest_progress("attack")
 			# Wait 2-3 seconds before showing next dialog
 			await get_tree().create_timer(2.5).timeout
 			current_step = TutorialStep.SKILLS
+			# Auto-save progress when step changes
+			SaveManager.save_game()
 			show_skills_tutorial()
 			return
 	
@@ -549,9 +804,13 @@ func _input(event: InputEvent) -> void:
 				match key_event.keycode:
 					KEY_Q, KEY_W, KEY_E:
 						skills_completed = true
+						# Update tutorial quest
+						_update_tutorial_quest_progress("skills")
 						# Wait 2-3 seconds before showing next dialog
 						await get_tree().create_timer(2.5).timeout
 						current_step = TutorialStep.INVENTORY
+						# Auto-save progress when step changes
+						SaveManager.save_game()
 						show_inventory_tutorial()
 						return
 	
@@ -563,268 +822,17 @@ func _input(event: InputEvent) -> void:
 			# Now wait for player to close inventory
 			await PauseMenu.hidden
 			inventory_completed = true
+			# Update tutorial quest
+			_update_tutorial_quest_progress("inventory")
 			# Wait 2-3 seconds before showing next dialog
 			await get_tree().create_timer(2.5).timeout
 			current_step = TutorialStep.CURRENCY
+			# Auto-save progress when step changes
+			SaveManager.save_game()
 			show_currency_tutorial()
 			return
 	pass
 
-func show_archer_waves_tutorial() -> void:
-	var archer_dialogs: Array[DialogItem] = []
-	
-	var dialog1: DialogText = DialogText.new()
-	dialog1.npc_info = TUTORIAL_NPC
-	dialog1.text = "Now you're an Archer! Watch out - these goblin archers will fire arrows at you every 5 seconds."
-	archer_dialogs.append(dialog1)
-	
-	var dialog2: DialogText = DialogText.new()
-	dialog2.npc_info = TUTORIAL_NPC
-	dialog2.text = "You need to clear 3 waves: first wave has 5 goblins, second has 10, and third has 15 goblins."
-	archer_dialogs.append(dialog2)
-	
-	var dialog3: DialogText = DialogText.new()
-	dialog3.npc_info = TUTORIAL_NPC
-	dialog3.text = "Defeat all the goblins to complete the tutorial!"
-	archer_dialogs.append(dialog3)
-	
-	DialogSystem.show_dialog(archer_dialogs)
-	await DialogSystem.finished
-	
-	# Show kill counter
-	PlayerHud.show_kill_counter()
-	
-	# Start archer wave system
-	archer_wave = 0
-	archer_waves_completed = false
-	start_archer_wave()
-	pass
-
-func start_archer_wave() -> void:
-	# Safety check to prevent out of bounds access
-	if archer_wave < 0 or archer_wave >= archer_wave_sizes.size():
-		# All waves complete
-		archer_waves_completed = true
-		complete_archer_tutorial()
-		return
-	
-	archer_enemies_killed = 0
-	archer_wave_completing = false
-	var wave_size = archer_wave_sizes[archer_wave]
-	
-	# Update wave counter
-	PlayerHud.update_wave_counter(archer_wave + 1, archer_enemies_killed, wave_size)
-	
-	# Spawn goblin archers around player in varied locations
-	var player_pos = PlayerManager.player.global_position
-	archer_wave_enemies.clear()
-	
-	# Define spawn areas (quadrants around player)
-	var spawn_areas = [
-		Vector2(1, 0),    # Right
-		Vector2(-1, 0),   # Left
-		Vector2(0, 1),    # Down
-		Vector2(0, -1),   # Up
-		Vector2(1, 1),    # Bottom-right
-		Vector2(-1, 1),   # Bottom-left
-		Vector2(1, -1),   # Top-right
-		Vector2(-1, -1)   # Top-left
-	]
-	
-	for i in wave_size:
-		var goblin = GOBLIN_SCENE.instantiate()
-		add_child(goblin)
-		
-		# Make goblin an archer (fires arrows)
-		_make_goblin_archer(goblin)
-		
-		# Pick a random spawn area (cycle through areas but also add randomness)
-		var area_index = (i + randi() % 3) % spawn_areas.size()
-		var base_direction = spawn_areas[area_index]
-		
-		# Add randomness to angle and distance
-		var base_angle = base_direction.angle()
-		var angle_variation = randf_range(-0.5, 0.5)  # Random variation in radians
-		var angle = base_angle + angle_variation
-		
-		# Vary distance between 120 and 200 pixels
-		var distance = randf_range(120.0, 200.0)
-		
-		# Calculate spawn position
-		var offset = Vector2(cos(angle), sin(angle)) * distance
-		goblin.global_position = player_pos + offset
-		
-		# Connect to death signal
-		if not goblin.enemy_destroyed.is_connected(_on_enemy_destroyed):
-			goblin.enemy_destroyed.connect(_on_enemy_destroyed)
-		
-		archer_wave_enemies.append(goblin)
-	pass
-
-func _make_goblin_archer(goblin: Enemy) -> void:
-	# Add arrow firing capability to normal goblin
-	# Just add a timer that fires arrows every 5 seconds
-	_setup_goblin_archer_firing(goblin)
-	pass
-
-func _setup_goblin_archer_firing(goblin: Enemy) -> void:
-	# Create a timer node to fire arrows every 5 seconds
-	# Only fire when goblin is chasing the player
-	var arrow_timer = goblin.get_node_or_null("ArrowTimer")
-	if not arrow_timer:
-		var timer = Timer.new()
-		timer.name = "ArrowTimer"
-		timer.wait_time = 5.0
-		timer.one_shot = false
-		timer.autostart = false  # Don't start automatically
-		goblin.add_child(timer)
-		timer.timeout.connect(_on_goblin_arrow_timer_timeout.bind(goblin))
-		
-		# Connect to goblin's state machine to enable/disable firing
-		if goblin.state_machine:
-			# Monitor when goblin enters chase state
-			_check_goblin_chase_state(goblin, timer)
-	pass
-
-func _check_goblin_chase_state(goblin: Enemy, timer: Timer) -> void:
-	# Check if goblin is in chase state every frame
-	var check_timer = Timer.new()
-	check_timer.name = "ChaseStateChecker"
-	check_timer.wait_time = 0.1  # Check every 0.1 seconds
-	check_timer.one_shot = false
-	check_timer.autostart = true
-	goblin.add_child(check_timer)
-	
-	check_timer.timeout.connect(func():
-		if not is_instance_valid(goblin):
-			check_timer.queue_free()
-			return
-		
-		# Check if goblin is in chase state
-		if goblin.state_machine and goblin.state_machine.current_state:
-			var current_state = goblin.state_machine.current_state
-			if current_state.get_script() == ChaseStateScript:
-				# Goblin is chasing - start arrow timer if not already running
-				if timer.is_stopped():
-					timer.start()
-			else:
-				# Goblin is not chasing - stop arrow timer
-				if not timer.is_stopped():
-					timer.stop()
-	)
-	pass
-
-func _on_goblin_arrow_timer_timeout(goblin: Enemy) -> void:
-	if not is_instance_valid(goblin) or not is_instance_valid(PlayerManager.player):
-		return
-	
-	# Only fire if goblin is still alive and chasing the player
-	if goblin.hp <= 0:
-		return
-	
-	# Check if goblin is currently in chase state
-	if not goblin.state_machine or not goblin.state_machine.current_state:
-		return
-	
-	if goblin.state_machine.current_state.get_script() != ChaseStateScript:
-		# Not in chase state, don't fire
-		return
-	
-	# Fire an arrow at the player
-	var arrow_scene = preload("res://Interactables/arrow/arrow.tscn")
-	var arrow = arrow_scene.instantiate()
-	goblin.get_parent().add_child(arrow)
-	
-	# Position arrow at goblin (slightly offset forward)
-	var direction = (PlayerManager.player.global_position - goblin.global_position).normalized()
-	if direction == Vector2.ZERO:
-		direction = Vector2.RIGHT
-	
-	arrow.global_position = goblin.global_position + (direction * 20)
-	
-	# Mark this arrow as fired by enemy (store reference to avoid hitting the shooter)
-	arrow.set_meta("shooter", goblin)
-	
-	# Fire arrow
-	arrow.fire(direction)
-	pass
-
-func _check_archer_wave_complete() -> void:
-	# Safety check to prevent out of bounds access
-	if archer_wave < 0 or archer_wave >= archer_wave_sizes.size():
-		return
-	
-	# Prevent multiple simultaneous wave completions
-	if archer_wave_completing:
-		return
-	
-	var wave_size = archer_wave_sizes[archer_wave]
-	
-	if archer_enemies_killed >= wave_size:
-		archer_wave_completing = true
-		# Wave complete
-		await get_tree().create_timer(2.0).timeout
-		archer_wave += 1
-		if archer_wave < archer_wave_sizes.size():
-			# Next wave
-			await get_tree().create_timer(2.0).timeout
-			archer_wave_completing = false
-			start_archer_wave()
-		else:
-			# All waves complete
-			archer_wave_completing = false
-			archer_waves_completed = true
-			complete_archer_tutorial()
-	pass
-
-func complete_archer_tutorial() -> void:
-	# Hide kill counter
-	PlayerHud.hide_kill_counter()
-	
-	var complete_dialogs: Array[DialogItem] = []
-	
-	var dialog1: DialogText = DialogText.new()
-	dialog1.npc_info = TUTORIAL_NPC
-	dialog1.text = "Excellent! You've mastered the Archer class and defeated all the goblin archers!"
-	complete_dialogs.append(dialog1)
-	
-	var dialog2: DialogText = DialogText.new()
-	dialog2.npc_info = TUTORIAL_NPC
-	dialog2.text = "Now teleport to the dungeon to face the Dark Wizard boss!"
-	complete_dialogs.append(dialog2)
-	
-	DialogSystem.show_dialog(complete_dialogs)
-	await DialogSystem.finished
-	
-	# Remove all remaining goblins
-	_remove_all_goblins()
-	
-	# Switch back to Swordsman class
-	PlayerManager.selected_class = "Swordsman"
-	
-	# Teleport to dungeon level 04 for boss fight
-	current_step = TutorialStep.COMPLETE
-	# Set target_transition to "PlayerSpawn" so the PlayerSpawn node knows to place the player there
-	LevelManager.load_new_level("res://Levels/Dungeon1/04.tscn", "PlayerSpawn", Vector2.ZERO)
-	pass
-
-func _remove_all_goblins() -> void:
-	# Remove all goblins from archer waves
-	for enemy in archer_wave_enemies:
-		if is_instance_valid(enemy):
-			if enemy.get_parent():
-				enemy.get_parent().remove_child(enemy)
-			enemy.queue_free()
-	archer_wave_enemies.clear()
-	
-	# Also remove any remaining goblins in the scene
-	for child in get_children():
-		if child is Enemy:
-			if is_instance_valid(child):
-				if child.get_parent():
-					child.get_parent().remove_child(child)
-				child.queue_free()
-	pass
 
 # Boss waves system
 var boss_wave: int = 0

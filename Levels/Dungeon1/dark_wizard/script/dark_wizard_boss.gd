@@ -64,7 +64,14 @@ func _ready() -> void:
 		
 	randomize()
 	hp = max_hp
-	PlayerHud.show_boss_health("Dark Wizard")
+	
+	# Only show boss health if we're NOT in a boss wave system (wave system handles it)
+	# Check if parent level has a boss wave system
+	var level = get_tree().current_scene
+	if not level or not level.has_method("start_boss_wave"):
+		# Not in a boss wave system, show the health bar ourselves
+		PlayerHud.show_boss_health("Dark Wizard")
+	
 	if hit_box:
 		hit_box.Damaged.connect(damage_taken)
 	
@@ -263,7 +270,14 @@ func defeat() -> void:
 		animation_player.play("destroy")
 		await animation_player.animation_finished
 	enable_hit_boxes(false)
-	PlayerHud.hide_boss_health()
+	
+	# Only hide boss health if this is the final defeat (check if we're in a boss wave system)
+	# If we're in dungeon04_boss_waves, the wave system will handle showing/hiding
+	var level = get_tree().current_scene
+	if not level or not level.has_method("_on_boss_defeated"):
+		# Not in a boss wave system, hide the health bar
+		PlayerHud.hide_boss_health()
+	
 	if has_node("ItemDropper") and boss_node:
 		$ItemDropper.position = boss_node.position
 		$ItemDropper.drop_item()

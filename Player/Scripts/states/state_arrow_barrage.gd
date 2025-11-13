@@ -26,18 +26,15 @@ func Enter() -> void:
 	
 	player.UpdateAnimation("bow")
 	
-	# Show skill name label
-	if PlayerManager.selected_class == "Archer":
-		PlayerHud.show_skill_name("W", "Arrow Barrage")
+	
+	# Start cooldown immediately when skill is activated
+	PlayerHud.start_charge_dash_cooldown()
 	
 	# Start firing arrows (async)
 	_fire_barrage()  # This will fire arrows asynchronously
 	pass
 
 func Exit() -> void:
-	# Hide skill name label
-	if PlayerManager.selected_class == "Archer":
-		PlayerHud.hide_skill_name("W")
 	
 	_next_state = null
 	pass
@@ -81,8 +78,7 @@ func _fire_barrage() -> void:
 		if i < arrow_count - 1:
 			await get_tree().create_timer(barrage_delay).timeout
 	
-	# Start cooldown
-	PlayerHud.start_charge_dash_cooldown()  # Reuse W skill cooldown
+	# Cooldown was already started in Enter() - no need to start it again
 	
 	# Return to idle after a short delay
 	await get_tree().create_timer(0.1).timeout

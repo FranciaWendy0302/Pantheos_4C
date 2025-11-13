@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b5hymo20jb5sa" path="res://GUI/player_hud/gui-health.png" id="1_alx7a"]
 [ext_resource type="Script" uid="uid://d34gqlcplff3r" path="res://GUI/player_hud/player_hud.gd" id="1_oghrr"]
+[ext_resource type="Texture2D" uid="uid://cc6o6u38rnlwx" path="res://Items/sprites/items.png" id="1_mswg8"]
 [ext_resource type="PackedScene" uid="uid://6ik1hwolfiq0" path="res://GUI/player_hud/heart_gui.tscn" id="2_oghrr"]
 [ext_resource type="FontFile" uid="uid://cdoaw5mbxum1d" path="res://GUI/fonts/Abaddon Bold.ttf" id="4_4b3j6"]
 [ext_resource type="Texture2D" uid="uid://cnheprbj3dc0t" path="res://GUI/player_hud/boss-hp.png" id="5_sysqg"]
@@ -11,6 +12,10 @@
 [ext_resource type="AudioStream" uid="uid://cugklxafoeytd" path="res://GUI/player_hud/notification.wav" id="9_ea3vn"]
 [ext_resource type="Texture2D" uid="uid://scetlauprb2n" path="res://Player/Sprites/ability-icons.png" id="10_terqw"]
 [ext_resource type="Script" uid="uid://lofqecjogdvs" path="res://GUI/player_hud/minimap.gd" id="11_minimap"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gem"]
+atlas = ExtResource("1_mswg8")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="FontVariation" id="FontVariation_yhjvm"]
 base_font = ExtResource("4_4b3j6")
@@ -426,6 +431,33 @@ texture = ExtResource("1_alx7a")
 region_enabled = true
 region_rect = Rect2(29, 0, 34, 8)
 
+[node name="CurrencyDisplay" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_top = 2.0
+offset_right = -4.0
+offset_bottom = 14.0
+grow_horizontal = 0
+theme_override_constants/separation = 2
+
+[node name="CurrencyIcon" type="TextureRect" parent="Control/CurrencyDisplay"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+texture = SubResource("AtlasTexture_gem")
+stretch_mode = 3
+
+[node name="CurrencyLabel" type="Label" parent="Control/CurrencyDisplay"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "9999"
+vertical_alignment = 1
+
 [node name="HFlowContainer" type="HFlowContainer" parent="Control"]
 layout_mode = 0
 offset_left = 346.0
@@ -524,7 +556,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -46.0
 offset_top = -46.0
-offset_right = 46.0
+offset_right = 48.0
 offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -548,7 +580,7 @@ grow_vertical = 2
 
 [node name="ContinueButton" type="Button" parent="Control/GameOver/VBoxContainer"]
 layout_mode = 2
-text = "continue"
+text = "respawn"
 
 [node name="TitleButton" type="Button" parent="Control/GameOver/VBoxContainer"]
 layout_mode = 2
@@ -767,7 +799,7 @@ grow_vertical = 0
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/SkillsHUD"]
-layout_mode = 2
+layout_mode = 0
 theme_override_constants/separation = 10
 
 [node name="DashSkill" type="Control" parent="Control/SkillsHUD/HBoxContainer"]
@@ -1018,76 +1050,21 @@ theme_override_fonts/font = ExtResource("6_rxq5y")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="KillCounter" type="Control" parent="Control"]
-unique_name_in_owner = true
+[node name="WaveCounterData" type="Control" parent="Control"]
 visible = false
 layout_mode = 1
 anchors_preset = 0
-offset_left = 20.0
-offset_top = 100.0
-offset_right = 220.0
-offset_bottom = 150.0
-grow_horizontal = 0
-grow_vertical = 0
 mouse_filter = 2
 
-[node name="ToggleArrow" type="Button" parent="Control/KillCounter"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -15.0
-offset_right = -10.0
-offset_bottom = 15.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_rxq5y")
-text = "<"
-
-[node name="Panel" type="PanelContainer" parent="Control/KillCounter"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -40.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/KillCounter/Panel"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="TitleLabel" type="Label" parent="Control/KillCounter/Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 0.5, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("6_rxq5y")
-text = "Enemies Killed"
-horizontal_alignment = 1
-
-[node name="WaveLabel" type="Label" parent="Control/KillCounter/Panel/VBoxContainer"]
+[node name="WaveLabel" type="Label" parent="Control/WaveCounterData"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("6_rxq5y")
+layout_mode = 0
 text = "Wave 1"
-horizontal_alignment = 1
 
-[node name="CountLabel" type="Label" parent="Control/KillCounter/Panel/VBoxContainer"]
+[node name="CountLabel" type="Label" parent="Control/WaveCounterData"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("6_rxq5y")
+layout_mode = 0
 text = "0 / 0"
-horizontal_alignment = 1
 
 [node name="Minimap" type="Control" parent="Control"]
 layout_mode = 1
@@ -1101,6 +1078,40 @@ offset_bottom = 133.0
 grow_horizontal = 0
 mouse_filter = 2
 script = ExtResource("11_minimap")
+
+[node name="QuestTracker" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -475.0
+offset_top = 57.0
+offset_right = -235.0
+offset_bottom = 217.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/QuestTracker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="QuestTitle" type="Label" parent="Control/QuestTracker/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_rxq5y")
+text = "Quest Title"
+autowrap_mode = 2
+
+[node name="StepsContainer" type="VBoxContainer" parent="Control/QuestTracker/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
