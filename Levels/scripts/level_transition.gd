@@ -42,6 +42,10 @@ func _ready() -> void:
 	pass
 	
 func _player_entered(_p: Node2D) -> void:
+	# Notify network manager about map change
+	if multiplayer.has_multiplayer_peer() and has_node("/root/NetworkManager"):
+		NetworkManager.notify_map_changed(level)
+	
 	LevelManager.load_new_level(level, target_position_area, get_offset())
 	pass
 
