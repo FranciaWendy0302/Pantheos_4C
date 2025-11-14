@@ -15,6 +15,8 @@ var _nickname: String = ""
 var _peer_id_to_name: Dictionary = {}
 var _peer_id_to_avatar: Dictionary = {}
 var _peer_id_to_hp: Dictionary = {}
+var _peer_id_to_map: Dictionary = {}  # Track which map each player is in
+var _current_map: String = ""  # Client's current map
 
 @onready var _snapshot_timer: Timer = Timer.new()
 
@@ -57,6 +59,14 @@ func disconnect_from_server() -> void:
 	multiplayer.multiplayer_peer = null
 	_cleanup_all_avatars()
 	disconnected_signal.emit()
+	pass
+
+
+func notify_map_changed(new_map_path: String) -> void:
+	"""Call this when the player changes maps/scenes"""
+	_current_map = new_map_path
+	# Clean up all remote avatars since we're in a new map
+	_cleanup_all_avatars()
 	pass
 
 
@@ -154,7 +164,12 @@ func _on_snapshot_timer_timeout() -> void:
 			if weapon_a.texture:
 				sprite_data["weapon_texture"] = weapon_a.texture.resource_path
 
-	_send_transform_to_server.rpc(pos, dir, sprite_data, hp, max_hp)
+	# Get current map/scene name
+	var current_scene = get_tree().current_scene
+	if current_scene:
+		_current_map = current_scene.scene_file_path
+	
+	_send_transform_to_server.rpc(pos, dir, sprite_data, hp, max_hp, _current_map)
 	pass
 
 
@@ -187,18 +202,22 @@ func _peer_joined_client(peer_id: int, nickname: String) -> void:
 
 
 @rpc("any_peer", "unreliable", "call_local")
-func _send_transform_to_server(pos: Vector2, dir: Vector2, sprite_data: Dictionary, hp: int, max_hp: int) -> void:
+func _send_transform_to_server(pos: Vector2, dir: Vector2, sprite_data: Dictionary, hp: int, max_hp: int, map_path: String) -> void:
 	if not multiplayer.is_server():
 		return
 
 	var sender := multiplayer.get_remote_sender_id()
 	_peer_id_to_hp[sender] = {"hp": hp, "max_hp": max_hp}
+	_peer_id_to_map[sender] = map_path  # Track sender's map
 
+	# Only broadcast to players in the same map
 	for pid in multiplayer.get_peers():
 		if pid == sender:
 			continue
-
-		_broadcast_peer_transform.rpc_id(pid, sender, pos, dir, sprite_data, hp, max_hp)
+		
+		# Check if target player is in the same map
+		if _peer_id_to_map.get(pid, "") == map_path:
+			_broadcast_peer_transform.rpc_id(pid, sender, pos, dir, sprite_data, hp, max_hp)
 	pass
 
 
