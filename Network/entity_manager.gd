@@ -139,7 +139,7 @@ func server_damage_entity(entity_id: int, damage: int, attacker_peer_id: int) ->
 
 func _handle_entity_death(entity_id: int, killer_peer_id: int) -> void:
 	"""Handle entity death - drop loot, give XP, etc."""
-	var entity = _entities[entity_id]
+	var _entity = _entities[entity_id]
 	
 	print("[Server] Entity %d died, killed by peer %d" % [entity_id, killer_peer_id])
 	
@@ -271,7 +271,7 @@ func _rpc_despawn_entity(entity_id: int) -> void:
 
 
 @rpc("authority", "call_remote", "reliable")
-func _rpc_entity_died(entity_id: int, killer_peer_id: int) -> void:
+func _rpc_entity_died(entity_id: int, _killer_peer_id: int) -> void:
 	"""CLIENT: Entity died notification"""
 	if not _entity_instances.has(entity_id):
 		return
