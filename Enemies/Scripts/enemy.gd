@@ -29,6 +29,22 @@ func _ready():
 	player = PlayerManager.player
 	hit_box.Damaged.connect(_take_damage)
 	pass
+
+
+func update_hp(new_hp: int, new_max_hp: int) -> void:
+	"""Called by network system to update HP"""
+	hp = new_hp
+	max_hp = new_max_hp
+	
+	if hp <= 0 and is_inside_tree():
+		enemy_destroyed.emit(null)
+
+
+func play_death_animation() -> void:
+	"""Called by network when entity dies"""
+	if animation_player:
+		# Play death animation if you have one
+		pass
 	
 func _process(_delta):
 	pass
@@ -71,6 +87,15 @@ func anim_direction() -> String:
 func _take_damage(hurt_box: HurtBox) -> void:
 	if invulnerable == true:
 		return
+	
+	# Network: Send damage to server for validation
+	if multiplayer.has_multiplayer_peer() and not multiplayer.is_server():
+		var entity_id = get_meta("entity_id", -1)
+		if entity_id != -1:
+			EntityManager.client_attack_entity(entity_id, hurt_box.damage)
+			return  # Server will handle the damage
+	
+	# Local/Server damage handling
 	hp -= hurt_box.damage
 	PlayerManager.shake_camera()
 	EffectManager.damage_text(hurt_box.damage, global_position + Vector2(0, -36))

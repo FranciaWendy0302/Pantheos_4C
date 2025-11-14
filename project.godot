@@ -31,6 +31,7 @@ EffectManager="*res://00_Globals/global_effect_manager.gd"
 ShopMenu="*res://GUI/shop_menu/shop_menu.tscn"
 TutorialManager="*res://00_Globals/tutorial_manager.gd"
 NetworkManager="*res://Network/network_manager.gd"
+EntityManager="*res://Network/entity_manager.gd"
 
 [display]
 

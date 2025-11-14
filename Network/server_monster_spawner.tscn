@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://spawner_001"]
+
+[ext_resource type="Script" path="res://Network/server_monster_spawner.gd" id="1"]
+
+[node name="ServerMonsterSpawner" type="Node2D"]
+script = ExtResource("1")
+spawn_count = 3
+spawn_radius = 100.0
+respawn_time = 30.0
