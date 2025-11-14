@@ -1,9 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://cebqlld4ws2yt"]
+[gd_scene load_steps=34 format=3 uid="uid://cebqlld4ws2yt"]
 
-[ext_resource type="Texture2D" uid="uid://b5hymo20jb5sa" path="res://GUI/player_hud/gui-health.png" id="1_alx7a"]
-[ext_resource type="Script" uid="uid://d34gqlcplff3r" path="res://GUI/player_hud/player_hud.gd" id="1_oghrr"]
 [ext_resource type="Texture2D" uid="uid://cc6o6u38rnlwx" path="res://Items/sprites/items.png" id="1_mswg8"]
-[ext_resource type="PackedScene" uid="uid://6ik1hwolfiq0" path="res://GUI/player_hud/heart_gui.tscn" id="2_oghrr"]
+[ext_resource type="Script" uid="uid://d34gqlcplff3r" path="res://GUI/player_hud/player_hud.gd" id="1_oghrr"]
 [ext_resource type="FontFile" uid="uid://cdoaw5mbxum1d" path="res://GUI/fonts/Abaddon Bold.ttf" id="4_4b3j6"]
 [ext_resource type="Texture2D" uid="uid://cnheprbj3dc0t" path="res://GUI/player_hud/boss-hp.png" id="5_sysqg"]
 [ext_resource type="FontFile" uid="uid://b4rp70lyqgf78" path="res://GUI/fonts/m5x7.ttf" id="6_rxq5y"]
@@ -12,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://cugklxafoeytd" path="res://GUI/player_hud/notification.wav" id="9_ea3vn"]
 [ext_resource type="Texture2D" uid="uid://scetlauprb2n" path="res://Player/Sprites/ability-icons.png" id="10_terqw"]
 [ext_resource type="Script" uid="uid://lofqecjogdvs" path="res://GUI/player_hud/minimap.gd" id="11_minimap"]
+[ext_resource type="Texture2D" uid="uid://cvhtx03xhdhm6" path="res://Player/Sprites/player_health_bar.png" id="12_health"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gem"]
 atlas = ExtResource("1_mswg8")
@@ -264,6 +263,14 @@ region = Rect2(9, 40, 14, 15)
 atlas = ExtResource("5_sysqg")
 region = Rect2(40, 40, 15, 15)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_hp_under"]
+atlas = ExtResource("12_health")
+region = Rect2(0, 64, 256, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_hp_progress"]
+atlas = ExtResource("12_health")
+region = Rect2(0, 96, 256, 32)
+
 [sub_resource type="Gradient" id="Gradient_ea3vn"]
 offsets = PackedFloat32Array(0, 0.517241, 1)
 colors = PackedColorArray(1, 0.945659, 0.329011, 1, 1, 0.651, 0.267, 0.54, 1, 0.198, 0, 0)
@@ -425,12 +432,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Control"]
-position = Vector2(409, 9)
-texture = ExtResource("1_alx7a")
-region_enabled = true
-region_rect = Rect2(29, 0, 34, 8)
-
 [node name="CurrencyDisplay" type="HBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 1
@@ -457,76 +458,6 @@ theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("6_rxq5y")
 text = "9999"
 vertical_alignment = 1
-
-[node name="HFlowContainer" type="HFlowContainer" parent="Control"]
-layout_mode = 0
-offset_left = 346.0
-offset_top = 17.0
-offset_right = 476.0
-offset_bottom = 41.0
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 2
-alignment = 1
-
-[node name="Heart" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart2" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart3" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart4" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart5" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart6" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart7" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart8" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart9" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart10" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart11" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart12" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart13" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart14" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart15" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart16" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart17" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart18" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart19" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
-
-[node name="Heart20" parent="Control/HFlowContainer" instance=ExtResource("2_oghrr")]
-layout_mode = 2
 
 [node name="GameOver" type="Control" parent="Control"]
 modulate = Color(1, 1, 1, 0)
@@ -661,6 +592,33 @@ grow_horizontal = 2
 theme_override_fonts/font = ExtResource("6_rxq5y")
 text = "Dark Wizard"
 horizontal_alignment = 1
+
+[node name="PlayerHealthBar" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -42.0
+offset_right = 266.0
+offset_bottom = -10.0
+grow_vertical = 0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control/PlayerHealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 16
+stretch_margin_top = 4
+stretch_margin_right = 16
+stretch_margin_bottom = 4
+texture_under = SubResource("AtlasTexture_player_hp_under")
+texture_progress = SubResource("AtlasTexture_player_hp_progress")
 
 [node name="Abilities" type="Control" parent="Control"]
 anchors_preset = 0

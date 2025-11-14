@@ -1,11 +1,31 @@
-[gd_scene load_steps=2 format=4]
+[gd_scene load_steps=4 format=4]
 
 [ext_resource type="Script" path="res://Network/remote_avatar.gd" id="1_m3qzq"]
+[ext_resource type="PackedScene" uid="uid://c3g2w7rkn6aox" path="res://GeneralNodes/HitBox/hit_box.tscn" id="2_hitbox"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 
 [node name="RemoteAvatar" type="Node2D"]
 script = ExtResource("1_m3qzq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="Sprite2D_Weapon_Below" type="Sprite2D" parent="Sprite2D"]
+show_behind_parent = true
+hframes = 16
+vframes = 16
+
+[node name="Sprite2D_Weapon_Above" type="Sprite2D" parent="Sprite2D"]
+hframes = 16
+vframes = 16
+frame = 128
+
+[node name="HitBox" parent="." instance=ExtResource("2_hitbox")]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_1")
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -40.0

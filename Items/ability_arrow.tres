@@ -15,5 +15,6 @@ name = "Bomb"
 description = ""
 texture = SubResource("AtlasTexture_sn5yh")
 cost = 10
+hide_in_inventory = false
 effect = Array[ExtResource("1_yo4lw")]([])
 metadata/_custom_type_script = "uid://pe082krtkio6"

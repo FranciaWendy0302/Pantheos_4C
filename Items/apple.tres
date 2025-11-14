@@ -23,5 +23,6 @@ name = "Apple"
 description = "A sweet red apple!"
 texture = SubResource("AtlasTexture_nido0")
 cost = 10
+hide_in_inventory = false
 effect = Array[ExtResource("1_xwhp1")]([SubResource("Resource_0m7an")])
 metadata/_custom_type_script = "uid://di8n5aycuwrg0"

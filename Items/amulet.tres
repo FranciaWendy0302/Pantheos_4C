@@ -29,5 +29,6 @@ name = "Red Man's Amulet"
 description = ""
 texture = SubResource("AtlasTexture_a1bgs")
 cost = 300
+hide_in_inventory = false
 effect = Array[ExtResource("1_0j5hl")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

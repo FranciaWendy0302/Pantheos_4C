@@ -25,5 +25,6 @@ name = "Iron Sword"
 description = "A sturdy blade forged from iron, reliable for close combat and effective against most foes."
 texture = SubResource("AtlasTexture_1w3hl")
 cost = 500
+hide_in_inventory = false
 effect = Array[ExtResource("1_inskq")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"

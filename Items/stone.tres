@@ -14,5 +14,6 @@ name = "Stone"
 description = "Stone?"
 texture = SubResource("AtlasTexture_gqhqt")
 cost = 20
+hide_in_inventory = false
 effect = Array[ExtResource("1_gqhqt")]([])
 metadata/_custom_type_script = "uid://di8n5aycuwrg0"

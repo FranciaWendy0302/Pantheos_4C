@@ -14,5 +14,6 @@ name = "Dungeon Key"
 description = "Key?"
 texture = SubResource("AtlasTexture_y1yal")
 cost = 10
+hide_in_inventory = false
 effect = Array[ExtResource("1_u6d1n")]([])
 metadata/_custom_type_script = "uid://di8n5aycuwrg0"

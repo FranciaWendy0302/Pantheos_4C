@@ -3,8 +3,6 @@ extends CanvasLayer
 @export var button_focus_audio: AudioStream = preload("res://title_scene/audio/menu_focus.wav")
 @export var button_select_audio: AudioStream = preload("res://title_scene/audio/menu_select.wav")
 
-var hearts: Array[HeartGUI] = []
-
 @onready var game_over: Control = $Control/GameOver
 @onready var continue_button: Button = $Control/GameOver/VBoxContainer/ContinueButton
 @onready var title_button: Button = $Control/GameOver/VBoxContainer/TitleButton
@@ -46,12 +44,15 @@ var hearts: Array[HeartGUI] = []
 @onready var kill_count_label: Label = %CountLabel
 @onready var currency_label: Label = %CurrencyLabel
 
-var wave_counter_active: bool = false
-var currency_item: ItemData = preload("res://Items/gem.tres")
-
 @onready var quest_tracker: Control = $Control/QuestTracker
 @onready var quest_title_label: Label = $Control/QuestTracker/VBoxContainer/QuestTitle
 @onready var quest_steps_container: VBoxContainer = $Control/QuestTracker/VBoxContainer/StepsContainer
+
+@onready var player_hp_bar: TextureProgressBar = $Control/PlayerHealthBar/TextureProgressBar
+@onready var player_health_bar_control: Control = $Control/PlayerHealthBar
+
+var wave_counter_active: bool = false
+var currency_item: ItemData = preload("res://Items/gem.tres")
 
 var dash_cooldown_timer: float = 0.0
 var quest_update_delay: float = 0.0
@@ -66,11 +67,6 @@ var spin_cooldown_duration: float = 5.0
 
 
 func _ready():
-	for child in $Control/HFlowContainer.get_children():
-		if child is HeartGUI:
-			hearts.append(child)
-			child.visible = false
-	
 	hide_game_over_screen()
 	continue_button.focus_entered.connect(play_audio.bind(button_focus_audio))
 	continue_button.pressed.connect(load_game)
@@ -114,26 +110,86 @@ func _ready():
 	update_currency_display()
 	
 	pass
-	
+
+var previous_hp: int = 10
+var hp_tween: Tween = null
+
 func update_hp(_hp: int, _max_hp: int) -> void:
-	update_max_hp(_max_hp)
-	for i in _max_hp:
-		update_heart(i, _hp)
-		pass
+	# Update the new health bar
+	if player_hp_bar:
+		var hp_percent = clampf(float(_hp) / float(_max_hp) * 100, 0, 100)
+		
+		print("HP Updated: ", _hp, "/", _max_hp, " = ", hp_percent, "%")
+		
+		# Kill existing tween if running
+		if hp_tween:
+			hp_tween.kill()
+		
+		# Determine if taking damage or healing
+		var is_damage = _hp < previous_hp
+		var is_heal = _hp > previous_hp
+		
+		# Animate the health bar value change
+		hp_tween = create_tween()
+		hp_tween.set_ease(Tween.EASE_OUT)
+		hp_tween.set_trans(Tween.TRANS_CUBIC)
+		
+		# Faster animation for damage, slower for healing
+		var duration = 0.15 if is_damage else 0.3
+		hp_tween.tween_property(player_hp_bar, "value", hp_percent, duration)
+		
+		# Visual feedback for damage or healing
+		if is_damage:
+			_flash_damage()
+			_shake_health_bar()
+		elif is_heal:
+			_flash_heal()
+			_pulse_health_bar()
+		
+		previous_hp = _hp
+	else:
+		print("ERROR: player_hp_bar is null!")
 	pass
 
-func update_heart(_index: int, _hp: int) -> void:
-	var _value: int = clampi(_hp - _index * 2, 0, 2)
-	hearts[_index].value = _value
+func _flash_damage() -> void:
+	if player_health_bar_control:
+		var flash_tween = create_tween()
+		flash_tween.set_parallel(true)
+		# Flash red
+		flash_tween.tween_property(player_health_bar_control, "modulate", Color(1.8, 0.3, 0.3, 1), 0.1)
+		flash_tween.chain().tween_property(player_health_bar_control, "modulate", Color(1, 1, 1, 1), 0.3)
 	pass
-	
-func update_max_hp(_max_hp: int) -> void:
-	var _heart_count: int = roundi(_max_hp * 0.5)
-	for i in hearts.size():
-		if i < _heart_count:
-			hearts[i].visible = true
-		else: 
-			hearts[i].visible = false
+
+func _flash_heal() -> void:
+	if player_health_bar_control:
+		var flash_tween = create_tween()
+		flash_tween.set_parallel(true)
+		# Flash green
+		flash_tween.tween_property(player_health_bar_control, "modulate", Color(0.3, 1.8, 0.3, 1), 0.1)
+		flash_tween.chain().tween_property(player_health_bar_control, "modulate", Color(1, 1, 1, 1), 0.4)
+	pass
+
+func _shake_health_bar() -> void:
+	if player_health_bar_control:
+		var original_pos = player_health_bar_control.position
+		var shake_tween = create_tween()
+		shake_tween.set_parallel(false)
+		# Quick shake effect
+		shake_tween.tween_property(player_health_bar_control, "position", original_pos + Vector2(-3, 0), 0.05)
+		shake_tween.tween_property(player_health_bar_control, "position", original_pos + Vector2(3, 0), 0.05)
+		shake_tween.tween_property(player_health_bar_control, "position", original_pos + Vector2(-2, 0), 0.05)
+		shake_tween.tween_property(player_health_bar_control, "position", original_pos + Vector2(2, 0), 0.05)
+		shake_tween.tween_property(player_health_bar_control, "position", original_pos, 0.05)
+	pass
+
+func _pulse_health_bar() -> void:
+	if player_health_bar_control:
+		var original_scale = player_health_bar_control.scale
+		var pulse_tween = create_tween()
+		pulse_tween.set_parallel(false)
+		# Gentle pulse effect
+		pulse_tween.tween_property(player_health_bar_control, "scale", original_scale * 1.05, 0.15)
+		pulse_tween.tween_property(player_health_bar_control, "scale", original_scale, 0.15)
 	pass
 	
 func show_game_over_screen() -> void:

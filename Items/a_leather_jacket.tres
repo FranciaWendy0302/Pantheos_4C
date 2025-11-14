@@ -37,5 +37,6 @@ name = "Leather Jacket"
 description = "A rugged garment made from treated hide, offering moderate protection and a stylish, versatile look."
 texture = SubResource("AtlasTexture_1w3hl")
 cost = 1000
+hide_in_inventory = false
 effect = Array[ExtResource("1_kwkdy")]([])
 metadata/_custom_type_script = "uid://ihwxxaa3h7cc"
