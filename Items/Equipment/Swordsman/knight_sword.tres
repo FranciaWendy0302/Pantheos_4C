@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=10 format=3 uid="uid://bk6bc7xrhrb8v"]
+
+[ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="1"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_w756y"]
+[ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://w5n8tn0fweon" path="res://Items/sprites/swordsman/knight set.png" id="3"]
+
+[sub_resource type="Resource" id="modifier_attack"]
+script = ExtResource("1")
+type = 1
+value = 25
+
+[sub_resource type="Resource" id="modifier_crit_chance"]
+script = ExtResource("1")
+type = 4
+value = 3
+
+[sub_resource type="Resource" id="modifier_attack_speed"]
+script = ExtResource("1")
+type = 6
+value = 5
+
+[sub_resource type="Resource" id="modifier_defense"]
+script = ExtResource("1")
+type = 2
+value = 5
+
+[sub_resource type="AtlasTexture" id="icon"]
+atlas = ExtResource("3")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("2")
+required_level = 5
+class_requirement = 1
+additional_classes = Array[String](["Warrior", "Knight"])
+modifiers = Array[ExtResource("1")]([SubResource("modifier_attack"), SubResource("modifier_crit_chance"), SubResource("modifier_attack_speed"), SubResource("modifier_defense")])
+sprite_texture = ExtResource("3")
+name = "Knight Sword"
+description = "A heavy blade forged for knights. Reliable in battle."
+texture = SubResource("icon")
+cost = 1500

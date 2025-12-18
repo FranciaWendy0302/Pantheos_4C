@@ -1,0 +1,611 @@
+[gd_scene load_steps=14 format=3 uid="uid://6j4va45y35bp"]
+
+[ext_resource type="Script" uid="uid://bed2d6qpatbso" path="res://GUI/pause_menu/pause_menu.gd" id="1_4w82k"]
+[ext_resource type="Texture2D" uid="uid://cc6o6u38rnlwx" path="res://Items/sprites/items.png" id="2_yiq8o"]
+[ext_resource type="Script" uid="uid://bgl0i5jds6ykg" path="res://GUI/pause_menu/inventory/scripts/inventory_ui.gd" id="3_36pfd"]
+[ext_resource type="PackedScene" uid="uid://ct3r2jpgr1d6b" path="res://GUI/pause_menu/inventory/inventory_slot.tscn" id="3_rsqrg"]
+[ext_resource type="Resource" uid="uid://ii4rvtaid5fi" path="res://GUI/pause_menu/inventory/player_inventory.tres" id="4_ewgu5"]
+[ext_resource type="FontFile" uid="uid://cfbdty76erfpi" path="res://GUI/fonts/Abaddon Light.ttf" id="6_sn1ji"]
+[ext_resource type="Script" uid="uid://d24c0j48vs6x8" path="res://GUI/pause_menu/quest_ui.gd" id="7_dvxeg"]
+[ext_resource type="PackedScene" uid="uid://brik5hjfv2yhq" path="res://GUI/pause_menu/quests/quest_item.tscn" id="8_iqcer"]
+[ext_resource type="FontFile" uid="uid://b4rp70lyqgf78" path="res://GUI/fonts/m5x7.ttf" id="9_qikl0"]
+[ext_resource type="PackedScene" uid="uid://kppws60aaayy" path="res://GUI/pause_menu/quests/quest_step_item.tscn" id="10_40d0i"]
+[ext_resource type="PackedScene" uid="uid://c8h5kljriejv4" path="res://GUI/pause_menu/stats/character_status.tscn" id="15_ak53x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3762"]
+atlas = ExtResource("2_yiq8o")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_36pfd"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_u3762")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_4w82k")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.141176, 0.141176, 0.815686)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Control"]
+max_polyphony = 4
+
+[node name="TabContainer" type="TabContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+current_tab = 4
+
+[node name="Inventory" type="Control" parent="Control/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/TabContainer/Inventory"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 7.0
+offset_right = 148.0
+offset_bottom = 207.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
+
+[node name="GridContainer" type="GridContainer" parent="Control/TabContainer/Inventory/PanelContainer"]
+layout_mode = 2
+columns = 8
+script = ExtResource("3_36pfd")
+data = ExtResource("4_ewgu5")
+
+[node name="InventorySlot" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot17" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot18" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot19" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot20" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot21" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot22" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot23" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot24" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot25" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot26" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot27" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot28" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot29" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot30" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot31" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot32" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot33" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot34" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot35" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot36" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot37" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot38" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot39" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="InventorySlot40" parent="Control/TabContainer/Inventory/PanelContainer/GridContainer" instance=ExtResource("3_rsqrg")]
+layout_mode = 2
+
+[node name="Button_Close_Inventory" type="Button" parent="Control/TabContainer/Inventory"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 150.0
+offset_top = 183.0
+offset_right = 224.0
+offset_bottom = 209.0
+grow_horizontal = 2
+text = "Close"
+
+[node name="Cosmetics" type="Control" parent="Control/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/TabContainer/Cosmetics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 135.0
+offset_top = 10.0
+offset_right = -9.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="ItemCard1" type="PanelContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard1/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Golden Crown"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard1/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Royal golden crown with gems"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard1/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "₱299"
+horizontal_alignment = 1
+
+[node name="ItemCard2" type="PanelContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard2/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Shadow Cape"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Dark flowing cape with shadows"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard2/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "₱399"
+horizontal_alignment = 1
+
+[node name="ItemCard3" type="PanelContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard3/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Mystic Wings"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard3/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Glowing wings with magic effects"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard3/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "₱599"
+horizontal_alignment = 1
+
+[node name="ItemCard4" type="PanelContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard4"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard4/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Rainbow Aura"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard4/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Colorful aura around character"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard4/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "₱199"
+horizontal_alignment = 1
+
+[node name="ItemCard5" type="PanelContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard5"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard5/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Phoenix Tail"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard5/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Flaming tail with fire particles"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard5/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "₱449"
+horizontal_alignment = 1
+
+[node name="ItemCard6" type="PanelContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_36pfd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard6"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard6/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Ice Crown"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard6/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Frost crown with ice crystals"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/TabContainer/Cosmetics/ScrollContainer/GridContainer/ItemCard6/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "₱349"
+horizontal_alignment = 1
+
+[node name="Quest" type="Control" parent="Control/TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("7_dvxeg")
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/TabContainer/Quest"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 214.0
+offset_bottom = 199.0
+follow_focus = true
+scroll_vertical_custom_step = 100.0
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/TabContainer/Quest/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Quest/ScrollContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="QuestItem" parent="Control/TabContainer/Quest/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("8_iqcer")]
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="Control/TabContainer/Quest"]
+layout_mode = 0
+offset_left = 228.0
+offset_top = 21.0
+offset_right = 438.0
+offset_bottom = 197.0
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Quest/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="Control/TabContainer/Quest/ScrollContainer2/VBoxContainer"]
+modulate = Color(0.785124, 0.677068, 0.292737, 1)
+custom_minimum_size = Vector2(180, 10)
+layout_mode = 2
+text = "Quest Title"
+autowrap_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="Control/TabContainer/Quest/ScrollContainer2/VBoxContainer"]
+modulate = Color(0.613144, 0.539453, 0.465178, 1)
+custom_minimum_size = Vector2(180, 10)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Quest Description"
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="Control/TabContainer/Quest/ScrollContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="QuestStepItem" parent="Control/TabContainer/Quest/ScrollContainer2/VBoxContainer" instance=ExtResource("10_40d0i")]
+layout_mode = 2
+
+[node name="Button_Close_Quest" type="Button" parent="Control/TabContainer/Quest"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 150.0
+offset_top = 183.0
+offset_right = 224.0
+offset_bottom = 209.0
+grow_horizontal = 2
+text = "Close"
+
+[node name="System" type="Control" parent="Control/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/System"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -92.0
+offset_right = 120.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MasterVolumeLabel" type="Label" parent="Control/TabContainer/System/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Master Volume:"
+vertical_alignment = 1
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Control/TabContainer/System/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MusicVolumeLabel" type="Label" parent="Control/TabContainer/System/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "Music Volume:"
+vertical_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="Control/TabContainer/System/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SFXVolumeLabel" type="Label" parent="Control/TabContainer/System/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_qikl0")
+text = "SFX Volume:"
+vertical_alignment = 1
+
+[node name="SFXVolumeSlider" type="HSlider" parent="Control/TabContainer/System/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Button_Mute" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Mute"
+
+[node name="Button_ChangeAccount" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Change Account"
+
+[node name="Button_QuitToTitle" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Quit to Title"
+
+[node name="Button_Quit" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Quit Application"
+
+[node name="Button_Close" type="Button" parent="Control/TabContainer/System/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Close"
+
+[node name="Character" type="Control" parent="Control/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="CharacterStatus" parent="Control/TabContainer/Character" instance=ExtResource("15_ak53x")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -226.0
+offset_top = 12.0
+offset_right = -150.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_sn1ji")
+text = "[ Paused ]"

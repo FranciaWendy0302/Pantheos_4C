@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=9 format=3 uid="uid://gnw1ysef87br"]
+
+[ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="1"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_u52r4"]
+[ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://u203ti5erh4b" path="res://Items/sprites/archer/archer.png" id="3"]
+
+[sub_resource type="Resource" id="modifier_defense"]
+script = ExtResource("1")
+type = 2
+value = 15
+
+[sub_resource type="Resource" id="modifier_hp"]
+script = ExtResource("1")
+value = 50
+
+[sub_resource type="Resource" id="modifier_agility"]
+script = ExtResource("1")
+type = 9
+value = 8
+
+[sub_resource type="AtlasTexture" id="icon"]
+atlas = ExtResource("3")
+region = Rect2(64, 0, 32, 32)
+
+[resource]
+script = ExtResource("2")
+type = 1
+sub_type = "Light Armor"
+required_level = 4
+current_durability = 120
+max_durability = 120
+class_requirement = 2
+additional_classes = Array[String](["Ranger"])
+modifiers = Array[ExtResource("1")]([SubResource("modifier_defense"), SubResource("modifier_hp"), SubResource("modifier_agility")])
+name = "Archer Armor"
+description = "Light armor designed for mobility. Provides protection without hindering movement."
+texture = SubResource("icon")
+cost = 600

@@ -1,0 +1,348 @@
+Godot Engine v4.4.1.stable.official.49a5bc7b6 - https://godotengine.org
+Vulkan 1.3.215 - Forward+ - Using Device #0: Intel - Intel(R) UHD Graphics 630
+
+[Chat] Chat system initialized
+[ShopPanel] Complete shop panel initialized with 22 items
+[PlayerHud] Minimap moved down 40px
+[PlayerHud] Skill panel created successfully!
+[PlayerManager] Loading player scene: res://Player/swordsman.tscn
+[PauseMenu] ✓ Connected InventoryUI to PlayerManager.INVENTORY_DATA
+[PauseMenu] ✓ Inventory has 24 slots
+quests count: 3
+[EntityManager] Running in SERVER mode
+[DatabaseJSON] Loaded 0 player accounts
+[DatabaseJSON] Server storage initialized
+[PartyManager] Initialized
+[LogoutManager] Initialized - Logout: 30s, Reconnect: 60s
+[LogoutCountdown] Ready
+[PartyManager] Initialized
+[ZoneManager] Initialized
+[TitleScene] God selection panel created successfully
+[PlayerCamera] Limits applied - Left: -128 Top: -64 Right: 608 Bottom: 352
+[Abilities] Warning: GodSkills node not found
+[InventoryUI] ========== UPDATE INVENTORY ==========
+[InventoryUI] Data resource: <Resource#-9223371961441188380>
+[InventoryUI] Data slots count: 24
+[InventoryUI] Inventory slots to display: 20
+[InventoryUI] Non-null slots: 0
+[InventoryUI] ========== UPDATE INVENTORY ==========
+[InventoryUI] Data resource: <Resource#-9223371961441188380>
+[InventoryUI] Data slots count: 24
+[InventoryUI] Inventory slots to display: 20
+[InventoryUI] Non-null slots: 0
+[SaveManager] Level loaded, online_mode:false
+[SaveManager] Level loaded, online_mode:false
+[HudIconButtons] Connected to PauseMenu hidden signal
+[HudIconButtons] Icon buttons ready - individual panel mode
+[PartyInvite] Ready and listening for invites
+[PartyViewer] Ready and listening for party events
+[GlobalPartyUI] Popup and viewer added to PlayerHud
+[GlobalPartyUI] Party UI instantiated and added to scene tree
+[FriendManager] ========== INITIALIZING ==========
+[FriendManager] Found GlobalNetworkManager
+[FriendManager] ✓ Connected to connected_to_server signal
+[FriendManager] ✓ Connected to friend_request signal
+[FriendManager] Starting delayed friend list load...
+[FriendManager] Still waiting for player_id... (0s)
+[FriendManager] Still waiting for player_id... (1s)
+[FriendManager] Player ID ready (8), loading friend list...
+[FriendManager] Loaded 0 friends
+[FriendManager] Loaded 0 pending requests
+[TitleScene] Class selected: Mage
+[TitleScene] God selection panel shown
+[TitleScene] Selected god: Athena (ID: 1)
+[GodManager] Selected god: Athena
+[NetworkManager] Updating character with god_id: 1
+[GodManager] Selected god: Athena
+[NetworkManager] ✓ Character class and god saved for slot 1
+[TitleScene] ✓ Character saved with god: Athena
+[TitleScene] Online mode detected, connecting to multiplayer...
+[TitleScene] Calling connect_to_nodejs_server with player_id: 8
+[MP] ========== CONNECTING TO WEBSOCKET ==========
+[MP] Player ID: 8
+[MP] Nickname: was
+[MP] Class: Mage
+[MP] WebSocket URL: ws://100.92.219.104:9000
+[MP] ✓ WebSocket connection initiated, waiting for OPEN state...
+[NetworkManager] ✓ Character class and god saved for slot 1
+ERROR: Unable to open file: res://.godot/imported/items_02.png-f63ef8a894652a40fd6a9d57b0fe18f3.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:41)
+[GodNPC] Athena interaction ready
+[GodNPC] Ares interaction ready
+[GodNPC] Asclepius interaction ready
+[GodNPC] Nemesis interaction ready
+[GodNPC] Hades interaction ready
+[GodNPC] Thanatos interaction ready
+[GodNPC] Venus interaction ready
+[GodNPC] Zeus interaction ready
+[PlayerManager] Loading player scene: res://Player/mage.tscn
+[PlayerCamera] Limits applied - Left: -128 Top: -64 Right: 608 Bottom: 352
+[SaveManager] Level loaded, online_mode:true
+[SaveManager] ✓ Auto-save started (every 30 seconds)
+[SaveManager] Level loaded, online_mode:false
+[MagePlayer] Mage initialized with floating animation and Q/W/E skills
+[MP] ✓ WebSocket is OPEN, sending join message...
+[MP] Received message type: players
+[MP] Received message type: monsters
+[MP] Received 0 monsters from server
+[MP] Spawning 0 server monsters
+[Player] Right-click detected at position: (230.3537, 75.21429)
+[Player] Right-click pressed - starting movement
+[Player] Move target set to: (260.3537, 157.2143)
+[Player] Right-click detected at position: (251.1897, 72.90001)
+[Player] Right-click released - stop following
+[Chest] Opened LEGENDARY chest!
+  Gems: 515
+  Items: 7
+[Chest] PlayerManager exists: true
+[Chest] INVENTORY_DATA exists: true
+[Chest] Added to inventory: Fire Mage Staff (success: true)
+[Chest] Added to inventory: Archer Bow (success: true)
+[Chest] Added to inventory: Archer Armor (success: true)
+[Chest] Added to inventory: Bomb (success: true)
+[Chest] Added to inventory: Archer Bow (success: true)
+[Chest] Added to inventory: Knight Sword (success: true)
+[Chest] Added to inventory: Potion (success: true)
+[Inventory] Added 515 gems to currency. Total: 515
+[Chest] Added to inventory: 515 gems (success: true)
+[InventoryUI] ========== UPDATE INVENTORY ==========
+[InventoryUI] Data resource: <Resource#-9223371961441188380>
+[InventoryUI] Data slots count: 24
+[InventoryUI] Inventory slots to display: 20
+[InventoryUI] Slot 0: Fire Mage Staff
+[InventoryUI] Slot 1: Archer Bow
+[InventoryUI] Slot 2: Archer Armor
+[InventoryUI] Slot 3: Bomb
+[InventoryUI] Slot 4: Knight Sword
+[InventoryUI] Slot 5: Potion
+[InventoryUI] Non-null slots: 6
+[InventorySlotUI] Setting slot data: Fire Mage Staff
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371843648352586>
+[InventorySlotUI] Setting slot data: Archer Bow
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371844269110718>
+[InventorySlotUI] Setting slot data: Archer Armor
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371844051006913>
+[InventorySlotUI] Setting slot data: Bomb
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371744008461523>
+[InventorySlotUI] Setting slot data: Knight Sword
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371843245700556>
+[InventorySlotUI] Setting slot data: Potion
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371882705711616>
+[Chest] Inventory refresh signal emitted
+[InventoryUI] ========== UPDATE INVENTORY ==========
+[InventoryUI] Data resource: <Resource#-9223371961441188380>
+[InventoryUI] Data slots count: 24
+[InventoryUI] Inventory slots to display: 20
+[InventoryUI] Slot 0: Fire Mage Staff
+[InventoryUI] Slot 1: Archer Bow
+[InventoryUI] Slot 2: Archer Armor
+[InventoryUI] Slot 3: Bomb
+[InventoryUI] Slot 4: Knight Sword
+[InventoryUI] Slot 5: Potion
+[InventoryUI] Non-null slots: 6
+[InventorySlotUI] Setting slot data: Fire Mage Staff
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371843648352586>
+[InventorySlotUI] Setting slot data: Archer Bow
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371844269110718>
+[InventorySlotUI] Setting slot data: Archer Armor
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371844051006913>
+[InventorySlotUI] Setting slot data: Bomb
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371744008461523>
+[InventorySlotUI] Setting slot data: Knight Sword
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371843245700556>
+[InventorySlotUI] Setting slot data: Potion
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371882705711616>
+[Chest] Equipment changed signal emitted
+[Inventory] Added 26 gems to currency. Total: 541
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 567
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 593
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 619
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 645
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 671
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 697
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 723
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 749
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 775
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 801
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 827
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 853
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 879
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 905
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 931
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 957
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 983
+[Chest] Added to inventory: 26 gems
+[Inventory] Added 26 gems to currency. Total: 1009
+[Chest] Added to inventory: 26 gems
+[HudIconButtons] Shop button pressed
+[HudIconButtons] SimpleShop not found, creating it...
+[SimpleShop] Shop initialized with PauseMenu style
+[HudIconButtons] SimpleShop created successfully
+[HudIconButtons] Shop found, current visibility: false
+[HudIconButtons] Hiding HUD elements
+[HudIconButtons] Minimap hidden
+[HudIconButtons] SkillsHUD hidden
+[HudIconButtons] SkillPanel hidden
+[HudIconButtons] CurrencyDisplay hidden
+[HudIconButtons] WaveLabel hidden
+[HudIconButtons] CountLabel hidden
+[HudIconButtons] Shop opened
+[Inventory] Added 21 gems to currency. Total: 1030
+[Chest] Added to inventory: 21 gems
+[HudIconButtons] PauseMenu hidden signal received
+[HudIconButtons] Showing HUD elements
+[HudIconButtons] Minimap shown
+[HudIconButtons] SkillsHUD shown
+[HudIconButtons] SkillPanel shown
+[HudIconButtons] CurrencyDisplay shown
+[HudIconButtons] WaveLabel shown
+[HudIconButtons] CountLabel shown
+[HudIconButtons] Showing HUD elements
+[HudIconButtons] Minimap shown
+[HudIconButtons] SkillsHUD shown
+[HudIconButtons] SkillPanel shown
+[HudIconButtons] CurrencyDisplay shown
+[HudIconButtons] WaveLabel shown
+[HudIconButtons] CountLabel shown
+[HudIconButtons] All panels hidden
+[HudIconButtons] Shop auto-closed
+[HudIconButtons] ESC pressed - closing panels
+[HudIconButtons] Inventory button pressed
+[HudIconButtons] Hiding HUD elements
+[HudIconButtons] Minimap hidden
+[HudIconButtons] SkillsHUD hidden
+[HudIconButtons] SkillPanel hidden
+[HudIconButtons] CurrencyDisplay hidden
+[HudIconButtons] WaveLabel hidden
+[HudIconButtons] CountLabel hidden
+[HudIconButtons] Showing inventory panel only
+[InventoryUI] ========== UPDATE INVENTORY ==========
+[InventoryUI] Data resource: <Resource#-9223371961441188380>
+[InventoryUI] Data slots count: 24
+[InventoryUI] Inventory slots to display: 20
+[InventoryUI] Slot 1: Archer Bow
+[InventoryUI] Slot 2: Archer Armor
+[InventoryUI] Slot 3: Bomb
+[InventoryUI] Slot 4: Knight Sword
+[InventoryUI] Slot 5: Potion
+[InventoryUI] Non-null slots: 5
+[InventorySlotUI] Setting slot data: Archer Bow
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371844269110718>
+[InventorySlotUI] Setting slot data: Archer Armor
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371844051006913>
+[InventorySlotUI] Setting slot data: Bomb
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371744008461523>
+[InventorySlotUI] Setting slot data: Knight Sword
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371843245700556>
+[InventorySlotUI] Setting slot data: Potion
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371882705711616>
+[InventorySlotUI] Setting slot data: Fire Mage Staff
+[InventorySlotUI] Texture set: <AtlasTexture#-9223371843648352586>
+[AbilitySystem] Equipped None to slot Q
+[AbilitySystem] Equipped None to slot W
+[AbilitySystem] Equipped None to slot E
+[AbilitySystem] Equipped None to slot D
+[AbilitySystem] Equipped None to slot F
+[AbilitySystem] Equipped None to slot HELMET_PASSIVE
+[HudIconButtons] PauseMenu hidden signal received
+[HudIconButtons] Showing HUD elements
+[HudIconButtons] Minimap shown
+[HudIconButtons] SkillsHUD shown
+[HudIconButtons] SkillPanel shown
+[HudIconButtons] CurrencyDisplay shown
+[HudIconButtons] WaveLabel shown
+[HudIconButtons] CountLabel shown
+[HudIconButtons] Showing HUD elements
+[HudIconButtons] Minimap shown
+[HudIconButtons] SkillsHUD shown
+[HudIconButtons] SkillPanel shown
+[HudIconButtons] CurrencyDisplay shown
+[HudIconButtons] WaveLabel shown
+[HudIconButtons] CountLabel shown
+[HudIconButtons] All panels hidden
+[HudIconButtons] ESC pressed - closing panels
+[SaveManager] Auto-saving...
+[InventoryData] get_save_data called - 6 non-empty slots out of 24
+[SaveManager] ========== SAVING INVENTORY ==========
+[SaveManager] Items to save: 24
+[SaveManager] Items data: [{ &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Archer/archer_bow.tres", &"quantity": 2 }, { &"item": "res://Items/Equipment/Archer/archer_armor.tres", &"quantity": 1 }, { &"item": "res://Levels/final map/scene/safezone.tscn::Resource_37y33", &"quantity": 1 }, { &"item": "res://Items/Equipment/Swordsman/knight_sword.tres", &"quantity": 1 }, { &"item": "res://Items/potion.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Mage/mage_staff.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }]
+[SaveManager] ========== SAVING TO DATABASE ==========
+[SaveManager] Slot: 1
+[SaveManager] Map: 
+[SaveManager] Position: (281.725189208984, 84.0123443603516)
+[SaveManager] God ID: 1
+[SaveManager] God Skill: false
+[SaveManager] Inventory items: 24
+[SaveManager] Inventory JSON length: 863
+[SaveManager] ✓ Auto-save complete
+[SaveManager] Auto-saving...
+[InventoryData] get_save_data called - 6 non-empty slots out of 24
+[SaveManager] ========== SAVING INVENTORY ==========
+[SaveManager] Items to save: 24
+[SaveManager] Items data: [{ &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Archer/archer_bow.tres", &"quantity": 2 }, { &"item": "res://Items/Equipment/Archer/archer_armor.tres", &"quantity": 1 }, { &"item": "res://Levels/final map/scene/safezone.tscn::Resource_37y33", &"quantity": 1 }, { &"item": "res://Items/Equipment/Swordsman/knight_sword.tres", &"quantity": 1 }, { &"item": "res://Items/potion.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Mage/mage_staff.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }]
+[SaveManager] ========== SAVING TO DATABASE ==========
+[SaveManager] Slot: 1
+[SaveManager] Map: 
+[SaveManager] Position: (281.725189208984, 84.0123443603516)
+[SaveManager] God ID: 1
+[SaveManager] God Skill: false
+[SaveManager] Inventory items: 24
+[SaveManager] Inventory JSON length: 863
+[SaveManager] ✓ Auto-save complete
+[SaveManager] Auto-saving...
+[InventoryData] get_save_data called - 6 non-empty slots out of 24
+[SaveManager] ========== SAVING INVENTORY ==========
+[SaveManager] Items to save: 24
+[SaveManager] Items data: [{ &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Archer/archer_bow.tres", &"quantity": 2 }, { &"item": "res://Items/Equipment/Archer/archer_armor.tres", &"quantity": 1 }, { &"item": "res://Levels/final map/scene/safezone.tscn::Resource_37y33", &"quantity": 1 }, { &"item": "res://Items/Equipment/Swordsman/knight_sword.tres", &"quantity": 1 }, { &"item": "res://Items/potion.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Mage/mage_staff.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }]
+[SaveManager] ========== SAVING TO DATABASE ==========
+[SaveManager] Slot: 1
+[SaveManager] Map: 
+[SaveManager] Position: (281.725189208984, 84.0123443603516)
+[SaveManager] God ID: 1
+[SaveManager] God Skill: false
+[SaveManager] Inventory items: 24
+[SaveManager] Inventory JSON length: 863
+[SaveManager] ✓ Auto-save complete
+[HudIconButtons] Inventory button pressed
+[HudIconButtons] Hiding HUD elements
+[HudIconButtons] Minimap hidden
+[HudIconButtons] SkillsHUD hidden
+[HudIconButtons] SkillPanel hidden
+[HudIconButtons] CurrencyDisplay hidden
+[HudIconButtons] WaveLabel hidden
+[HudIconButtons] CountLabel hidden
+[HudIconButtons] Showing inventory panel only
+[InventoryData] get_save_data called - 6 non-empty slots out of 24
+[SaveManager] ========== SAVING INVENTORY ==========
+[SaveManager] Items to save: 24
+[SaveManager] Items data: [{ &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Archer/archer_bow.tres", &"quantity": 2 }, { &"item": "res://Items/Equipment/Archer/archer_armor.tres", &"quantity": 1 }, { &"item": "res://Levels/final map/scene/safezone.tscn::Resource_37y33", &"quantity": 1 }, { &"item": "res://Items/Equipment/Swordsman/knight_sword.tres", &"quantity": 1 }, { &"item": "res://Items/potion.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Mage/mage_staff.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }]
+[SaveManager] ========== SAVING TO DATABASE ==========
+[SaveManager] Slot: 1
+[SaveManager] Map: 
+[SaveManager] Position: (281.725189208984, 84.0123443603516)
+[SaveManager] God ID: 1
+[SaveManager] God Skill: false
+[SaveManager] Inventory items: 24
+[SaveManager] Inventory JSON length: 863
+[InventoryData] get_save_data called - 6 non-empty slots out of 24
+[SaveManager] ========== SAVING INVENTORY ==========
+[SaveManager] Items to save: 24
+[SaveManager] Items data: [{ &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Archer/archer_bow.tres", &"quantity": 2 }, { &"item": "res://Items/Equipment/Archer/archer_armor.tres", &"quantity": 1 }, { &"item": "res://Levels/final map/scene/safezone.tscn::Resource_37y33", &"quantity": 1 }, { &"item": "res://Items/Equipment/Swordsman/knight_sword.tres", &"quantity": 1 }, { &"item": "res://Items/potion.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "res://Items/Equipment/Mage/mage_staff.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }]
+[DatabaseJSON] Saved all player data

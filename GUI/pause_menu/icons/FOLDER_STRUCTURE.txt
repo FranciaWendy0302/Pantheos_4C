@@ -1,0 +1,74 @@
+╔════════════════════════════════════════════════════════════╗
+║                  ICON FOLDER STRUCTURE                     ║
+╚════════════════════════════════════════════════════════════╝
+
+📁 Your Project Root
+└── 📁 GUI
+    └── 📁 pause_menu
+        └── 📁 icons  ← YOU ARE HERE! Put icons in this folder
+            ├── 📄 inventory_icon.png    ← Add this file
+            ├── 📄 shop_icon.png         ← Add this file
+            ├── 📄 quest_icon.png        ← Add this file
+            ├── 📄 settings_icon.png     ← Add this file
+            ├── 📄 PUT_ICONS_HERE.md     (instructions)
+            └── 📄 FOLDER_STRUCTURE.txt  (this file)
+
+
+╔════════════════════════════════════════════════════════════╗
+║                    FULL FILE PATH                          ║
+╚════════════════════════════════════════════════════════════╝
+
+Windows Path:
+C:\Users\...\Pantheos_4C\GUI\pause_menu\icons\
+
+Files to add:
+✓ inventory_icon.png
+✓ shop_icon.png
+✓ quest_icon.png
+✓ settings_icon.png
+
+
+╔════════════════════════════════════════════════════════════╗
+║                   QUICK CHECKLIST                          ║
+╚════════════════════════════════════════════════════════════╝
+
+Step 1: Download or create 4 icons
+Step 2: Rename them to match the names above
+Step 3: Copy them to this folder (GUI/pause_menu/icons/)
+Step 4: Tell me when done!
+
+
+╔════════════════════════════════════════════════════════════╗
+║                  ICON REQUIREMENTS                         ║
+╚════════════════════════════════════════════════════════════╝
+
+Format:  PNG with transparency
+Size:    128x128 pixels (or 64x64 minimum)
+Style:   Simple, clear, recognizable
+Colors:  Light colors work best (white, light gray, gold)
+
+
+╔════════════════════════════════════════════════════════════╗
+║              FASTEST WAY TO GET ICONS                      ║
+╚════════════════════════════════════════════════════════════╝
+
+1. Go to: https://game-icons.net
+2. Search for each icon:
+   - "backpack" for inventory
+   - "shop" for shop
+   - "scroll" for quest
+   - "gear" for settings
+3. Click icon → Download PNG
+4. Rename and save to this folder
+5. Done! (Takes 5 minutes)
+
+
+╔════════════════════════════════════════════════════════════╗
+║                    NEED HELP?                              ║
+╚════════════════════════════════════════════════════════════╝
+
+Option A: Use emoji placeholders (no icons needed)
+Option B: I can help you find/download icons
+Option C: Use Godot's built-in icons
+
+Just ask!

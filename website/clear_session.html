@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Session - Pantheos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #0a051e 0%, #1a0a3e 100%);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 2px solid #ffd700;
+        }
+        button {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #0a051e;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Session Manager</h1>
+        <p>Clear your browser session data for Pantheos</p>
+        
+        <button onclick="clearSession()">Clear Session</button>
+        <button onclick="viewSession()">View Session Data</button>
+        <button onclick="goBack()">Back to Website</button>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        function clearSession() {
+            localStorage.removeItem('pantheos_logged_in');
+            localStorage.removeItem('pantheos_player');
+            
+            const status = document.getElementById('status');
+            status.className = 'status success';
+            status.innerHTML = '✓ Session cleared successfully!<br>You can now go back to the website.';
+        }
+
+        function viewSession() {
+            const loggedIn = localStorage.getItem('pantheos_logged_in');
+            const playerData = localStorage.getItem('pantheos_player');
+            
+            const status = document.getElementById('status');
+            status.className = 'status';
+            status.innerHTML = '<h3>Current Session:</h3>' +
+                '<p><strong>Logged In:</strong> ' + (loggedIn || 'No') + '</p>' +
+                '<p><strong>Player Data:</strong></p>' +
+                '<pre style="text-align: left; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; overflow: auto; max-height: 200px;">' + 
+                (playerData ? JSON.stringify(JSON.parse(playerData), null, 2) : 'None') + 
+                '</pre>';
+        }
+
+        function goBack() {
+            window.location.href = 'pantheos-optimized.html';
+        }
+    </script>
+</body>
+</html>

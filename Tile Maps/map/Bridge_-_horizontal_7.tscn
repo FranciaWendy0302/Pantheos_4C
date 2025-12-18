@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://co8h1wvk20nq4"]
+
+[ext_resource type="TileSet" uid="uid://cgojf6csecfgr" path="res://Tile Maps/map/tileset.tres" id="tileset_id"]
+
+[node name="Bridge_-_horizontal_7" type="TileMapLayer"]
+tile_map_data = PackedByteArray(0, 0, 5, 0, 8, 0, 0, 0, 6, 0, 18, 0, 0, 0, 6, 0, 8, 0, 0, 0, 7, 0, 18, 0, 0, 0, 7, 0, 8, 0, 0, 0, 0, 0, 19, 0, 0, 0)
+tile_set = ExtResource("tileset_id")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqm8xvn7qxqxq"]
+
+[ext_resource type="Script" path="res://GUI/skill_panel/skill_panel.gd" id="1_skill_panel"]
+
+[node name="SkillPanel" type="Panel"]
+custom_minimum_size = Vector2(500, 90)
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = -10.0
+script = ExtResource("1_skill_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+theme_override_constants/separation = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "SKILLS"
+horizontal_alignment = 1
+visible = false
+
+[node name="SkillContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1

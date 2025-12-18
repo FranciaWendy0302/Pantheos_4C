@@ -1,0 +1,58 @@
+[gd_scene load_steps=15 format=3 uid="uid://daxau2i8mhrpd"]
+
+[ext_resource type="PackedScene" uid="uid://bs2uqrwhvxqjr" path="res://Interactables/TreasureChest/treasure-chest.tscn" id="1"]
+[ext_resource type="Resource" uid="uid://btixq0vrwagnb" path="res://Items/Equipment/Archer/archer_bow.tres" id="2"]
+[ext_resource type="Script" uid="uid://di8n5aycuwrg0" path="res://Items/scripts/item_data.gd" id="2_l000p"]
+[ext_resource type="Resource" uid="uid://gnw1ysef87br" path="res://Items/Equipment/Archer/archer_armor.tres" id="3"]
+[ext_resource type="Resource" uid="uid://usre3bw3xerq" path="res://Items/Equipment/Mage/mage_staff.tres" id="4"]
+[ext_resource type="Resource" uid="uid://bk6bc7xrhrb8v" path="res://Items/Equipment/Swordsman/knight_sword.tres" id="5"]
+[ext_resource type="Resource" uid="uid://gkfifubyfqu1" path="res://Items/potion.tres" id="6"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="7_8i366"]
+[ext_resource type="AudioStream" uid="uid://b1r55qely4ca2" path="res://Items/item_effects/hp-up.wav" id="8_kuasw"]
+[ext_resource type="Script" uid="uid://vif8m8lqhjwc" path="res://Items/item_effects/item_effect_heal.gd" id="9_1lqco"]
+
+[sub_resource type="Resource" id="Resource_0m7an"]
+script = ExtResource("9_1lqco")
+heal_amount = 1
+audio = ExtResource("8_kuasw")
+use_description = ""
+metadata/_custom_type_script = "uid://vif8m8lqhjwc"
+
+
+
+[node name="ExampleChestSetup" type="Node2D"]
+
+[node name="CommonChest" parent="." instance=ExtResource("1")]
+position = Vector2(37, 101)
+loot_table = Array[ExtResource("2_l000p")]([ExtResource("6")])
+max_items = 1
+gem_min = 5
+gem_max = 15
+use_rarity_system = true
+
+[node name="UncommonChest" parent="." instance=ExtResource("1")]
+position = Vector2(137, 101)
+loot_table = Array[ExtResource("2_l000p")]([ExtResource("2"), ExtResource("6")])
+max_items = 2
+gem_min = 20
+rarity = 1
+use_rarity_system = true
+
+[node name="RareChest" parent="." instance=ExtResource("1")]
+position = Vector2(237, 101)
+loot_table = Array[ExtResource("2_l000p")]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("6")])
+min_items = 2
+gem_min = 50
+gem_max = 100
+rarity = 2
+use_rarity_system = true
+
+[node name="EpicChest" parent="." instance=ExtResource("1")]
+position = Vector2(337, 101)
+loot_table = Array[ExtResource("2_l000p")]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])
+min_items = 3
+max_items = 4
+gem_min = 100
+gem_max = 200
+rarity = 3
+use_rarity_system = true

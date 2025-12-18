@@ -1,0 +1,584 @@
+[gd_scene load_steps=14 format=4 uid="uid://fnadu0s1huqo"]
+
+[ext_resource type="Script" uid="uid://ctt0gi04rppul" path="res://title_scene/title_scene.gd" id="1_i4gmv"]
+[ext_resource type="PackedScene" uid="uid://b4qoav36rna8p" path="res://Tile Maps/dungeon-01_.tscn" id="1_uvhto"]
+[ext_resource type="FontFile" uid="uid://cfbdty76erfpi" path="res://GUI/fonts/Abaddon Light.ttf" id="2_qocm2"]
+[ext_resource type="AudioStream" uid="uid://icx6asre1fmq" path="res://title_scene/audio/waves.mp3" id="2_wgj1g"]
+[ext_resource type="FontFile" uid="uid://cdoaw5mbxum1d" path="res://GUI/fonts/Abaddon Bold.ttf" id="3_dwuo2"]
+[ext_resource type="AudioStream" uid="uid://b1l1luvqdj2vq" path="res://title_scene/audio/menu_focus.wav" id="3_lj5tl"]
+[ext_resource type="AudioStream" uid="uid://m7auftsxvkjy" path="res://title_scene/audio/menu_select.wav" id="4_fkwea"]
+[ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="5_0q24l"]
+[ext_resource type="Texture2D" uid="uid://bcqlmo3v12f0u" path="res://title_scene/sprites/pixil-frame-0 (1).png" id="7_wgj1g"]
+
+[sub_resource type="Animation" id="Animation_lj5tl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_wgj1g"]
+resource_name = "default"
+length = 5.0
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkwea"]
+_data = {
+&"RESET": SubResource("Animation_lj5tl"),
+&"default": SubResource("Animation_wgj1g")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.1, 0.1, 0.15, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.6, 0.9, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="TitleScene" type="Node2D"]
+script = ExtResource("1_i4gmv")
+music = ExtResource("2_wgj1g")
+button_focus_audio = ExtResource("3_lj5tl")
+button_press_audio = ExtResource("4_fkwea")
+
+[node name="Dungeon-01" parent="." instance=ExtResource("1_uvhto")]
+tile_map_data = PackedByteArray("AAACAAAAAQAKAAAAAAACAAEAAQAKAAEAAAACAAIAAQAKAAIAAAADAAAAAQALAAAAAAADAAEAAQALAAEAAAADAAIAAQALAAIAAAAEAAAAAQAEAAUAAAAEAAEAAQAEAAYAAAAEAAIAAQAEAAcAAAAKAAAAAQAEAAUAABAKAAEAAQAEAAYAABAKAAIAAQAEAAcAABALAAAAAQANAAAAAAALAAEAAQANAAEAAAALAAIAAQANAAIAAAAMAAAAAQAOAAAAAAAMAAEAAQAOAAEAAAAMAAIAAQAOAAIAAAAFAAAAAQAEAAUAABAFAAEAAQAEAAYAABAFAAIAAQAEAAcAABAGAAAAAQAMAAAAAAAGAAEAAQAMAAEAAAAGAAIAAQAMAAIAAAAIAAAAAQAMAAAAAAAIAAEAAQAMAAEAAAAIAAIAAQAMAAIAAAAJAAAAAQAEAAUAAAAJAAEAAQAEAAYAAAAJAAIAAQAEAAcAAAAHAAAAAQAMAAAAAAAHAAEAAQAMAAEAAAAHAAIAAQAMAAIAAAACAAMAAQAHAAIAAAACAAQAAQAHAAMAAAACAAUAAQAHAAQAAAADAAMAAQAIAAIAAAADAAQAAQAIAAMAAAADAAUAAQAIAAQAAAAEAAMAAQAAAAMAAAAEAAQAAQAAAAMAAAAEAAUAAQAAAAMAAAABAAMAAQADAAQAAAABAAQAAQAGAAMAAAABAAUAAQAGAAQAAAAAAAMAAQAEAAUAABAAAAQAAQAEAAYAABAAAAUAAQAEAAcAABD//wMAAQAEAAUAAAD//wQAAQAEAAYAAAD//wUAAQAEAAcAAAD+/wMAAQAMAAAAAAD+/wQAAQAMAAEAAAD+/wUAAQAMAAIAAAAKAAMAAQADAAAAAAAKAAQAAQADAAAAAAAKAAUAAQADAAAAAAALAAMAAQAEAAIAAAALAAQAAQAEAAMAAAALAAUAAQAEAAQAAAAMAAMAAQAFAAIAAAAMAAQAAQAFAAMAAAAMAAUAAQAFAAQAAAANAAMAAQACAAQAAAANAAQAAQAGAAMAAAANAAUAAQAGAAQAAAAOAAMAAQAEAAUAAAAOAAQAAQAEAAYAAAAOAAUAAQAEAAcAAAAPAAMAAQAEAAUAABAPAAQAAQAEAAYAABAPAAUAAQAEAAcAABAQAAMAAQAMAAAAAAAQAAQAAQAMAAEAAAAQAAUAAQAMAAIAAAD+/wgAAQAAAAcAAAD//wgAAQAAAAcAABAQAAgAAQAAAAcAABAPAAgAAQAAAAcAAAAKAAgAAQAAAAcAAAALAAgAAQAAAAcAABAEAAgAAQAAAAcAABADAAgAAQAAAAcAAAAAAAgAAQAMAAAAADABAAgAAQAMAAAAADACAAgAAQAMAAAAADAFAAgAAQAMAAAAADAGAAgAAQAMAAAAADAHAAgAAQAMAAAAADAIAAgAAQAMAAAAADAJAAgAAQAMAAAAADAMAAgAAQAMAAAAADANAAgAAQAMAAAAADAOAAgAAQAMAAAAADAFAAMAAQAAAAEAAAAFAAQAAQAAAAIAAAAGAAMAAQABAAEAAAAGAAQAAQABAAIAAAAHAAYAAQAAAAEAAAAHAAcAAQAAAAIAAAAIAAYAAQABAAEAAAAIAAcAAQABAAIAAAD+/wYAAQAAAAEAAAD+/wcAAQAAAAIAAAD//wYAAQABAAEAAAD//wcAAQABAAIAAAAPAAYAAQAAAAEAAAAPAAcAAQAAAAIAAAAQAAYAAQABAAEAAAAQAAcAAQABAAIAAAAAAAYAAQADAAAAAAAAAAcAAQADAAAAAAABAAYAAQADAAAAAAABAAcAAQADAAAAAAACAAYAAQACAAIAAAACAAcAAQADAAAAAAADAAYAAQADAAAAAAADAAcAAQADAAAAAAAEAAYAAQADAAAAAAAEAAcAAQADAAAAAAAFAAYAAQADAAAAAAAFAAcAAQACAAIAAAAGAAYAAQADAAAAAAAGAAcAAQADAAAAAAAFAAUAAQADAAAAAAAGAAUAAQADAAAAAAAHAAUAAQADAAAAAAAIAAUAAQADAAAAAAAJAAUAAQADAAAAAAAHAAMAAQADAAAAAAAHAAQAAQADAAAAAAAIAAMAAQADAAAAAAAIAAQAAQADAAAAAAAJAAMAAQADAAAAAAAJAAQAAQADAAAAAAAJAAYAAQADAAAAAAAJAAcAAQADAAAAAAAKAAYAAQADAAAAAAAKAAcAAQADAAAAAAALAAYAAQADAAAAAAALAAcAAQADAAAAAAAMAAYAAQADAAAAAAAMAAcAAQADAAAAAAANAAYAAQACAAIAAAANAAcAAQADAAAAAAAOAAYAAQADAAAAAAAOAAcAAQADAAAAAAD+/wAAAQAIAAYAAAD+/wEAAQAIAAYAAAD+/wIAAQAIAAYAAAD//wAAAQAIAAYAAAD//wEAAQAIAAYAAAD//wIAAQAIAAYAAAAAAAAAAQAIAAYAAAAAAAEAAQAIAAYAAAAAAAIAAQAIAAYAAAABAAAAAQAJAAAAAAABAAEAAQAJAAEAAAABAAIAAQAJAAIAAAANAAAAAQAPAAAAAAANAAEAAQAPAAEAAAANAAIAAQAPAAIAAAAOAAAAAQAIAAYAAAAOAAEAAQAIAAYAAAAOAAIAAQAIAAYAAAAPAAAAAQAIAAYAAAAPAAEAAQAIAAYAAAAPAAIAAQAIAAYAAAAQAAAAAQAIAAYAAAAQAAEAAQAIAAYAAAAQAAIAAQAIAAYAAAD+//7/AQAIAAYAAAD+////AQAIAAYAAAD///7/AQAIAAYAAAD/////AQAIAAYAAAAAAP7/AQAIAAYAAAAAAP//AQAIAAYAAAABAP7/AQAIAAYAAAABAP//AQAIAAYAAAACAP7/AQAIAAYAAAACAP//AQAIAAYAAAADAP7/AQAIAAYAAAADAP//AQAIAAYAAAAEAP7/AQAIAAYAAAAEAP//AQAIAAYAAAAFAP7/AQAIAAYAAAAFAP//AQAIAAYAAAAGAP7/AQAIAAYAAAAGAP//AQAIAAYAAAAHAP7/AQAIAAYAAAAHAP//AQAIAAYAAAAIAP7/AQAIAAYAAAAIAP//AQAIAAYAAAAJAP7/AQAIAAYAAAAJAP//AQAIAAYAAAAKAP7/AQAIAAYAAAAKAP//AQAIAAYAAAALAP7/AQAIAAYAAAALAP//AQAIAAYAAAAMAP7/AQAIAAYAAAAMAP//AQAIAAYAAAANAP7/AQAIAAYAAAANAP//AQAIAAYAAAAOAP7/AQAIAAYAAAAOAP//AQAIAAYAAAAPAP7/AQAIAAYAAAAPAP//AQAIAAYAAAAQAP7/AQAIAAYAAAAQAP//AQAIAAYAAAARAP7/AQAIAAYAAAARAP//AQAIAAYAAAARAAAAAQAIAAYAAAARAAEAAQAIAAYAAAARAAIAAQAIAAYAAAARAAMAAQAIAAYAAAARAAQAAQAIAAYAAAARAAUAAQAIAAYAAAARAAYAAQAIAAYAAAARAAcAAQAIAAYAAAARAAgAAQAIAAYAAAASAP7/AQAIAAYAAAASAP//AQAIAAYAAAASAAAAAQAIAAYAAAASAAEAAQAIAAYAAAASAAIAAQAIAAYAAAASAAMAAQAIAAYAAAASAAQAAQAIAAYAAAASAAUAAQAIAAYAAAASAAYAAQAIAAYAAAASAAcAAQAIAAYAAAASAAgAAQAIAAYAAAD+/wkAAQAIAAYAAAD+/woAAQAIAAYAAAD//wkAAQAIAAYAAAD//woAAQAIAAYAAAAAAAkAAQAIAAYAAAAAAAoAAQAIAAYAAAABAAkAAQAIAAYAAAABAAoAAQAIAAYAAAACAAkAAQAIAAYAAAACAAoAAQAIAAYAAAADAAkAAQAIAAYAAAADAAoAAQAIAAYAAAAEAAkAAQAIAAYAAAAEAAoAAQAIAAYAAAAFAAkAAQAIAAYAAAAFAAoAAQAIAAYAAAAGAAkAAQAIAAYAAAAGAAoAAQAIAAYAAAAHAAkAAQAIAAYAAAAHAAoAAQAIAAYAAAAIAAkAAQAIAAYAAAAIAAoAAQAIAAYAAAAJAAkAAQAIAAYAAAAJAAoAAQAIAAYAAAAKAAkAAQAIAAYAAAAKAAoAAQAIAAYAAAALAAkAAQAIAAYAAAALAAoAAQAIAAYAAAAMAAkAAQAIAAYAAAAMAAoAAQAIAAYAAAANAAkAAQAIAAYAAAANAAoAAQAIAAYAAAAOAAkAAQAIAAYAAAAOAAoAAQAIAAYAAAAPAAkAAQAIAAYAAAAPAAoAAQAIAAYAAAAQAAkAAQAIAAYAAAAQAAoAAQAIAAYAAAARAAkAAQAIAAYAAAARAAoAAQAIAAYAAAASAAkAAQAIAAYAAAASAAoAAQAIAAYAAAD8//7/AQAIAAYAAAD8////AQAIAAYAAAD8/wAAAQAIAAYAAAD8/wEAAQAIAAYAAAD8/wIAAQAIAAYAAAD8/wMAAQAIAAYAAAD8/wQAAQAIAAYAAAD8/wUAAQAIAAYAAAD8/wYAAQAIAAYAAAD8/wcAAQAIAAYAAAD8/wgAAQAIAAYAAAD9//7/AQAIAAYAAAD9////AQAIAAYAAAD9/wAAAQAIAAYAAAD9/wEAAQAIAAYAAAD9/wIAAQAIAAYAAAD9/wMAAQAIAAYAAAD9/wQAAQAIAAYAAAD9/wUAAQAIAAYAAAD9/wYAAQAIAAYAAAD9/wcAAQAIAAYAAAD9/wgAAQAIAAYAAAD8/wkAAQAIAAYAAAD8/woAAQAIAAYAAAD9/wkAAQAIAAYAAAD9/woAAQAIAAYAAAA=")
+rendering_quadrant_size = 32
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
+position = Vector2(79, 128)
+texture = ExtResource("7_wgj1g")
+hframes = 4
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_fkwea")
+}
+autoplay = "default"
+
+[node name="ServerPanelBackdrop" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="ServerPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -120.0
+offset_right = 200.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/ServerPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+text = "Connect to Server"
+horizontal_alignment = 1
+
+[node name="AddressInput" type="LineEdit" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+placeholder_text = "Tailscale IP (100.x.x.x)"
+
+[node name="PortInput" type="LineEdit" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+text = "9000"
+placeholder_text = "Port (9000)"
+
+[node name="NicknameInput" type="LineEdit" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+placeholder_text = "Your Nickname"
+
+[node name="ModeLabel" type="Label" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+text = "Mode: party"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ConnectPartyButton" type="Button" parent="CanvasLayer/Control/ServerPanel/VBox/Buttons"]
+layout_mode = 2
+text = "Connect Party"
+
+[node name="ConnectDuelButton" type="Button" parent="CanvasLayer/Control/ServerPanel/VBox/Buttons"]
+layout_mode = 2
+text = "Connect Duel"
+
+[node name="CancelButton" type="Button" parent="CanvasLayer/Control/ServerPanel/VBox"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="LoginPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -75.0
+offset_right = 110.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/LoginPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/LoginPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+theme_override_font_sizes/font_size = 13
+text = "PANTHEOS MMORPG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 10
+text = "Login to Your Account"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UsernameLabel" type="Label" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 9
+text = "Username:"
+
+[node name="UsernameInput" type="LineEdit" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 10
+placeholder_text = "Enter username"
+
+[node name="PasswordLabel" type="Label" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 9
+text = "Password:"
+
+[node name="PasswordInput" type="LineEdit" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 10
+placeholder_text = "Enter password"
+secret = true
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoginButton" type="Button" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 11
+text = "Login"
+
+[node name="CreateAccountButton" type="Button" parent="CanvasLayer/Control/LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 10
+text = "Create New Account"
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.516)
+
+[node name="PressEnterButton" type="Button" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 40.0
+offset_right = 100.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+theme_override_font_sizes/font_size = 20
+text = "Press Enter to Continue"
+flat = true
+
+[node name="OfflineModeButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 115.0
+offset_top = -25.0
+offset_right = 195.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 8
+text = "Offline"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 115.0
+offset_top = 5.0
+offset_right = 195.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_fonts/font = ExtResource("2_qocm2")
+theme_override_font_sizes/font_size = 8
+text = "Quit"
+
+[node name="ModeSelectionBackdrop" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="ModeSelectionPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/ModeSelectionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Control/ModeSelectionPanel/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+text = "SELECT GAME MODE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OnlineButton" type="Button" parent="CanvasLayer/Control/ModeSelectionPanel/VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Online (Multiplayer)"
+
+[node name="BackFromMode" type="Button" parent="CanvasLayer/Control/ModeSelectionPanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Back"
+
+[node name="CharacterPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -80.0
+offset_right = 180.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/CharacterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Control/CharacterPanel/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+text = "SELECT CHARACTER SLOT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="CanvasLayer/Control/CharacterPanel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Slot1Button" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Create Character 1"
+
+[node name="Slot1DeleteButton" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
+visible = false
+custom_minimum_size = Vector2(40, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "X"
+
+[node name="Slot2Button" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Create Character 2"
+
+[node name="Slot2DeleteButton" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox/HBox"]
+visible = false
+custom_minimum_size = Vector2(40, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "X"
+
+[node name="ConfirmButton" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox"]
+visible = false
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Confirm"
+
+[node name="BackFromCharacter" type="Button" parent="CanvasLayer/Control/CharacterPanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Back"
+
+[node name="ClassPanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -160.0
+offset_right = 240.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/ClassPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/ClassPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ClassLabel" type="Label" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+text = "SELECT YOUR CLASS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassGrid" type="GridContainer" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 3
+
+[node name="SwordsmanButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Swordsman"
+
+[node name="ArcherButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Archer"
+
+[node name="MageButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Mage"
+
+[node name="AssassinButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Assassin"
+
+[node name="SupportButton" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Support"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox/ClassGrid"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LockedMessageLabel" type="Label" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.2, 0.2, 1)
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "This class is locked"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackFromClass" type="Button" parent="CanvasLayer/Control/ClassPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Back"
+
+[node name="NicknamePanel" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -80.0
+offset_right = 180.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/NicknamePanel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="NickLabel" type="Label" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dwuo2")
+text = "ENTER NICKNAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NickInput" type="LineEdit" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+placeholder_text = "Nickname"
+
+[node name="ClassDisplayLabel" type="Label" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.9, 1)
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Class: Swordsman"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Start Game"
+
+[node name="BackFromNickname" type="Button" parent="CanvasLayer/Control/NicknamePanel/VBox"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qocm2")
+text = "Back"
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("5_0q24l")]
+position = Vector2(239, 137)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+max_polyphony = 4

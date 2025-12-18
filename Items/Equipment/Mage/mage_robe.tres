@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=13 format=3 uid="uid://b7rt1p6yr5i84"]
+
+[ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="1"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_f6uym"]
+[ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="2"]
+[ext_resource type="Script" uid="uid://3kbxgqrqkxcp" path="res://Items/scripts/equipment_skill_data.gd" id="2_oltoo"]
+[ext_resource type="Texture2D" uid="uid://bo8bmccrsejf1" path="res://Items/sprites/mage/fire mage.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cfd3buuokwb75" path="res://Player/Sprites/skill icon/arcaneweave.jpg" id="3_hkjis"]
+[ext_resource type="Script" uid="uid://c1riel06l4hsl" path="res://Items/scripts/skill_reference.gd" id="4_tjak7"]
+
+[sub_resource type="Resource" id="Resource_e0omp"]
+script = ExtResource("4_tjak7")
+skill_id = "arcane_weave"
+display_name = "Arcane Weave"
+description = "Mana flows through the robe, enhancing spell power"
+icon = ExtResource("3_hkjis")
+mana_cost = 10
+cooldown = 30.0
+metadata/_custom_type_script = "uid://c1riel06l4hsl"
+
+[sub_resource type="Resource" id="Resource_hu7tq"]
+script = ExtResource("2_oltoo")
+skill = SubResource("Resource_e0omp")
+metadata/_custom_type_script = "uid://3kbxgqrqkxcp"
+
+[sub_resource type="Resource" id="modifier_defense"]
+script = ExtResource("1")
+type = 2
+value = 4
+
+[sub_resource type="Resource" id="modifier_hp"]
+script = ExtResource("1")
+value = 20
+
+[sub_resource type="AtlasTexture" id="icon"]
+atlas = ExtResource("3")
+region = Rect2(64, 0, 32, 32)
+
+[resource]
+script = ExtResource("2")
+type = 2
+class_requirement = 3
+modifiers = Array[ExtResource("1")]([SubResource("modifier_defense"), SubResource("modifier_hp")])
+sprite_texture = ExtResource("3")
+equipment_skills = SubResource("Resource_hu7tq")
+name = "Mage Robe"
+description = "Enchanted robes that protect the wearer. Grants +4 Defense and +20 HP."
+texture = SubResource("icon")
+cost = 1100

@@ -1,0 +1,560 @@
+[gd_scene load_steps=13 format=3 uid="uid://c8h5kljriejv4"]
+
+[ext_resource type="Texture2D" uid="uid://cc6o6u38rnlwx" path="res://Items/sprites/items.png" id="1_status"]
+[ext_resource type="Script" uid="uid://yvivh86xwnn2" path="res://GUI/pause_menu/stats/character_status.gd" id="2_status"]
+[ext_resource type="FontFile" uid="uid://cfbdty76erfpi" path="res://GUI/fonts/Abaddon Light.ttf" id="3_status"]
+[ext_resource type="Texture2D" uid="uid://dby0en4m7e8ej" path="res://Items/sprites/gear.png" id="4_gear"]
+[ext_resource type="PackedScene" uid="uid://ct3r2jpgr1d6b" path="res://GUI/pause_menu/inventory/inventory_slot.tscn" id="5_slot"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_status"]
+atlas = ExtResource("1_status")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_status"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_status")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_weapon"]
+atlas = ExtResource("4_gear")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_armor"]
+atlas = ExtResource("4_gear")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amulet"]
+atlas = ExtResource("4_gear")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ring"]
+atlas = ExtResource("4_gear")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_potion"]
+atlas = ExtResource("1_status")
+region = Rect2(32, 0, 32, 32)
+
+[node name="CharacterStatus" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_status")
+script = ExtResource("2_status")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+theme_override_fonts/font = ExtResource("3_status")
+theme_override_font_sizes/font_size = 20
+text = "CHARACTER STATUS"
+horizontal_alignment = 1
+
+[node name="HSeparator1" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BasicInfo" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/BasicInfo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("3_status")
+theme_override_font_sizes/font_size = 14
+text = "Basic Info"
+
+[node name="HBox_Class" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/BasicInfo"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/BasicInfo/HBox_Class"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Class:"
+
+[node name="Label_Class" type="Label" parent="ScrollContainer/VBoxContainer/BasicInfo/HBox_Class"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Swordsman"
+
+[node name="HBox_Level" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/BasicInfo"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/BasicInfo/HBox_Level"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Level:"
+
+[node name="Label_Level" type="Label" parent="ScrollContainer/VBoxContainer/BasicInfo/HBox_Level"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="HBox_XP" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/BasicInfo"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/BasicInfo/HBox_XP"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Experience:"
+
+[node name="Label_XP" type="Label" parent="ScrollContainer/VBoxContainer/BasicInfo/HBox_XP"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0/100"
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Equipment" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/Equipment"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("3_status")
+theme_override_font_sizes/font_size = 14
+text = "Equipment"
+
+[node name="EquipmentRow" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Equipment"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="WeaponSlot" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/WeaponSlot"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_weapon")
+stretch_mode = 3
+
+[node name="InventorySlot_Weapon" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/WeaponSlot" instance=ExtResource("5_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ArmorSlot" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/ArmorSlot"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_armor")
+stretch_mode = 3
+
+[node name="InventorySlot_Armor" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/ArmorSlot" instance=ExtResource("5_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AmuletSlot" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/AmuletSlot"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_amulet")
+stretch_mode = 3
+
+[node name="InventorySlot_Amulet" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/AmuletSlot" instance=ExtResource("5_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RingSlot" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/RingSlot"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_ring")
+stretch_mode = 3
+
+[node name="InventorySlot_Ring" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/RingSlot" instance=ExtResource("5_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ConsumableSlot" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/ConsumableSlot"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_potion")
+stretch_mode = 3
+
+[node name="InventorySlot_Consumable" parent="ScrollContainer/VBoxContainer/Equipment/EquipmentRow/ConsumableSlot" instance=ExtResource("5_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PrimaryStats" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("3_status")
+theme_override_font_sizes/font_size = 14
+text = "Primary Stats"
+
+[node name="HBox_HP" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/PrimaryStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats/HBox_HP"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Max Health:"
+
+[node name="Label_HP" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats/HBox_HP"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+
+[node name="HBox_Mana" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/PrimaryStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats/HBox_Mana"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Max Mana:"
+
+[node name="Label_Mana" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats/HBox_Mana"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "50"
+
+[node name="HBox_Attack" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/PrimaryStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats/HBox_Attack"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Attack:"
+
+[node name="Label_Attack" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats/HBox_Attack"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="HBox_Defense" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/PrimaryStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats/HBox_Defense"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Defense:"
+
+[node name="Label_Defense" type="Label" parent="ScrollContainer/VBoxContainer/PrimaryStats/HBox_Defense"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "5"
+
+[node name="HSeparator7" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CombatStats" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("3_status")
+theme_override_font_sizes/font_size = 14
+text = "Combat Stats"
+
+[node name="HBox_CritChance" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/CombatStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats/HBox_CritChance"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Crit Chance:"
+
+[node name="Label_CritChance" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats/HBox_CritChance"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0%"
+
+[node name="HBox_CritDamage" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/CombatStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats/HBox_CritDamage"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Crit Damage:"
+
+[node name="Label_CritDamage" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats/HBox_CritDamage"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0%"
+
+[node name="HBox_AttackSpeed" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/CombatStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats/HBox_AttackSpeed"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Attack Speed:"
+
+[node name="Label_AttackSpeed" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats/HBox_AttackSpeed"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0%"
+
+[node name="HBox_MoveSpeed" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/CombatStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats/HBox_MoveSpeed"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Move Speed:"
+
+[node name="Label_MoveSpeed" type="Label" parent="ScrollContainer/VBoxContainer/CombatStats/HBox_MoveSpeed"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0%"
+
+[node name="HSeparator4" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AttributeStats" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("3_status")
+theme_override_font_sizes/font_size = 14
+text = "Attributes"
+
+[node name="HBox_Strength" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AttributeStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats/HBox_Strength"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Strength:"
+
+[node name="Label_Strength" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats/HBox_Strength"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="HBox_Dexterity" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AttributeStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats/HBox_Dexterity"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Dexterity:"
+
+[node name="Label_Dexterity" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats/HBox_Dexterity"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="HBox_Intelligence" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AttributeStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats/HBox_Intelligence"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Intelligence:"
+
+[node name="Label_Intelligence" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats/HBox_Intelligence"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="HBox_Vitality" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/AttributeStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats/HBox_Vitality"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Vitality:"
+
+[node name="Label_Vitality" type="Label" parent="ScrollContainer/VBoxContainer/AttributeStats/HBox_Vitality"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="HSeparator5" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DefensiveStats" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/DefensiveStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("3_status")
+theme_override_font_sizes/font_size = 14
+text = "Defensive Stats"
+
+[node name="HBox_MagicRes" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/DefensiveStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/DefensiveStats/HBox_MagicRes"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Magic Resist:"
+
+[node name="Label_MagicRes" type="Label" parent="ScrollContainer/VBoxContainer/DefensiveStats/HBox_MagicRes"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="HBox_Evasion" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/DefensiveStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/DefensiveStats/HBox_Evasion"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Evasion:"
+
+[node name="Label_Evasion" type="Label" parent="ScrollContainer/VBoxContainer/DefensiveStats/HBox_Evasion"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0%"
+
+[node name="HBox_Block" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/DefensiveStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/DefensiveStats/HBox_Block"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Block Chance:"
+
+[node name="Label_Block" type="Label" parent="ScrollContainer/VBoxContainer/DefensiveStats/HBox_Block"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0%"
+
+[node name="HSeparator6" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="UtilityStats" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/UtilityStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("3_status")
+theme_override_font_sizes/font_size = 14
+text = "Utility Stats"
+
+[node name="HBox_LifeSteal" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/UtilityStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/UtilityStats/HBox_LifeSteal"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Life Steal:"
+
+[node name="Label_LifeSteal" type="Label" parent="ScrollContainer/VBoxContainer/UtilityStats/HBox_LifeSteal"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0%"
+
+[node name="HBox_ManaRegen" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/UtilityStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/UtilityStats/HBox_ManaRegen"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Mana Regen:"
+
+[node name="Label_ManaRegen" type="Label" parent="ScrollContainer/VBoxContainer/UtilityStats/HBox_ManaRegen"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0/s"
+
+[node name="HBox_HealthRegen" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/UtilityStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/UtilityStats/HBox_HealthRegen"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.966155, 0.729429, 0.0721899, 1)
+text = "Health Regen:"
+
+[node name="Label_HealthRegen" type="Label" parent="ScrollContainer/VBoxContainer/UtilityStats/HBox_HealthRegen"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0/s"

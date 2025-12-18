@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=9 format=3 uid="uid://btixq0vrwagnb"]
+
+[ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="1"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_vebge"]
+[ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://u203ti5erh4b" path="res://Items/sprites/archer/archer.png" id="3"]
+
+[sub_resource type="Resource" id="modifier_attack"]
+script = ExtResource("1")
+type = 1
+value = 20
+
+[sub_resource type="Resource" id="modifier_crit_chance"]
+script = ExtResource("1")
+type = 4
+value = 8
+
+[sub_resource type="Resource" id="modifier_agility"]
+script = ExtResource("1")
+type = 9
+value = 12
+
+[sub_resource type="AtlasTexture" id="icon"]
+atlas = ExtResource("3")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("2")
+sub_type = "Bow"
+required_level = 3
+current_durability = 80
+max_durability = 80
+class_requirement = 2
+additional_classes = Array[String](["Ranger", "Hunter"])
+modifiers = Array[ExtResource("1")]([SubResource("modifier_attack"), SubResource("modifier_crit_chance"), SubResource("modifier_agility")])
+sprite_texture = ExtResource("3")
+name = "Archer Bow"
+description = "A finely crafted bow for ranged combat. Swift and deadly."
+texture = SubResource("icon")
+cost = 800

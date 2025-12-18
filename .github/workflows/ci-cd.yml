@@ -1,0 +1,102 @@
+name: Pantheos Game CI/CD
+
+on:
+  push:
+    branches: [ main, gek, dev ]
+  pull_request:
+    branches: [ main, gek ]
+
+jobs:
+  # Run game tests only
+  test-game:
+    name: Game Functionality Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.2.1
+          use-dotnet: false
+          
+      - name: Verify Godot project
+        run: |
+          echo "✅ Checking project structure..."
+          if [ ! -f "project.godot" ]; then
+            echo "❌ FAIL: project.godot not found!"
+            exit 1
+          fi
+          echo "✅ PASS: Project file found"
+          
+      - name: Import game assets
+        run: |
+          echo "Importing assets..."
+          godot --headless --editor --quit || true
+          
+      - name: Run Positive Test Cases
+        run: |
+          echo "🧪 Running Positive Tests (22 tests)..."
+          # Try Godot first, fallback to PowerShell test runner
+          if command -v godot >/dev/null 2>&1; then
+            godot --headless --script tests/positive_tests.gd
+          else
+            echo "Godot not found, using fallback test runner..."
+            pwsh -ExecutionPolicy Bypass -File tests/run_tests.ps1
+          fi
+          
+      - name: Run Negative Test Cases
+        run: |
+          echo "🧪 Running Negative Tests (21 tests)..."
+          # Try Godot first, fallback to PowerShell test runner
+          if command -v godot >/dev/null 2>&1; then
+            godot --headless --script tests/negative_tests.gd
+          else
+            echo "Godot not found, using fallback test runner..."
+            pwsh -ExecutionPolicy Bypass -File tests/run_tests.ps1 -TestType negative
+          fi
+          
+      - name: Test Summary
+        if: always()
+        run: |
+          echo "📊 Test Execution Complete"
+          echo "Total: 43 game function tests"
+          echo "Check logs above for results"
+
+  # Build game if tests pass
+  build-game:
+    name: Build Game
+    needs: test-game
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Create build package
+        run: |
+          echo "📦 Creating game package..."
+          mkdir -p build
+          tar -czf build/pantheos-game.tar.gz \
+            --exclude='.git' \
+            --exclude='.godot' \
+            --exclude='node_modules' \
+            --exclude='server' \
+            --exclude='website' \
+            --exclude='build' \
+            .
+          echo "✅ Build package created"
+          
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pantheos-game-build
+          path: build/pantheos-game.tar.gz
+          retention-days: 30
+          
+      - name: Build Success
+        run: |
+          echo "✅ Build completed successfully!"
+          echo "🎮 Game is ready for deployment"

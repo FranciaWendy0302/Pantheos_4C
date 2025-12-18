@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3cc3du2rgw1q"]
+
+[ext_resource type="Script" uid="uid://5efmrky2fmcc" path="res://Player/Scripts/mage_float.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cjgrqhtdnb2pf" path="res://Player/Sprites/mage.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cmtv866hcn6jc" path="res://Player/Sprites/Shadow.png" id="3"]
+
+[sub_resource type="Animation" id="Animation_float"]
+resource_name = "float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MageSprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(0, 2), Vector2(0, -2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mage"]
+_data = {
+&"float": SubResource("Animation_float")
+}
+
+[node name="MagePlayer" type="Node2D"]
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.5)
+position = Vector2(0, 8)
+scale = Vector2(0.8, 0.4)
+texture = ExtResource("3")
+
+[node name="MageSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+hframes = 3
+script = ExtResource("1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mage")
+}
+autoplay = "float"

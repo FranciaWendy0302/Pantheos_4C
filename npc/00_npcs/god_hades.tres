@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="NPCResource" load_steps=3 format=3 uid="uid://god_hades_npc"]
+
+[ext_resource type="Texture2D" path="res://GUI/god_selection/sprites/hades.png" id="1_hades"]
+[ext_resource type="Script" path="res://npc/scripts/npc_resource.gd" id="2_npc_resource"]
+
+[resource]
+script = ExtResource("2_npc_resource")
+npc_name = "Hades"
+sprite = ExtResource("1_hades")
+portrait = ExtResource("1_hades")
+dialog_audio_pitch = 0.7

@@ -1,0 +1,145 @@
+Godot Engine v4.4.1.stable.official.49a5bc7b6 - https://godotengine.org
+Vulkan 1.3.215 - Forward+ - Using Device #0: Intel - Intel(R) UHD Graphics 630
+
+[Chat] Chat system initialized
+[ShopPanel] Complete shop panel initialized with 22 items
+[PlayerHud] Minimap moved down 40px
+[PlayerHud] Skill panel created successfully!
+[PlayerManager] Loading player scene: res://Player/swordsman.tscn
+[PauseMenu] ✓ Connected InventoryUI to PlayerManager.INVENTORY_DATA
+[PauseMenu] ✓ Inventory has 24 slots
+quests count: 3
+[EntityManager] Running in SERVER mode
+[DatabaseJSON] Loaded 0 player accounts
+[DatabaseJSON] Server storage initialized
+[PartyManager] Initialized
+[LogoutManager] Initialized - Logout: 30s, Reconnect: 60s
+[LogoutCountdown] Ready
+[PartyManager] Initialized
+[ZoneManager] Initialized
+[TitleScene] God selection panel created successfully
+[PlayerCamera] Limits applied - Left: -128 Top: -64 Right: 608 Bottom: 352
+[Abilities] Warning: GodSkills node not found
+[InventoryUI] ========== UPDATE INVENTORY ==========
+[InventoryUI] Data resource: <Resource#-9223371961441188380>
+[InventoryUI] Data slots count: 24
+[InventoryUI] Inventory slots to display: 20
+[InventoryUI] Non-null slots: 0
+[InventoryUI] ========== UPDATE INVENTORY ==========
+[InventoryUI] Data resource: <Resource#-9223371961441188380>
+[InventoryUI] Data slots count: 24
+[InventoryUI] Inventory slots to display: 20
+[InventoryUI] Non-null slots: 0
+[SaveManager] Level loaded, online_mode:false
+[SaveManager] Level loaded, online_mode:false
+[HudIconButtons] Connected to PauseMenu hidden signal
+[HudIconButtons] Icon buttons ready - individual panel mode
+[PartyInvite] Ready and listening for invites
+[PartyViewer] Ready and listening for party events
+[GlobalPartyUI] Popup and viewer added to PlayerHud
+[GlobalPartyUI] Party UI instantiated and added to scene tree
+[FriendManager] ========== INITIALIZING ==========
+[FriendManager] Found GlobalNetworkManager
+[FriendManager] ✓ Connected to connected_to_server signal
+[FriendManager] ✓ Connected to friend_request signal
+[FriendManager] Starting delayed friend list load...
+[FriendManager] Still waiting for player_id... (0s)
+[FriendManager] Still waiting for player_id... (1s)
+[TitleScene] ========== LOADING INVENTORY FROM LOGIN ==========
+[TitleScene] Inventory data type: 4
+[TitleScene] Inventory data: [{"item":"res://Items/Equipment/Archer/archer_armor.tres","quantity":1},{"item":"res://Items/Equipment/Swordsman/knight_sword.tres","quantity":3},{"item":"res://Items/Equipment/Archer/archer_bow.tres","quantity":2},{"item":"res://Items/potion.tres","quantity":1},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0},{"item":"","quantity":0}]
+[TitleScene] Parsing inventory JSON...
+[TitleScene] ✓ Loaded 24 inventory items into SaveManager
+[TitleScene] Loading inventory into InventoryData...
+[InventoryData] ========== PARSING SAVE DATA ==========
+[InventoryData] Save data size: 24
+[InventoryData] Current slots size: 24
+[InventoryData] Loaded item in slot 0: Archer Armor
+[InventoryData] Loaded item in slot 1: Knight Sword
+[InventoryData] Loaded item in slot 2: Archer Bow
+[InventoryData] Loaded item in slot 3: Potion
+[InventoryData] ✓ Loaded 4 items into inventory
+[TitleScene] ✓ Inventory loaded into InventoryData
+[GodManager] Selected god: Asclepius
+[TitleScene] Restored god from login: Asclepius
+[FriendManager] Player ID ready (7), loading friend list...
+[FriendManager] Loaded 0 friends
+[FriendManager] Loaded 0 pending requests
+[TitleScene] Loading existing character in online mode...
+[GodManager] Selected god: Asclepius
+[TitleScene] Restored god: Asclepius
+[TitleScene] Re-applying inventory data...
+[TitleScene] Items in current_save: 24
+[InventoryData] ========== PARSING SAVE DATA ==========
+[InventoryData] Save data size: 24
+[InventoryData] Current slots size: 24
+[InventoryData] Loaded item in slot 0: Archer Armor
+[InventoryData] Loaded item in slot 1: Knight Sword
+[InventoryData] Loaded item in slot 2: Archer Bow
+[InventoryData] Loaded item in slot 3: Potion
+[InventoryData] ✓ Loaded 4 items into inventory
+[TitleScene] ✓ Inventory applied to INVENTORY_DATA
+[TitleScene] Connecting existing character to multiplayer...
+[MP] ========== CONNECTING TO WEBSOCKET ==========
+[MP] Player ID: 7
+[MP] Nickname: was
+[MP] Class: Mage
+[MP] WebSocket URL: ws://100.92.219.104:9000
+[MP] ✓ WebSocket connection initiated, waiting for OPEN state...
+ERROR: Unable to open file: res://.godot/imported/items_02.png-f63ef8a894652a40fd6a9d57b0fe18f3.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:41)
+[GodNPC] Athena interaction ready
+[GodNPC] Ares interaction ready
+[GodNPC] Asclepius interaction ready
+[GodNPC] Nemesis interaction ready
+[GodNPC] Hades interaction ready
+[GodNPC] Thanatos interaction ready
+[GodNPC] Venus interaction ready
+[GodNPC] Zeus interaction ready
+[PlayerManager] Loading player scene: res://Player/mage.tscn
+[PlayerCamera] Limits applied - Left: -128 Top: -64 Right: 608 Bottom: 352
+[SaveManager] Level loaded, online_mode:true
+[SaveManager] ✓ Auto-save started (every 30 seconds)
+[SaveManager] Level loaded, online_mode:false
+[MagePlayer] Mage initialized with floating animation and Q/W/E skills
+[MP] ✓ WebSocket is OPEN, sending join message...
+[MP] Received message type: players
+[MP] Received message type: monsters
+[MP] Received 0 monsters from server
+[MP] Spawning 0 server monsters
+[NetworkManager] *** SENDING HP UPDATE *** HP:10/10
+[NetworkManager] HP update sent to server
+[HudIconButtons] Inventory button pressed
+[HudIconButtons] Hiding HUD elements
+[HudIconButtons] Minimap hidden
+[HudIconButtons] SkillsHUD hidden
+[HudIconButtons] SkillPanel hidden
+[HudIconButtons] CurrencyDisplay hidden
+[HudIconButtons] WaveLabel hidden
+[HudIconButtons] CountLabel hidden
+[HudIconButtons] Showing inventory panel only
+[HudIconButtons] PauseMenu hidden signal received
+[HudIconButtons] Showing HUD elements
+[HudIconButtons] Minimap shown
+[HudIconButtons] SkillsHUD shown
+[HudIconButtons] SkillPanel shown
+[HudIconButtons] CurrencyDisplay shown
+[HudIconButtons] WaveLabel shown
+[HudIconButtons] CountLabel shown
+[InventoryData] get_save_data called - 4 non-empty slots out of 24
+[SaveManager] ========== SAVING INVENTORY ==========
+[SaveManager] Items to save: 24
+[SaveManager] Items data: [{ &"item": "res://Items/Equipment/Archer/archer_armor.tres", &"quantity": 1 }, { &"item": "res://Items/Equipment/Swordsman/knight_sword.tres", &"quantity": 3 }, { &"item": "res://Items/Equipment/Archer/archer_bow.tres", &"quantity": 2 }, { &"item": "res://Items/potion.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }]
+[SaveManager] ========== SAVING TO DATABASE ==========
+[SaveManager] Slot: 1
+[SaveManager] Map: 
+[SaveManager] Position: (276.385986328125, 144.526000976563)
+[SaveManager] God ID: 4
+[SaveManager] God Skill: false
+[SaveManager] Inventory items: 24
+[SaveManager] Inventory JSON length: 763
+[InventoryData] get_save_data called - 4 non-empty slots out of 24
+[SaveManager] ========== SAVING INVENTORY ==========
+[SaveManager] Items to save: 24
+[SaveManager] Items data: [{ &"item": "res://Items/Equipment/Archer/archer_armor.tres", &"quantity": 1 }, { &"item": "res://Items/Equipment/Swordsman/knight_sword.tres", &"quantity": 3 }, { &"item": "res://Items/Equipment/Archer/archer_bow.tres", &"quantity": 2 }, { &"item": "res://Items/potion.tres", &"quantity": 1 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }, { &"item": "", &"quantity": 0 }]
+[DatabaseJSON] Saved all player data

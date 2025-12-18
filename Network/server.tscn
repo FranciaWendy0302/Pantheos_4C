@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://server_scene_001"]
+
+[ext_resource type="Script" path="res://Network/server_main.gd" id="1"]
+
+[node name="Server" type="Node"]
+script = ExtResource("1")
+port = 9000

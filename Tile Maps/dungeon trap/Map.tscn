@@ -1,0 +1,35 @@
+[gd_scene load_steps=11 format=3 uid="uid://map"]
+
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Doors_0.tscn" id="0_id"]
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Miscs_1.tscn" id="1_id"]
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Pickups_2.tscn" id="2_id"]
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Traps_3.tscn" id="3_id"]
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Walls_pillars_4.tscn" id="4_id"]
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Gargoyles_5.tscn" id="5_id"]
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Walls_sides_6.tscn" id="6_id"]
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Walls_7.tscn" id="7_id"]
+[ext_resource type="PackedScene" path="res://Tile Maps/dungeon trap/Floor_8.tscn" id="8_id"]
+[ext_resource type="PackedScene" uid="uid://d0tvh3gfbxesm" path="res://Levels/player_spawn.tscn" id="10_jsyfj"]
+
+[node name="map2" type="Node2D"]
+
+[node name="Floor_8" parent="." instance=ExtResource("8_id")]
+
+[node name="Walls_7" parent="." instance=ExtResource("7_id")]
+
+[node name="Walls_sides_6" parent="." instance=ExtResource("6_id")]
+
+[node name="Gargoyles_5" parent="." instance=ExtResource("5_id")]
+
+[node name="Walls_pillars_4" parent="." instance=ExtResource("4_id")]
+
+[node name="Traps_3" parent="." instance=ExtResource("3_id")]
+
+[node name="Pickups_2" parent="." instance=ExtResource("2_id")]
+
+[node name="Miscs_1" parent="." instance=ExtResource("1_id")]
+
+[node name="Doors_0" parent="." instance=ExtResource("0_id")]
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("10_jsyfj")]
+position = Vector2(96, 164)

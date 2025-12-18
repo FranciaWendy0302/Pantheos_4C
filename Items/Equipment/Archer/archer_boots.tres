@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=8 format=3 uid="uid://cpoeqcsx6fywv"]
+
+[ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="1"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_cggkq"]
+[ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://b2x7x2a36w2t6" path="res://Items/sprites/archer/archer.png" id="3"]
+
+[sub_resource type="Resource" id="modifier_speed"]
+script = ExtResource("1")
+type = 3
+value = 15
+
+[sub_resource type="Resource" id="modifier_defense"]
+script = ExtResource("1")
+type = 2
+value = 2
+
+[sub_resource type="AtlasTexture" id="icon"]
+atlas = ExtResource("3")
+region = Rect2(96, 0, 32, 32)
+
+[resource]
+script = ExtResource("2")
+type = 3
+class_requirement = 2
+modifiers = Array[ExtResource("1")]([SubResource("modifier_speed"), SubResource("modifier_defense")])
+name = "Archer Boots"
+description = "Swift boots for quick movement. Grants +15 Speed and +2 Defense."
+texture = SubResource("icon")
+cost = 500
+hide_in_inventory = false
+effect = Array[ExtResource("1_cggkq")]([])

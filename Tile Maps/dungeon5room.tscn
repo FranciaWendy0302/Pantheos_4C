@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dungeon5room"]
+
+[ext_resource type="TileSet" uid="uid://your_tileset_id" path="res://path/to/your/tileset.tres" id="1_tileset"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_tileset")

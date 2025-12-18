@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=2 format=3 uid="uid://trial_of_gods_quest"]
+
+[ext_resource type="Script" uid="uid://egjshaq4ggui" path="res://quests/scripts/quest_resource.gd" id="1_quest"]
+
+[resource]
+script = ExtResource("1_quest")
+title = "Trial of the Gods"
+description = "Your chosen god has given you a trial to prove your worth. Survive 3 waves of enemies in the training grounds."
+steps = Array[String](["Clear Wave 1 (0/10 enemies)", "Clear Wave 2 (0/15 enemies)", "Clear Wave 3 (0/20 enemies)", "Return to your god"])
+reward_xp = 500
+reward_items = Array[Resource]([])

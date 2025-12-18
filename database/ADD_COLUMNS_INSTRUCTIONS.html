@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Database Columns - Instructions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #764ba2;
+            margin-top: 30px;
+        }
+        .sql-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 20px 0;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+        .copy-btn:active {
+            background: #4556b8;
+        }
+        .step {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 5px;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #5568d3;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Add Database Columns for Inventory Save</h1>
+        
+        <div class="warning">
+            <strong>⚠️ MySQL Command Not Found</strong><br>
+            The mysql command is not available in your system PATH. Use phpMyAdmin instead!
+        </div>
+
+        <h2>📋 Quick Steps</h2>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>Open phpMyAdmin</strong><br>
+            Click here: <a href="http://localhost/phpmyadmin" target="_blank">http://localhost/phpmyadmin</a>
+        </div>
+
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>Select Database</strong><br>
+            Click on <code>mmorpg_game</code> in the left sidebar
+        </div>
+
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>Open SQL Tab</strong><br>
+            Click the <strong>SQL</strong> tab at the top of the page
+        </div>
+
+        <div class="step">
+            <span class="step-number">4</span>
+            <strong>Copy and Paste SQL</strong><br>
+            Copy the SQL code below and paste it into the SQL query box:
+        </div>
+
+        <div class="sql-box">
+            <button class="copy-btn" onclick="copySql()">📋 Copy SQL</button>
+            <pre id="sql-code">USE mmorpg_game;
+
+ALTER TABLE player_data 
+ADD COLUMN IF NOT EXISTS inventory TEXT DEFAULT NULL COMMENT 'JSON string of inventory items',
+ADD COLUMN IF NOT EXISTS quests TEXT DEFAULT NULL COMMENT 'JSON string of quest data',
+ADD COLUMN IF NOT EXISTS persistence TEXT DEFAULT NULL COMMENT 'JSON string of persistent world state';
+
+-- Verify columns were added
+DESCRIBE player_data;</pre>
+        </div>
+
+        <div class="step">
+            <span class="step-number">5</span>
+            <strong>Execute Query</strong><br>
+            Click the <strong>Go</strong> button to run the SQL
+        </div>
+
+        <div class="step">
+            <span class="step-number">6</span>
+            <strong>Verify Success</strong><br>
+            You should see a message like "3 rows affected" or "Query OK"<br>
+            The DESCRIBE output should show the new columns: inventory, quests, persistence
+        </div>
+
+        <div class="success">
+            <strong>✅ Done!</strong><br>
+            After adding the columns, restart your server and test the game.
+        </div>
+
+        <h2>🚀 Next Steps</h2>
+        
+        <p>After adding the database columns:</p>
+        
+        <ol>
+            <li>Close this page</li>
+            <li>Run <code>FIX_INVENTORY_NO_MYSQL.bat</code> to restart the server</li>
+            <li>Launch the game and test inventory saving</li>
+        </ol>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="http://localhost/phpmyadmin" target="_blank" class="button">Open phpMyAdmin</a>
+        </div>
+
+        <h2>📖 Alternative Methods</h2>
+        
+        <p>If phpMyAdmin doesn't work, you can also use:</p>
+        <ul>
+            <li><strong>MySQL Workbench</strong> - Visual database tool</li>
+            <li><strong>XAMPP Shell</strong> - Command line access to MySQL</li>
+            <li><strong>HeidiSQL</strong> - Alternative database manager</li>
+        </ul>
+
+        <p>See <code>MANUAL_DATABASE_UPDATE.md</code> for detailed instructions on each method.</p>
+
+        <hr style="margin: 30px 0;">
+        
+        <p style="text-align: center; color: #666; font-size: 14px;">
+            <strong>Need Help?</strong> Check MANUAL_DATABASE_UPDATE.md for troubleshooting
+        </p>
+    </div>
+
+    <script>
+        function copySql() {
+            const sqlCode = document.getElementById('sql-code').textContent;
+            navigator.clipboard.writeText(sqlCode).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                btn.style.background = '#28a745';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#667eea';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="NPCResource" load_steps=3 format=3 uid="uid://god_asclepius_npc"]
+
+[ext_resource type="Texture2D" path="res://GUI/god_selection/sprites/asclepius.png" id="1_asclepius"]
+[ext_resource type="Script" path="res://npc/scripts/npc_resource.gd" id="2_npc_resource"]
+
+[resource]
+script = ExtResource("2_npc_resource")
+npc_name = "Asclepius"
+sprite = ExtResource("1_asclepius")
+portrait = ExtResource("1_asclepius")
+dialog_audio_pitch = 1.0

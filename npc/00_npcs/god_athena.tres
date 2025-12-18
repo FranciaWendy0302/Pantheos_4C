@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="NPCResource" load_steps=3 format=3 uid="uid://god_athena_npc"]
+
+[ext_resource type="Texture2D" path="res://GUI/god_selection/sprites/athena.png" id="1_athena"]
+[ext_resource type="Script" path="res://npc/scripts/npc_resource.gd" id="2_npc_resource"]
+
+[resource]
+script = ExtResource("2_npc_resource")
+npc_name = "Athena"
+sprite = ExtResource("1_athena")
+portrait = ExtResource("1_athena")
+dialog_audio_pitch = 0.9

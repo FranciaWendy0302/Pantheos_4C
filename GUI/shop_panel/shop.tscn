@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp7ej80bdpjcx"]
+
+[ext_resource type="Script" uid="uid://bqxcnxoyct7fk" path="res://GUI/shop_panel/shop_panel.gd" id="1_nmre7"]
+
+[node name="shop" type="Node2D"]
+
+[node name="ShopPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nmre7")
+
+[node name="Panel" type="Panel" parent="ShopPanel"]
+modulate = Color(0.00392157, 0.00392157, 0.00392157, 0.0392157)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ShopPanel/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBox" type="VBoxContainer" parent="ShopPanel/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CategoryTabs" type="HBoxContainer" parent="ShopPanel/Panel/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="ShopPanel/Panel/MarginContainer/VBox/CategoryTabs"]
+layout_mode = 2
+text = "Cosmetic Shop"
+
+[node name="CloseButton" type="Button" parent="ShopPanel/Panel/MarginContainer/VBox/CategoryTabs"]
+layout_mode = 2
+text = "X"
+
+[node name="Character Skins" type="ScrollContainer" parent="ShopPanel/Panel/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="ShopPanel/Panel/MarginContainer/VBox/Character Skins"]
+layout_mode = 2
+
+[node name="Weapon Skins" type="ScrollContainer" parent="ShopPanel/Panel/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="ShopPanel/Panel/MarginContainer/VBox/Weapon Skins"]
+layout_mode = 2
+
+[node name="Emotes" type="ScrollContainer" parent="ShopPanel/Panel/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="ShopPanel/Panel/MarginContainer/VBox/Emotes"]
+layout_mode = 2
+
+[node name="Effects" type="ScrollContainer" parent="ShopPanel/Panel/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="ShopPanel/Panel/MarginContainer/VBox/Effects"]
+layout_mode = 2

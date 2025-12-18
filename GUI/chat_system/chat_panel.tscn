@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8v7y3x2m9p4k"]
+
+[ext_resource type="Script" path="res://GUI/chat_system/chat_panel.gd" id="1_chat_panel"]
+
+[node name="ChatPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -220.0
+offset_right = 410.0
+offset_bottom = -10.0
+grow_vertical = 0
+mouse_filter = 1
+script = ExtResource("1_chat_panel")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_constants/separation = 2
+
+[node name="ChannelTabs" type="TabBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tab_count = 3
+tab_0/title = "Global"
+tab_1/title = "Party"
+tab_2/title = "Whisper"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="MessageContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="InputContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="InputField" type="LineEdit" parent="VBoxContainer/InputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Type message (Global)..."
+max_length = 500
+
+[node name="SendButton" type="Button" parent="VBoxContainer/InputContainer"]
+layout_mode = 2
+text = "Send"

@@ -1,0 +1,89 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=20 format=3 uid="uid://usre3bw3xerq"]
+
+[ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="1"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_ojidx"]
+[ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="2"]
+[ext_resource type="Script" uid="uid://3kbxgqrqkxcp" path="res://Items/scripts/equipment_skill_data.gd" id="2_xglx6"]
+[ext_resource type="Texture2D" uid="uid://bo8bmccrsejf1" path="res://Items/sprites/mage/fire mage.png" id="3"]
+[ext_resource type="Script" uid="uid://b27n5pu74cvpe" path="res://Items/scripts/weapon_skill_data.gd" id="6_jgb3y"]
+[ext_resource type="Texture2D" uid="uid://hiw0rdvi3rk5" path="res://Player/Sprites/skill icon/firewheel.jpg" id="6_usr1x"]
+[ext_resource type="Script" uid="uid://c1riel06l4hsl" path="res://Items/scripts/skill_reference.gd" id="7_usr1x"]
+[ext_resource type="Texture2D" uid="uid://507eoj6fjsah" path="res://Player/Sprites/skill icon/fireball_skill.jpg" id="8_johqv"]
+[ext_resource type="Texture2D" uid="uid://2aaqvxniovo" path="res://Player/Sprites/skill icon/firetornado.jpg" id="10_krnww"]
+
+[sub_resource type="Resource" id="Resource_84l60"]
+script = ExtResource("2_xglx6")
+metadata/_custom_type_script = "uid://3kbxgqrqkxcp"
+
+[sub_resource type="Resource" id="modifier_attack"]
+script = ExtResource("1")
+type = 1
+value = 18
+
+[sub_resource type="Resource" id="modifier_intelligence"]
+script = ExtResource("1")
+type = 10
+value = 25
+
+[sub_resource type="Resource" id="modifier_crit_damage"]
+script = ExtResource("1")
+type = 5
+value = 15
+
+[sub_resource type="AtlasTexture" id="icon"]
+atlas = ExtResource("3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Resource" id="Resource_i7g8b"]
+script = ExtResource("7_usr1x")
+skill_id = "fire_tornado"
+display_name = "Fire Tornado"
+description = "A twisting column of flames born from focused mana"
+icon = ExtResource("10_krnww")
+mana_cost = 30
+cooldown = 25.0
+metadata/_custom_type_script = "uid://c1riel06l4hsl"
+
+[sub_resource type="Resource" id="Resource_johqv"]
+script = ExtResource("7_usr1x")
+skill_id = "fireball"
+display_name = "Fire Ball"
+description = "Concentrated mana to form a ball of fire"
+icon = ExtResource("8_johqv")
+mana_cost = 12
+cooldown = 8.0
+metadata/_custom_type_script = "uid://c1riel06l4hsl"
+
+[sub_resource type="Resource" id="Resource_krnww"]
+script = ExtResource("7_usr1x")
+skill_id = "fire_wheel"
+display_name = "Fire Wheel"
+description = "A rotating wheel of flames formed from condensed mana."
+icon = ExtResource("6_usr1x")
+mana_cost = 20
+cooldown = 12.0
+metadata/_custom_type_script = "uid://c1riel06l4hsl"
+
+[sub_resource type="Resource" id="Resource_nr6j6"]
+script = ExtResource("6_jgb3y")
+q_skill = SubResource("Resource_johqv")
+w_skill = SubResource("Resource_krnww")
+e_skill = SubResource("Resource_i7g8b")
+metadata/_custom_type_script = "uid://b27n5pu74cvpe"
+
+[resource]
+script = ExtResource("2")
+sub_type = "Staff"
+required_level = 7
+current_durability = 60
+max_durability = 60
+class_requirement = 3
+additional_classes = Array[String](["Wizard", "Sorcerer"])
+modifiers = Array[ExtResource("1")]([SubResource("modifier_attack"), SubResource("modifier_intelligence"), SubResource("modifier_crit_damage")])
+sprite_texture = ExtResource("3")
+weapon_skills = SubResource("Resource_nr6j6")
+equipment_skills = SubResource("Resource_84l60")
+name = "Fire Mage Staff"
+description = "A powerful staff imbued with fire magic. Channels arcane energy."
+texture = SubResource("icon")
+cost = 1200

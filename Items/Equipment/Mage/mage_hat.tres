@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=13 format=3 uid="uid://qhuq04t63yxd"]
+
+[ext_resource type="Script" uid="uid://br4gnrweg5xdu" path="res://Items/scripts/equipable_item_modifier.gd" id="1"]
+[ext_resource type="Script" uid="uid://bu1y2dqhqa10p" path="res://Items/item_effects/item_effect.gd" id="1_vongs"]
+[ext_resource type="Script" uid="uid://ihwxxaa3h7cc" path="res://Items/scripts/equipable_item_data.gd" id="2"]
+[ext_resource type="Script" uid="uid://3kbxgqrqkxcp" path="res://Items/scripts/equipment_skill_data.gd" id="2_qvuek"]
+[ext_resource type="Texture2D" uid="uid://bo8bmccrsejf1" path="res://Items/sprites/mage/fire mage.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://coggreg4inxjg" path="res://Player/Sprites/skill icon/arcaneinsight.jpg" id="3_8cdax"]
+[ext_resource type="Script" uid="uid://c1riel06l4hsl" path="res://Items/scripts/skill_reference.gd" id="4_vy7lt"]
+
+[sub_resource type="Resource" id="Resource_ayf3g"]
+script = ExtResource("4_vy7lt")
+skill_id = "arcane_insight"
+display_name = "Arcane Insight"
+description = "Mystic energy flows into the hat, enhancing spell power and mana flow."
+icon = ExtResource("3_8cdax")
+cooldown = 30.0
+metadata/_custom_type_script = "uid://c1riel06l4hsl"
+
+[sub_resource type="Resource" id="Resource_a5pld"]
+script = ExtResource("2_qvuek")
+skill = SubResource("Resource_ayf3g")
+metadata/_custom_type_script = "uid://3kbxgqrqkxcp"
+
+[sub_resource type="Resource" id="modifier_defense"]
+script = ExtResource("1")
+type = 2
+value = 2
+
+[sub_resource type="Resource" id="modifier_hp"]
+script = ExtResource("1")
+value = 10
+
+[sub_resource type="AtlasTexture" id="icon"]
+atlas = ExtResource("3")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+script = ExtResource("2")
+type = 1
+class_requirement = 3
+modifiers = Array[ExtResource("1")]([SubResource("modifier_defense"), SubResource("modifier_hp")])
+equipment_skills = SubResource("Resource_a5pld")
+name = "Mage Hat"
+description = "A mystical hat that enhances magical power. Grants +2 Defense and +10 HP."
+texture = SubResource("icon")
+cost = 700

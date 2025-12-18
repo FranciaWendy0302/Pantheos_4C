@@ -1,0 +1,258 @@
+[gd_scene load_steps=6 format=3 uid="uid://caq284ule2yck"]
+
+[ext_resource type="Script" path="res://GUI/simple_shop/simple_shop.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://b4rp70lyqgf78" path="res://GUI/fonts/m5x7.ttf" id="2_font"]
+[ext_resource type="FontFile" uid="uid://cdoaw5mbxum1d" path="res://GUI/fonts/Abaddon Bold.ttf" id="3_bold"]
+[ext_resource type="Texture2D" uid="uid://bxfwsslb6gcov" path="res://GUI/player_hud/panel_notification.png" id="4_panel"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+texture = ExtResource("4_panel")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="SimpleShop" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -239.0
+offset_top = -151.0
+offset_right = 238.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "COSMETIC SHOP"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+
+[node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="ItemCard1" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard1/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Golden Crown"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard1/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Royal golden crown with gems"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard1/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "₱299"
+horizontal_alignment = 1
+
+[node name="ItemCard2" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard2/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Shadow Cape"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Dark flowing cape with shadows"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard2/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "₱399"
+horizontal_alignment = 1
+
+[node name="ItemCard3" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard3/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Mystic Wings"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard3/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Glowing wings with magic effects"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard3/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "₱599"
+horizontal_alignment = 1
+
+[node name="ItemCard4" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard4"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard4/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Rainbow Aura"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard4/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Colorful aura around character"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard4/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "₱199"
+horizontal_alignment = 1
+
+[node name="ItemCard5" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard5"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard5/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Phoenix Tail"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard5/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Flaming tail with fire particles"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard5/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "₱449"
+horizontal_alignment = 1
+
+[node name="ItemCard6" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard6"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard6/VBoxContainer"]
+modulate = Color(1, 0.8, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Ice Crown"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard6/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "Frost crown with ice crystals"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Control/PanelContainer/VBoxContainer/ScrollContainer/GridContainer/ItemCard6/VBoxContainer"]
+modulate = Color(1, 0.6, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+text = "₱349"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Control/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_hover_color = Color(1, 0.8, 0.2, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.6, 0.1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+text = "Close"

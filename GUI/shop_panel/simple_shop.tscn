@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvn8k7qm3xr5w"]
+
+[ext_resource type="Script" path="res://GUI/shop_panel/simple_shop.gd" id="1_simple"]
+
+[node name="SimpleShop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_simple")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBox" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TopBar" type="HBoxContainer" parent="Panel/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/VBox/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SHOP"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Panel/MarginContainer/VBox/TopBar"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "X"
+
+[node name="TabBar" type="HBoxContainer" parent="Panel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemGrid" type="GridContainer" parent="Panel/MarginContainer/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3

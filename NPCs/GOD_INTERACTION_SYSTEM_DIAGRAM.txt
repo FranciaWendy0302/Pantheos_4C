@@ -1,0 +1,247 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    GOD INTERACTION SYSTEM - VISUAL GUIDE                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ SAFEZONE MAP - Before Fix                                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│    [Athena Sprite]  [Zeus Sprite]  [Venus Sprite]  [Asclepius Sprite]      │
+│                                                                              │
+│    [Hades Sprite]   [Ares Sprite]  [Titan Sprite]  [Gigantes Sprite]       │
+│                                                                              │
+│    ❌ No interaction                                                         │
+│    ❌ Player can't talk to them                                              │
+│    ❌ No quest system                                                        │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+                                      ⬇️ APPLY FIX ⬇️
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ SAFEZONE MAP - After Fix                                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│    [Athena Sprite]  [Zeus Sprite]  [Venus Sprite]  [Asclepius Sprite]      │
+│         🔵              🔵              🔵              🔵                    │
+│    InteractionArea  InteractionArea InteractionArea InteractionArea        │
+│                                                                              │
+│    [Hades Sprite]   [Ares Sprite]  [Titan Sprite]  [Gigantes Sprite]       │
+│         🔵              🔵              🔵              🔵                    │
+│    InteractionArea  InteractionArea InteractionArea InteractionArea        │
+│                                                                              │
+│    ✅ Player can interact                                                    │
+│    ✅ Shows "Press G to talk"                                                │
+│    ✅ Dialogue system works                                                  │
+│    ✅ Skill unlocking works                                                  │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         INTERACTION FLOW DIAGRAM                             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+    Player Approaches God Sprite
+              │
+              ▼
+    ┌─────────────────────┐
+    │  Area2D Detects     │
+    │  Player Entered     │
+    └─────────┬───────────┘
+              │
+              ▼
+    ┌─────────────────────┐
+    │  Show Label:        │
+    │  "Press G to talk"  │
+    └─────────┬───────────┘
+              │
+              ▼
+    Player Presses G Key
+              │
+              ▼
+    ┌─────────────────────┐
+    │  Check: Is this     │
+    │  player's god?      │
+    └─────────┬───────────┘
+              │
+         ┌────┴────┐
+         │         │
+    YES  │         │  NO
+         │         │
+         ▼         ▼
+    ┌─────────┐  ┌─────────────┐
+    │ Welcome │  │  Rejection  │
+    │Dialogue │  │  Dialogue   │
+    └────┬────┘  └─────────────┘
+         │
+         ▼
+    ┌─────────────────────┐
+    │  Unlock God Skill   │
+    │  (First time only)  │
+    └─────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         SCENE STRUCTURE DIAGRAM                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+safezone.tscn
+│
+├── Athena (Sprite2D) ← [god_npc_interaction.gd]
+│   │                    ├─ god_type = 1 (ATHENA)
+│   │                    └─ god_portrait_path = "res://GUI/.../athena.png"
+│   │
+│   ├── InteractionArea (Area2D)
+│   │   └── CollisionShape2D
+│   │       └── shape: CircleShape2D (radius: 50)
+│   │
+│   └── InteractionLabel (Label) [Auto-created by script]
+│       └── text: "Press G to talk"
+│
+├── Zeus (Sprite2D) ← [god_npc_interaction.gd]
+│   │                  ├─ god_type = 2 (ZEUS)
+│   │                  └─ god_portrait_path = "res://GUI/.../zeus.png"
+│   │
+│   ├── InteractionArea (Area2D)
+│   │   └── CollisionShape2D
+│   │       └── shape: CircleShape2D (radius: 50)
+│   │
+│   └── InteractionLabel (Label) [Auto-created]
+│
+├── Venus (Sprite2D) ← [god_npc_interaction.gd]
+│   └── ... (same structure)
+│
+├── Asclepius (Sprite2D) ← [god_npc_interaction.gd]
+│   └── ... (same structure)
+│
+├── Hades (Sprite2D) ← [god_npc_interaction.gd]
+│   └── ... (same structure)
+│
+├── Ares (Sprite2D) ← [god_npc_interaction.gd]
+│   └── ... (same structure)
+│
+├── Titan (Sprite2D) ← [god_npc_interaction.gd]
+│   └── ... (same structure)
+│
+└── Gigantes (Sprite2D) ← [god_npc_interaction.gd]
+    └── ... (same structure)
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         PLAYER EXPERIENCE FLOW                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+1. CHARACTER CREATION
+   └─> Player selects Athena as their god
+       └─> GodManager.selected_god = ATHENA
+
+2. ENTER SAFEZONE
+   └─> Player spawns in safezone map
+       └─> Sees 8 god sprites around the area
+
+3. APPROACH ATHENA (Player's God)
+   └─> Player walks near Athena sprite
+       └─> "Press G to talk" appears above Athena
+           └─> Player presses G
+               └─> Athena: "Greetings, my champion..."
+                   └─> Athena: "Your special skill: Aegis Shield"
+                       └─> [SKILL UNLOCKED: Aegis Shield]
+                           └─> Player can now use Aegis Shield ability!
+
+4. APPROACH ZEUS (Not Player's God)
+   └─> Player walks near Zeus sprite
+       └─> "Press G to talk" appears above Zeus
+           └─> Player presses G
+               └─> Zeus: "You serve Athena, not me."
+                   └─> Zeus: "Seek your own god for guidance."
+                       └─> No skill unlock, just rejection dialogue
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         GOD TYPE REFERENCE                                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────┬────────┬──────────────────────────────────────────────────────┐
+│ God Name     │ Type # │ Portrait Path                                        │
+├──────────────┼────────┼──────────────────────────────────────────────────────┤
+│ Athena       │   1    │ res://GUI/god_selection/sprites/athena.png           │
+│ Zeus         │   2    │ res://GUI/god_selection/sprites/zeus.png             │
+│ Venus        │   3    │ res://GUI/god_selection/sprites/venus.png            │
+│ Asclepius    │   4    │ res://GUI/god_selection/sprites/asclepius.png        │
+│ Hades        │   5    │ res://GUI/god_selection/sprites/hades.png            │
+│ Ares         │   6    │ res://GUI/god_selection/sprites/Ares.png (capital A) │
+│ Titan        │   7    │ res://GUI/god_selection/sprites/titan.png            │
+│ Gigantes     │   8    │ res://GUI/god_selection/sprites/gigantes.png         │
+└──────────────┴────────┴──────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         SETUP TIME ESTIMATE                                  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Manual Setup (Per God):
+├─ Attach script: 30 seconds
+├─ Set god_type: 10 seconds
+├─ Set portrait_path: 20 seconds
+├─ Add Area2D: 20 seconds
+├─ Add CollisionShape2D: 20 seconds
+└─ Set CircleShape2D: 20 seconds
+   ─────────────────────────
+   Total per god: ~2 minutes
+
+All 8 Gods: 15-20 minutes
+
+Automated Setup:
+└─ Run batch file: 2 minutes
+   └─ Verify in Godot: 3 minutes
+      ─────────────────────────
+      Total: ~5 minutes
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         TROUBLESHOOTING QUICK REF                            ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Problem: "Press G" doesn't appear
+└─> Solution: Check Area2D and CollisionShape2D are added correctly
+
+Problem: Nothing happens when pressing G
+└─> Solution: Verify "interact" input action exists (already configured)
+
+Problem: Wrong dialogue appears
+└─> Solution: Check god_type matches the god (Athena=1, Zeus=2, etc.)
+
+Problem: All gods reject player
+└─> Solution: Ensure player selected a god during character creation
+
+Problem: Script errors in console
+└─> Solution: Verify GodManager is in autoload list
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         FILES YOU NEED TO USE                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📄 QUICK_FIX_SUMMARY.md
+   └─> Start here! Quick overview of the problem and solution
+
+📄 FIX_GOD_INTERACTIONS_README.md
+   └─> Complete guide with all details
+
+📄 SETUP_GOD_INTERACTIONS_STEP_BY_STEP.md
+   └─> Detailed manual setup instructions (RECOMMENDED)
+
+📄 god_npc_interaction.gd
+   └─> The main script to attach to each god sprite
+
+📄 ADD_GOD_INTERACTIONS_TO_SAFEZONE.bat
+   └─> Automated setup (advanced users)
+
+📄 GOD_INTERACTION_SYSTEM_DIAGRAM.txt
+   └─> This file! Visual reference
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         READY TO START?                                      ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+1. Read QUICK_FIX_SUMMARY.md
+2. Choose manual or automated setup
+3. Follow SETUP_GOD_INTERACTIONS_STEP_BY_STEP.md (recommended)
+4. Test in-game
+5. Enjoy working god interactions! 🎮
+
+Good luck! 🚀

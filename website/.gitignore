@@ -1,0 +1,29 @@
+<<<<<<< HEAD
+# Ignore sensitive files
+api/config.php
+
+# Ignore large game files (upload separately to releases)
+downloads/*.exe
+downloads/*.pck
+downloads/*.zip
+
+# Ignore PHP session files
+*.session
+
+# Ignore logs
+*.log
+
+# Ignore temporary files
+*.tmp
+*.bak
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+=======
+# Godot 4+ specific ignores
+.godot/
+/android/
+>>>>>>> 1f744e97dc782bfe628342b64ee6e7b47d89ebc8
